@@ -6,8 +6,8 @@
     <div class="bg-gradient-to-l from-gray-200 to-gray-100/10 w-full mx-auto pt-[70px] px-4 pb-24"> 
         <!-- profile options and settings  -->
         <section class="bg-orange-500 fixed hidden mt-1 md:w-1/6 md:block align-top">
-            <a href="">dfajldasjdfldkasjf</a>
-            <a href="">dfajldasjdfldkasjf</a>
+            <a href="">{{$first_name}}</a>
+            <a href="">{{$last_name}}</a>
             <a href="">dfajldasjdfldkasjf</a>
             <a href="">dfajldasjdfldkasjf</a>
             <a href="">dfajldasjdfldkasjf</a>
@@ -32,9 +32,9 @@
                     <a href="#"class="inline  text-cyan-600 font-light text-sm">@JynkZi</a>
                     <p class="inline text-gray-400 text-xs ml-1">9h ago</p>
                     <figure class="-mt-1">
-                        <p class="bg-purple-600 px-2 py-[1px] inline w-fit shadow-md drop-shadow-sm text-white text-center text-xs font-light rounded-full">C#</p>
-                        <p class="bg-red-600 px-2 py-[1px] inline w-fit shadow-md drop-shadow-sm text-white text-center text-xs font-light rounded-full">Ruby</p>
-                        <p class="bg-blue-600 px-2 py-[1px] inline w-fit shadow-md drop-shadow-sm text-white text-center text-xs font-light rounded-full">PHP</p>
+                        <x-c></x-c>
+                        <x-ruby></x-ruby>
+                        <x-php></x-php>
                     </figure>
                 </section>
                 <section class="mb-6">
@@ -60,7 +60,7 @@
             <x-underline></x-underline>
         </main>
         <!-- top post section -->
-        <section class="bg-red-500 z-20 fixed top-20 right-10 hidden md:w-1/6 md:block align-top">
+        <section class="bg-red-500 z-5 fixed top-20 right-10 hidden md:w-1/6 md:block align-top">
             <a href="">dfajldasjdfldkasjf</a>
             <a href="">dfajldasjdfldkasjf</a>
             <a href="">dfajldasjdfldkasjf</a>

@@ -17,7 +17,7 @@
     <title>{{$title}}</title>
     </head>
     <script type="module">
-
+        
         $(function() {
             $('#devilink_label').jrumble({
                 speed: 200,
@@ -42,6 +42,7 @@
             $("#online_label").fadeIn(4000);
 
             demoStart();
+            
         })
     </script>
 <body>

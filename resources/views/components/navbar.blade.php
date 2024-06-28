@@ -1,4 +1,4 @@
-<nav class="fixed z-20 flex flex-row  justify-between bg-gradient-to-l from-purple-100 to-white w-full px-2 pt-2 border-b-2 border-b-gray-500/25 drop-shadow-sm">
+<nav class="fixed z-20 flex flex-row  justify-between bg-gradient-to-l from-purple-100 to-white w-full px-2 pt-2 border-b-gray-500/25 drop-shadow-md">
         <!-- logo -->
         <section class="">
             <img src="{{ asset('storage/images/devilink_logo.png') }}" class="w-14 inline -mt-3" alt="devilink logo">
@@ -11,10 +11,23 @@
         </form> 
         <!-- notifs and profile -->
         <section class="mr-4">
-            <button class="">
-                <svg xmlns="http://www.w3.org/2000/svg" class="inline h-7 w-7 mr-2 fill-current text-purple-500" viewBox="0 -960 960 960"><path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z"/></svg>
-                <p class="text-xs h-5 w-5 pt-[2px] text-white relative -mt-8 ml-5 bg-yellow-500 rounded-full">12</p>
+            <button class="align-middle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-yellow-500" viewBox="0 -960 960 960"><path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z"/></svg>
+                <p class="text-xs h-5 w-5 pt-[2px] text-white relative -mt-4 ml-4 bg-orange-500/75 rounded-full">12</p>
             </button>
-            <img src="{{ asset('storage/images/profile_pic.jpg') }}" class="w-8 h-8 mx-auto border-2 rounded-full inline" alt="devilink logo">
+            <button id="profile_settings" class="w-8 h-8 mx-auto border-2 rounded-full inline align-middle my-1">
+                <img src="{{ asset($profile_picture) }}" class="rounded-full border-2 border-gray-500" alt="devilink logo">
+            </button>
+            <p class="text-sm align-middle text-slate-500 inline">{{$first_name}}</p>
+            <div id="profile_dropdown" class="hidden">
+                <div class="absolute right-14 top-11 w-40 text-center z-20 flex flex-col bg-whitesmoke rounded-sm shadow-2xl">
+                    <a href="/profile/{{$username}}" class="text-sm font-bold p-3 border-b-2 border-b-violet-300 text-gray-500 hover:bg-slate-200">Profile</a>
+                    <a href="/settings" class="text-sm font-bold p-3 border-b-2 border-b-violet-300 text-gray-500 hover:bg-slate-200">Settings</a>
+                    <form action="{{route('logout')}}" method="POST" class="font-bold p-3 border-b-2 border-b-violet-300 text-gray-500 hover:bg-slate-200">
+                        @csrf
+                        <input type="submit" class="text-sm " value="Log Out">
+                    </form>
+                </div>
+            </div>
         </section>
     </nav>

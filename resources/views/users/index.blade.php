@@ -5,8 +5,15 @@
             <button class="text-white font-bold text-lg mr-5 p-2 hover:text-purple-300">Features</button>
             <button class="text-white font-bold text-lg bg-orange-400 px-2 py-1 shadow-lg rounded-lg hover:bg-gradient-to-r from-orange-500 to-orange-600 border-1 border-cyan-200"  data-modal-target="default-modal" data-modal-toggle="default-modal">Register</button>
         </nav>
+        @if ($errors->any())
+            <div class="w-38 xl:w-96 bg-red-100 border border-red-400 shadow-lg shadow-red-500 text-red-700 px-4 py-3 rounded fixed z-20 right-10 top-10" role="alert">
+                <strong class="font-bold">Whoops!</strong>
+                <span class="block sm:inline">There were some problems with your inputs. Try again</span>
+            </div>
+        @endif
         <div class="flex flex-row">
-            <form action="" class="bg-gray-100 mt-5 mb-6 py-4 px-4 w-full sm:mx-auto md:mx-auto md:w-1/2 lg:w-4/12 rounded-lg shadow-xl">
+            <form action="{{route('login.user')}}" method="POST" class="bg-gray-100 mt-5 mb-6 py-4 px-4 w-full sm:mx-auto md:mx-auto md:w-1/2 lg:w-4/12 rounded-lg shadow-xl">
+                @csrf
                 <img src="{{ asset('storage/images/devilink_logo.png') }}" class="w-64 h-64 mx-auto" alt="devilink logo">
                 <div class="mb-4 mt-[-30px]">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
@@ -14,14 +21,17 @@
                     </label>
                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="email" type="email" placeholder="user@email.com">
                 </div>
-                <div class="mb-6">
+                <div class="mb-9">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-                        Password
+                        Password 
                     </label>
-                    <input class="shadow appearance-none borde rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="password" type="password" placeholder="******************">
+                    <input class="shadow appearance-none borde rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="password" type="password">
+                    @if ($errors->any())
+                            <p class="text-red-500 text-sm inline">Incorrect password</p>
+                    @endif
                 </div>
                 <div class="flex items-center justify-between mb-6">
-                    <button class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                    <button type="submit" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                         Sign In
                     </button>
                     <a class="inline-block align-baseline font-bold text-sm text-gray-700 hover:text-gray-900" href="#">
@@ -29,7 +39,7 @@
                     </a>
                 </div>
                 <p class="text-center text-gray-500 text-xs">
-                    &copy;2020 Acme Corp. All rights reserved.
+                    &copy;2020 Oconer Corp. All rights reserved.
                 </p>
             </form>
             <section class="hidden m-5 lg:block lg:w-8/12 text-center">
@@ -47,7 +57,9 @@
     <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-2xl max-h-full">
             <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 w-full md:w-3/5 mx-auto">
+            <form action="{{route('register.user')}}" method="POST" class="relative bg-white rounded-lg shadow dark:bg-gray-700 w-full md:w-3/5 mx-auto">
+                <!-- csrf token -->
+                @csrf 
                 <!-- Modal header -->
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-xl font-bold text-cyan-800">
@@ -64,43 +76,64 @@
                 </div>
                 <!-- Modal body -->
                 <div class="px-10 py-4 md:p-5 space-y-4">
-                    <div class="mb-4">
+                    <div class="mb-2">
+                        @error('first_name')
+                            <p class="text-red-900 text-sm">{{$message}}</p>
+                        @enderror
                         <label class="block text-gray-700 text-sm font-bold mb-1" for="first_name">
                             First name:
                         </label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="first_name" type="text" placeholder="John">
+                        <input class="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="first_name" type="text" placeholder="John" value="{{old('first_name')}}">
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-2">
+                        @error('last_name')
+                            <p class="text-red-900 text-sm">{{$message}}</p>
+                        @enderror
                         <label class="block text-gray-700 text-sm font-bold mb-1" for="last_name">
                             Last name:
                         </label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="last_name" type="text" placeholder="John">
+                        <input class="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="last_name" type="text" placeholder="Doe" value="{{old('last_name')}}">
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-2">
+                        @error('email')
+                            <p class="text-red-900 text-sm">{{$message}}</p>
+                        @enderror
                         <label class="block text-gray-700 text-sm font-bold mb-1" for="email">
                             Email
                         </label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="email" type="email" placeholder="user@email.com">
+                        <input class="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="email" type="email" placeholder="user@email.com" value="{{old('email')}}">
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-2">
+                        @error('username')
+                            <p class="text-red-900 text-sm">{{$message}}</p>
+                        @enderror
+                        <label class="block text-gray-700 text-sm font-bold mb-1" for="username">
+                            Username
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="username" type="text" placeholder="JohnDoe123" value="{{old('username')}}">
+                    </div>
+                    <div class="mb-2">
+                        @error('password')
+                            <p class="text-red-900 text-sm">{{$message}}</p>
+                        @enderror
                         <label class="block text-gray-700 text-sm font-bold mb-1" for="password">
                             Password
                         </label>
-                        <input class="shadow appearance-none borde rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="password" type="password" placeholder="******************">
+                        <input class="shadow appearance-none borde rounded w-full py-1 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="password" type="password">
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-2">
                         <label class="block text-gray-700 text-sm font-bold mb-1" for="confirmed_password">
                             Repeat Password
                         </label>
-                        <input class="shadow appearance-none borde rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="confirmed_password" type="assword" placeholder="******************">
+                        <input class="shadow appearance-none borde rounded w-full py-1 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="password_confirmation" type="password" >
                     </div>
                 </div>
                 <!-- Modal footer -->
                 <div class="flex items-center p-5 md:p-6 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button data-modal-hide="default-modal" type="button" class="text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sign up</button>
+                    <button data-modal-hide="default-modal" type="submit" class="text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sign up</button>
                     <button data-modal-hide="default-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Back</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 @include('partials.landing_page_footer')
