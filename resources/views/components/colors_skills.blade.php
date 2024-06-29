@@ -1,0 +1,19 @@
+<div class="hidden">
+    <p class="bg-stone-900"></p>
+    <p class="bg-cyan-400"></p>
+    <p class="bg-teal-400"></p> 
+    <p class="bg-yellow-600"></p>
+    <p class="bg-rose-600"> </p>
+    <p class="bg-violet-900"></p>
+    <p class="bg-blue-400"></p>
+    <p class="bg-cyan-700"></p>
+    <p class="bg-red-500"></p> 
+    <p class="bg-black"></p> 
+    <p class="bg-rose-400"></p> 
+    <p class="bg-cyan-600"></p> 
+    <p class="bg-zinc-700"></p> 
+    <p class="bg-teal-500"></p>
+    <p class="bg-yellow-500"></p> 
+    <p class="bg-lime-900"></p>
+    <p class="bg-zinc-600"></p>
+</div>

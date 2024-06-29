@@ -17,8 +17,10 @@ Route::post('/logout',[UsersController::class,'logout'])->name('logout');
 // update profile section
 Route::put('/update_pfp',[UserSettingsContoller::class,'update_pfp'])->name('update_pfp.user');
 Route::put('/update_about',[UserSettingsContoller::class,'update_about'])->name('update_about.user');
+Route::post('/update_skills',[UserSettingsContoller::class,'update_skills'])->name('update_skills.user');
+
 
 //for testnig
-Route::get('/testing/{username}',[UsersController::class,'testing']);
+Route::get('/testing',[UsersController::class,'testing']);
 
 

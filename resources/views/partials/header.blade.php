@@ -10,6 +10,8 @@
     <!-- tailwind -->
     @vite('resources/css/app.css')
 
+    <!--profile modals -->
+    @vite('resources/js/own_profile.js')
     <title>{{$title}}</title>
 </head>
 <script>
@@ -18,22 +20,36 @@
         $('#profile_settings').click(function(){
             $('#profile_dropdown').toggle(250);
         })
-        // open update profile form modal
-        $('#update_profile').click(function(){
-            $('#profile_form').show();
-        });
-        // open about form modal in profile
-        $('#update_about').click(function(){
-            $('#about_form').show();
-        });
-        // open skilss form modal in profile
-          $('#update_skills').click(function(){
-            $('#skills_form').show();
+
+        $('#upload_post_picture').click(function(){
+            $('#post_picture').toggle();
+        })
+
+        //for opening post form modal
+        $('#post_modal').click(function(){
+            $('#post_form').show();
         });
 
-        $('.close').click(function(){
-            location.reload();
+        //for closing post modal
+        $('#close_post').click(function(){
+            $('#post_form').hide();
         })
+
+        //for automatic focus in textareas
+        $('.textarea').focus();
+
+        //for previewing picture before uploading
+        $('.picture').change(function(event) {
+            var input = event.target;
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('.picture_preview').attr('src', e.target.result);
+                    $('.picture_preview').show();
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        });
    });
 </script>
 <body class="bg-gray-200 p-0 m-0 box-border">

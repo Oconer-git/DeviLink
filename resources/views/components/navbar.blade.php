@@ -2,7 +2,7 @@
         <!-- logo -->
         <section class="">
             <img src="{{ asset('storage/images/devilink_logo.png') }}" class="w-14 inline -mt-3" alt="devilink logo">
-            <h1 class="hidden md:inline font-extrabold text-2xl text-purple-700/10 hover:text-purple-300 my-auto">DEVILINK</h1>
+            <a href="/" class="hidden md:inline font-extrabold text-2xl text-purple-700/10 hover:text-purple-300 my-auto">DEVILINK</a>
         </section>
         <!-- search textbox -->
         <form action="" class="bg-gray-200 rounded-full shadow-md w-4/12 md:w-80 h-8 pt-1 px-4">

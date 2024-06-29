@@ -1,6 +1,5 @@
 @include('partials.header',['title' => 'profile'])
 <x-navbar></x-navbar>
-
 <div class="bg-white block w-full lg:w-6/12 lg:top-0 lg:right-0 lg:h-screen lg:fixed pt-20 pb-10 px-10 drop-shadow-md">
     <!-- profile -->
     <main class="inline-block w-full lg:rounded-full border-r-4 border-r-blue-300/80">
@@ -14,7 +13,6 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 p-2 fill-current rounded-full shadow-sm border-b-4 bg-slate-100 text-slate-400 group-hover:text-blue-500" viewBox="0 -960 960 960"><path d="M480-260q75 0 127.5-52.5T660-440q0-75-52.5-127.5T480-620q-75 0-127.5 52.5T300-440q0 75 52.5 127.5T480-260Zm0-80q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM160-120q-33 0-56.5-23.5T80-200v-480q0-33 23.5-56.5T160-760h126l74-80h240l74 80h126q33 0 56.5 23.5T880-680v480q0 33-23.5 56.5T800-120H160Zm0-80h640v-480H638l-73-80H395l-73 80H160v480Zm320-240Z"/></svg>
             </button>
         </section>    
-
         <!-- name and followers -->
         <figure class="inline-block align-top pt-1 ml-2 md:pt-9">
             <h1 class="inline text-gray-600 font-lightbold text-xl md:text-3xl">{{$user->first_name}} {{$user->last_name}}</h1>
@@ -27,8 +25,8 @@
             <p class="inline text-xs md:text-sm"><span class="font-semibold text-base">300</span> likes</p>
         </figure>
     </main>
-    <!-- skills -->
-    <section class="ml-0 lg:ml-52 p-1 w-full mt-2">
+    <!-- skills section-->
+    <section class="ml-0 lg:ml-52 p-1 w-42 mt-2">
         <button id="update_skills" class="bg-gray-200 rounded-full p-1 align-bottom hover:bg-slate-300">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"viewBox="0 -960 960 960" fill="#5f6368"><path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
         </button>
@@ -39,7 +37,7 @@
             @endforeach
         @endif
     </section>
-        <!-- about -->
+        <!-- about modal -->
     <section class="block w-full align-top p-2">
         <article>
             <h2 class="text-cyan-600 font-semibold text-xl inline-block align-middle">About</h2>
@@ -48,7 +46,7 @@
                 <p class="text-sm text-gray-500 inline -ml-1 align-bottom group-hover:text-yellow-500">Edit</pc>
             </button>
             @if($user->about)
-                <p class="text-gray-800">{{$user->about}}</p>
+                <p class="text-gray-800 text-sm">{{$user->about}}</p>
             @else
                 <p class="text-gray-500">Wow, such an empty space... Tell me about yourself!</p>
             @endif
@@ -120,10 +118,9 @@
         </form>
     </div>
 </div>
-
 <!-- modal for opening updating profile form -->
-<div id="profile_form" class=" fixed hidden top-0 left-0 z-40 pt-40 bg-neutral-900/90 w-screen h-screen">
-    <div class="bg-white w-1/3 rounded-sm shadow-md mx-auto my-auto p-4">
+<div id="profile_form" class=" fixed hidden top-0 left-0 z-40 pt-32 bg-neutral-900/90 w-screen h-screen">
+    <div class="bg-white  w-9/12 md:w-1/3 rounded-sm shadow-md mx-auto my-auto p-4">
        <section class="flex justify-between">
         <p class="font-bold text-gray-600 inline">Choose profile picture</p>
         <button class="close inline-block align-middle">
@@ -135,7 +132,8 @@
             @method('PUT')
             @csrf
             <section>
-                <input type="file" name="profile_picture" id="profile_picture" accept="image/*">
+                <input type="file" name="profile_picture" class="picture" accept="image/*">
+                <img src="{{asset('storage/images/no_picture.jpg')}}"  alt="uploaded profile" class="picture_preview w-52 mt-2 border-2 rounded-md border-gray-500">
             </section>
             <div class="flex justify-end border-t-4 border-cyan-500 mt-6 pt-4">
                 <button type="submit" class="bg-cyan-500 p-2 shadow-md drop-shadow-sm text-white font-semibold text-sm rounded-sm mr-2 hover:bg-cyan-600">
@@ -145,9 +143,8 @@
         </form>
     </div>
 </div>
-
 <!-- modal for opening updating about section form -->
-<div id="about_form" class="fixed hidden top-0 left-0 z-40 pt-40 bg-neutral-900/90 w-screen h-screen">
+<div id="about_form" class="fixed hidden top-0 left-0 z-40 pt-32 bg-neutral-900/90 w-screen h-screen">
     <div class="bg-white w-10/12 md:w-5/12 rounded-md shadow-md mx-auto my-auto p-4">
         <section class="flex justify-between">
             <p class="font-bold text-lg text-neutral-600 inline">Personalize Your About Section</p>
@@ -160,7 +157,9 @@
             @method('PUT')
             @csrf
             <section>
-                <textarea name="about" rows="8" class="w-full outline outline-2 p-3 outline-gray-500 rounded-md text-sm text-gray-700" id="about">{{$user->about}}</textarea>
+                <textarea name="about" id="about" rows="8" class="textarea p-2 w-full outline outline-2 outline-gray-300 p-3rounded-md rounded-md text-sm text-gray-700">
+                    {{$user->about}}
+                </textarea>
             </section>
             <div class="flex justify-end border-t-4 border-yellow-400 mt-6 pt-4">
                 <button type="submit" class="bg-yellow-500 p-2 shadow-md drop-shadow-sm text-white font-semibold text-sm rounded-sm mr-2 hover:bg-yellow-600">
@@ -171,8 +170,8 @@
     </div>
 </div>
 <!-- modal for adding skills form -->
-<div id="skills_form" class="hidden fixed top-0 left-0 z-40 pt-40 bg-neutral-900/90 w-screen h-screen">
-    <div class="bg-white w-5/12 rounded-md shadow-md mx-auto my-auto p-4">
+<div id="skills_form" class="hidden fixed top-0 left-0 z-40 pt-32 bg-neutral-900/90 w-screen h-screen">
+    <div class="bg-white w-8/12 lg:w-5/12 rounded-md shadow-md mx-auto my-auto p-4">
         <section class="flex justify-between">
             <p class="font-bold text-lg text-neutral-600 inline">Update and choose your skills</p>
             <button class="close inline-block align-middle">
@@ -180,26 +179,27 @@
             </button>
         </section>
         <x-underline></x-underline>
-        <form action="" method="POST">
-            @method('PUT')
+        <form action="{{route('update_skills.user')}}" method="POST">
             @csrf
             <!-- select skills section -->
             <section>
                 <p class="text-neutral-600 text-sm font-semibold">Current skills</p>
-                @if ($user_skills != null)
+                @if (isset($user_skills))
                     @foreach ($user_skills as $id => $user_skill)
                         <fieldset class="mr-2 inline-block">
                         <p class="{{$user_skill['bg_color']}} px-2 py-[2px] inline w-fit shadow-md drop-shadow-sm text-white text-center text-xs font-light rounded-full">{{$user_skill['name']}}</p>
-                        <input class="ml-[.5px]" type="checkbox" id="{{$id}}" name="{{$id}}" checked>
+                        <input class="ml-[.5px]" type="checkbox" id="{{$id}}" name="{{$user_skill['name']}}" value="{{$id}}" checked>
                     </fieldset>
                     @endforeach
+                @else
+                    <p class="text-gray-900 text-xs">none</p>
                 @endif
-                <p class="text-neutral-500 text-sm font-semibold mt-4">Available skills</p>
+                <p class="text-neutral-600 text-sm font-semibold mt-4">Available skills</p>
                 @if ($other_skills != null)
                     @foreach ($other_skills as $id => $other_skill)
                     <fieldset class="mr-2 inline-block">
                         <p class="{{$other_skill['bg_color']}} px-2 py-[2px] inline w-fit shadow-md drop-shadow-sm text-white text-center text-xs font-light rounded-full">{{$other_skill['name']}} </p>
-                        <input class="ml-[.5px]" type="checkbox" id="{{$id}}" name="{{$id}}">
+                        <input class="ml-[.5px]" type="checkbox" id="{{$id}}" name="{{$other_skill['name']}}" value="{{$id}}">
                     </fieldset>
                     @endforeach
                 @endif
@@ -212,4 +212,5 @@
         </form>
     </div>
 </div>
+<x-colors_skills></x-colors_skills>
 @include('partials.footer')

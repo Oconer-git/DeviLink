@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\Skill;
 
@@ -64,17 +65,6 @@ class UsersController extends Controller
                 return view('users.profile', $viewdata);
             }
 
-        // echo "User Skills:<br>";
-        // foreach ($viewdata['user_skills'] as $id => $skill) {
-        //     echo "ID: $id, Name: {$skill['name']}, BG Color: {$skill['bg_color']}<br>";
-        // }
-    
-        // echo "<br>";
-        // // Display all skills except those the user has
-        // echo "Other Skills:<br>";
-        // foreach ($viewdata['other_skills'] as $id => $skill) {
-        //     echo "ID: $id, Name: {$skill['name']}, BG Color: {$skill['bg_color']}<br>";
-        // }
     }
 
         
@@ -117,29 +107,12 @@ class UsersController extends Controller
         return redirect('/');
     }
 
-    public function testing($username) {
-        $user = User::where('username',$username)->firstOrFail(['first_name','last_name','about','profile_picture','username','id']);
-        
-        // Retrieve unique skill names for the specific user
-        $user_skills = $user->skills()->pluck('skills.name', 'skills.id');
-        
-        // Retrieve all skill names from the skills table
-        $skills = Skill::pluck('name', 'id');
-        
-        // Filter out the user's skills from all skills
-        $other_skills = $skills->diffKeys($user_skills);
-        
-        // Display user skills
-        echo "User Skills:<br>";
-        foreach ($user_skills as $id => $name) {
-            echo "ID: $id, Name: $name<br>";
-        }
-        
-        echo "<br>";
-        // Display all skills except those the user has
-        echo "Other Skills:<br>";
-        foreach ($other_skills as $id => $name) {
-            echo "ID: $id, Name: $name<br>";
-        }
+    public function testing() {
+        $user = Auth::user();   
+        $filepath = $user->profile_picture;
+
+    // Remove 'storage/' prefix
+        $relative_filepath = str_replace('storage/', '', $filepath);
+        Storage::disk('public')->delete($relative_filepath);
     }
 }

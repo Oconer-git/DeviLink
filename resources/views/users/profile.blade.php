@@ -6,7 +6,7 @@
         <!-- profile picture -->
         <figure class="mx-auto inline-block p-1 md:p-4 bg-white rounded-full border-2 border-gray-300">
             <img src="{{ asset('storage/images/profiles/3.jpg') }}" class="w-24 h-24 md:w-44 md:h-44 rounded-full shadow-md" alt="profile">
-        </figure>    
+        </figure>
         <!-- name and followers -->
         <figure class="inline-block align-top pt-1 ml-2 md:pt-9">
             <h1 class="inline text-gray-600 font-lightbold text-xl md:text-3xl">{{$user->first_name}} {{$user->last_name}}</h1>
