@@ -119,11 +119,11 @@
     </div>
 </div>
 <!-- modal for opening updating profile form -->
-<div id="profile_form" class=" fixed hidden top-0 left-0 z-40 pt-32 bg-neutral-900/90 w-screen h-screen">
+<div id="profile_form" class="modal fixed hidden top-0 left-0 z-40 pt-32 bg-neutral-900/90 w-screen h-screen">
     <div class="bg-white  w-9/12 md:w-1/3 rounded-sm shadow-md mx-auto my-auto p-4">
        <section class="flex justify-between">
         <p class="font-bold text-gray-600 inline">Choose profile picture</p>
-        <button class="close inline-block align-middle">
+        <button class="close_modal inline-block align-middle">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current text-gray-800" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
         </button>
        </section>
@@ -144,11 +144,11 @@
     </div>
 </div>
 <!-- modal for opening updating about section form -->
-<div id="about_form" class="fixed hidden top-0 left-0 z-40 pt-32 bg-neutral-900/90 w-screen h-screen">
+<div id="about_form" class="modal fixed hidden top-0 left-0 z-40 pt-32 bg-neutral-900/90 w-screen h-screen">
     <div class="bg-white w-10/12 md:w-5/12 rounded-md shadow-md mx-auto my-auto p-4">
         <section class="flex justify-between">
             <p class="font-bold text-lg text-neutral-600 inline">Personalize Your About Section</p>
-            <button class="close inline-block align-middle">
+            <button class="close_modal inline-block align-middle">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current text-gray-800" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
             </button>
         </section>
@@ -170,11 +170,11 @@
     </div>
 </div>
 <!-- modal for adding skills form -->
-<div id="skills_form" class="hidden fixed top-0 left-0 z-40 pt-32 bg-neutral-900/90 w-screen h-screen">
+<div id="skills_form" class="modal fixed hidden top-0 left-0 z-40 pt-32 bg-neutral-900/90 w-screen h-screen">
     <div class="bg-white w-8/12 lg:w-5/12 rounded-md shadow-md mx-auto my-auto p-4">
         <section class="flex justify-between">
             <p class="font-bold text-lg text-neutral-600 inline">Update and choose your skills</p>
-            <button class="close inline-block align-middle">
+            <button class="close_modal inline-block align-middle">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current text-gray-800" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
             </button>
         </section>

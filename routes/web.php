@@ -3,11 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\UserSettingsContoller;
+use App\Http\Controllers\UserPostCommentController;
+
 
 Route::get('/',[UsersController::class,'main'])->name('main')->middleware('auth');
 Route::get('/login',[UsersController::class,'login'])->name('login');
 Route::get('/comments',[UsersController::class,'comments']);
-Route::get('/profile/{username}',[UsersController::class,'profile']);
+Route::get('/profile/{username}',[UsersController::class,'profile'])->middleware('auth');;
 
 
 Route::post('/register',[UsersController::class,'register'])->name('register.user');
@@ -19,8 +21,22 @@ Route::put('/update_pfp',[UserSettingsContoller::class,'update_pfp'])->name('upd
 Route::put('/update_about',[UserSettingsContoller::class,'update_about'])->name('update_about.user');
 Route::post('/update_skills',[UserSettingsContoller::class,'update_skills'])->name('update_skills.user');
 
+//for posting
+Route::post('/user_post',[UserPostCommentController::class,'post'])->name('user.post');
 
-//for testnig
+//for liking post
+Route::post('/like_post',[UserPostCommentController::class,'like_post'])->name('like.post');
+//for commenting on post
+Route::post('/comment',[UserPostCommentController::class,'comment'])->name('user.comment');
+//for replying in comments
+Route::post('/reply',[UserPostCommentController::class,'reply'])->name('user.reply');
+//for viewing post
+Route::get('/post/{id}',[UserPostCommentController::class,'view_post'])->name('view.post');
+
+//for testing
+
 Route::get('/testing',[UsersController::class,'testing']);
+Route::get('/testing1',[UserSettingsContoller::class,'testing']);
+
 
 

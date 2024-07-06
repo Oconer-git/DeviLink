@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Mockery\Generator\Parameter;
-
+use App\Models\User;
 class UserSettingsContoller extends Controller
 {
     public function update_pfp(Request $request){
@@ -43,13 +43,19 @@ class UserSettingsContoller extends Controller
 
     public function update_skills(Request $request) {
         $user = Auth::user();   
-        $user->skills()->detach();
-
+        if ($user->skills()->exists()) {
+            $user->skills()->detach();
+        }
         //remove token value
         $skills = array_slice($request->all(), 1);
         foreach($skills as $key => $value) {
             $user->skills()->attach($value);
         }
         return redirect()->back();
+    }
+
+    public function testing() {
+        $user = User::find(14);
+        dd($user);
     }
 }

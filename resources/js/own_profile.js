@@ -10,7 +10,3 @@
     $('#update_skills').click(function(){
         $('#skills_form').show();
     });
-    //for closing modals
-    $('.close').click(function(){
-        location.reload();
-    })

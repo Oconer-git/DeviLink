@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Skill;
+use App\models\Like;
+use App\Models\Post;
 
 class UsersController extends Controller
 {
@@ -67,28 +70,34 @@ class UsersController extends Controller
 
     }
 
-        
-
     // for registering user account
     public function register(Request $request): RedirectResponse {
         $validated = $request->validate([
-            'first_name' => 'required|string|alpha:ascii|max:30|min:2',
-            'last_name' => 'required|string|alpha:ascii|max:30|min:2',
+            'first_name' => 'required|string|alpha:ascii|max:20|min:2',
+            'last_name' => 'required|string|alpha:ascii|max:20|min:2',
             'email' => 'required|email|unique:users,email',
-            'username' => 'required|string|min:3|max:30|unique:users,username|alpha:ascii',
+            'username' => 'required|string|min:3|max:20|unique:users,username|alpha_num:ascii|alpha_dash:ascii',
             'password' => 'required|string|min:7|confirmed',
         ]);
 
-        $validated['profile_picture'] = 'storage/images/profiles/default.jpg';
+        $validated['profile_picture'] = 'storage/images/profiles/default_profile.jpg';
         $validated['password'] = bcrypt($validated['password']);
         $user = User::create($validated);
         auth()->login($user);
+
+        //set zero for updating foreign key checks
+        $check = 0;
+        DB::statement('SET GLOBAL FOREIGN_KEY_CHECKS = ?;',[$check]);
 
         return redirect('/');
     } 
 
     // for logging in user
     public function login_user(Request $request): RedirectResponse {
+        //set zero for updating foreign key checks
+        $check = 0;
+        DB::statement('SET GLOBAL FOREIGN_KEY_CHECKS = ?;',[$check]);
+
         $validated = $request->validate([
             'email' => ['required', 'email'],
             'password' => 'required'
@@ -96,7 +105,11 @@ class UsersController extends Controller
 
         if(auth()->attempt($validated)) {
             $request->session()->regenerate();
+            DB::statement('SET GLOBAL FOREIGN_KEY_CHECKS=0;');
             return redirect('/')->with('welcome_message','Welcome back!');
+        }
+        else{
+            return redirect()->back()->with('error','No account found. Please register first');
         }
     }
 
@@ -108,11 +121,7 @@ class UsersController extends Controller
     }
 
     public function testing() {
-        $user = Auth::user();   
-        $filepath = $user->profile_picture;
-
-    // Remove 'storage/' prefix
-        $relative_filepath = str_replace('storage/', '', $filepath);
-        Storage::disk('public')->delete($relative_filepath);
+        $user = Auth::user()->id;
+        echo $user;
     }
 }

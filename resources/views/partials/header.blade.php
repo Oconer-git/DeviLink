@@ -6,37 +6,25 @@
     <!-- jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="icon" href="{{asset('devilink_logo.svg')}}" type="image/x-icon">
- 
     <!-- tailwind -->
     @vite('resources/css/app.css')
-
     <!--profile modals -->
     @vite('resources/js/own_profile.js')
+    <!-- post form modals -->
+    @vite('resources/js/posting.js')
     <title>{{$title}}</title>
+    @livewireStyles
 </head>
 <script>
-   $(function(){
-        // show settings profile when click
-        $('#profile_settings').click(function(){
-            $('#profile_dropdown').toggle(250);
-        })
-
-        $('#upload_post_picture').click(function(){
-            $('#post_picture').toggle();
-        })
-
-        //for opening post form modal
-        $('#post_modal').click(function(){
-            $('#post_form').show();
+    $(function(){
+        //for closing modals
+        $('.close_modal').click(function(){
+            $('.modal').hide();
         });
 
-        //for closing post modal
-        $('#close_post').click(function(){
-            $('#post_form').hide();
-        })
-
-        //for automatic focus in textareas
-        $('.textarea').focus();
+        $('#show_likes').click(function(){
+            $('#likers_modal').show();
+        });
 
         //for previewing picture before uploading
         $('.picture').change(function(event) {
@@ -46,10 +34,11 @@
                 reader.onload = function(e) {
                     $('.picture_preview').attr('src', e.target.result);
                     $('.picture_preview').show();
+                    $('#post_picture').hide();
                 }
                 reader.readAsDataURL(input.files[0]);
             }
         });
-   });
+    });
 </script>
 <body class="bg-gray-200 p-0 m-0 box-border">

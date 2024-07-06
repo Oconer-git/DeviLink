@@ -12,11 +12,15 @@ export default {
       },
       display: 'Oswald, ui-serif', // Adds a new `font-display` class
       width: () => ({
-        'comments': '57%',
+        'comments': '49%',
       }),
       colors: {
          whitesmoke: '#FCFBFA'
-      }
+      },
+      fontSize: {
+        'xxs': '10px', 
+        'xxxs': '9px',
+      },
     },
   },
   plugins: [],

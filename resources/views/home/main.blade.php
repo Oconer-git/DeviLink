@@ -1,7 +1,22 @@
 @include('partials.header', ['title' => 'Home'])
     <!-- navbar section -->
     <x-navbar></x-navbar>
-
+    <!-- errors -->
+    @if ($errors->any())
+            <div class="w-38 xl:w-96 bg-red-100 border border-red-400 shadow-lg shadow-red-500 text-red-700 px-4 py-3 rounded fixed z-20 right-10 top-10" role="alert">
+                <strong class="font-bold">Whoops!</strong>
+                <span class="block sm:inline">There were some problems with your inputs. Try again</span>
+                @error('content')
+                    <p class="text-red-900 text-sm">{{$message}}</p>
+                @enderror
+                @error('is_global')
+                    <p class="text-red-900 text-sm">{{$message}}</p>
+                @enderror
+                @error('picture')
+                    <p class="text-red-900 text-sm">{{$message}}</p>
+                @enderror
+            </div>
+    @endif
     <!-- main content -->
     <div class="bg-gradient-to-l from-gray-200 to-gray-100/10 w-full mx-auto pt-[70px] px-4 pb-24"> 
         <!-- profile options and settings  -->
@@ -68,31 +83,30 @@
     </div>
     <x-colors_skills></x-colors_skills>
 
-<!-- modal for opening updating about section form -->
-<div id="post_form" class="fixed hidden top-0 left-0 z-40 pt-20 bg-neutral-900/90 w-screen h-screen">
+<!-- modal posting form -->
+<div id="post_form" class="modal fixed hidden top-0 left-0 z-40 pt-20 bg-neutral-900/90 w-screen h-screen">
     <div class="bg-white h-[300px] w-10/12 md:w-5/12 rounded-md shadow-md mx-auto my-auto p-4 overflow-y-auto">
         <section class="flex justify-between -mb-3">
             <figure class="font-bold text-sm text-neutral-400 inline">
                 <img src="{{ asset($profile_picture) }}" class="w-8 h-8 border-2 rounded-full shadow-md inline" alt="profile picture">
                 <p class="inline align-middle">Share something interesting</p>
             </figure>
-            <button id="close_post" class="inline-block align-bottom">
+            <button class="close_modal inline-block align-bottom">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current text-gray-800" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
             </button>
         </section>
-        <form action="{{route('update_about.user')}}" method="POST" enctype="multipart/form-data">
-            @method('PUT')
+        <form action="{{route('user.post')}}" method="POST" enctype="multipart/form-data">
             @csrf
-            <select name="publicity" id="publicity" class="text-xs text-gray-400 ml-8 foucs:none">
-                <option value="true">
+            <select name="is_global" id="publicity" class="text-xs text-gray-400 ml-8 focus:outline-none">
+                <option value="1">
                     Anyone can share & comment
                 </option>
-                <option value="false">
+                <option value="0">
                     Only friends can comment
                 </option>
             </select>
             <x-underline></x-underline>
-            <textarea name="about" rows="2" class="w-full p-3 focus:outline-none rounded-md text-sm text-gray-700" id="about" placeholder="share something here..."></textarea>
+            <textarea name="content" rows="2" class="w-full p-3 focus:outline-none rounded-md text-sm text-gray-700" id="about" placeholder="share something here..."></textarea>
             <!-- picture post preview -->
             <img src="{{asset('storage/images/no_picture.jpg')}}"  alt="picture" class="picture_preview hidden w-full mt-2 rounded-md outline-4">
             <section class="mt-11">

@@ -11,6 +11,12 @@
                 <span class="block sm:inline">There were some problems with your inputs. Try again</span>
             </div>
         @endif
+        @if (session('error'))
+            <div class="w-38 xl:w-96 bg-red-100 border border-red-400 shadow-lg shadow-red-500 text-red-700 px-4 py-3 rounded fixed z-20 right-10 top-10" role="alert">
+                <strong class="font-bold">Whoops!</strong>
+                <span class="block sm:inline">{{session('error')}}</span>
+            </div>
+        @endif
         <div class="flex flex-row">
             <form action="{{route('login.user')}}" method="POST" class="bg-gray-100 mt-5 mb-6 py-4 px-4 w-full sm:mx-auto md:mx-auto md:w-1/2 lg:w-4/12 rounded-lg shadow-xl">
                 @csrf
