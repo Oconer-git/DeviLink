@@ -1,4 +1,4 @@
-@include('partials.header',['title' => 'profile'])
+@include('partials.header')
 <x-navbar></x-navbar>
 <div class="bg-white block w-full lg:w-6/12 lg:top-0 lg:right-0 lg:h-screen lg:fixed pt-20 pb-10 px-10 drop-shadow-md">
     <!-- profile -->
@@ -9,17 +9,21 @@
                 <img src="{{ asset($user->profile_picture) }}" class="w-24 h-24 md:w-44 md:h-44 rounded-full shadow-md" alt="profile">
             </figure>
             <!-- update profile picture -->
-            <button id="update_profile" class="group md:absolute md:mt-0 md:left-48 md:top-64 hover:drop-shadow-md">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 p-2 fill-current rounded-full shadow-sm border-b-4 bg-slate-100 text-slate-400 group-hover:text-blue-500" viewBox="0 -960 960 960"><path d="M480-260q75 0 127.5-52.5T660-440q0-75-52.5-127.5T480-620q-75 0-127.5 52.5T300-440q0 75 52.5 127.5T480-260Zm0-80q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM160-120q-33 0-56.5-23.5T80-200v-480q0-33 23.5-56.5T160-760h126l74-80h240l74 80h126q33 0 56.5 23.5T880-680v480q0 33-23.5 56.5T800-120H160Zm0-80h640v-480H638l-73-80H395l-73 80H160v480Zm320-240Z"/></svg>
+            <button id="update_profile" class="absolute -mt-6 md:mt-0 md:left-48 md:top-64 hover:drop-shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 md:w-10 p-2 fill-current rounded-full shadow-sm border-b-4  bg-slate-100 text-slate-600 hover:text-blue-500" viewBox="0 -960 960 960"><path d="M480-260q75 0 127.5-52.5T660-440q0-75-52.5-127.5T480-620q-75 0-127.5 52.5T300-440q0 75 52.5 127.5T480-260Zm0-80q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM160-120q-33 0-56.5-23.5T80-200v-480q0-33 23.5-56.5T160-760h126l74-80h240l74 80h126q33 0 56.5 23.5T880-680v480q0 33-23.5 56.5T800-120H160Zm0-80h640v-480H638l-73-80H395l-73 80H160v480Zm320-240Z"/></svg>
             </button>
         </section>    
         <!-- name and followers -->
         <figure class="inline-block align-top pt-1 ml-2 md:pt-9">
             <h1 class="inline text-gray-600 font-lightbold text-xl md:text-3xl">{{$user->first_name}} {{$user->last_name}}</h1>
             <a href="/profile/{{$user->username}}"class="block text-cyan-600 font-light text-md md:text-xl">{{'@'.$user->username}}</a>
-            <form action="" class="mt-1 mb-4 md:mt-3">
-                <input type="submit" value="Add post" class="bg-blue-400 hover:bg-blue-600 hover:shadow-md hover:shadow-blue-500 text-white shadow-md rounded-full px-4 py-1 text-md md:text-lg md:py-2 md:px-6">
-            </form>
+            <div class="group">
+                <button id="post_modal" class="inline mt-1 text-sm mb-4 px-3 md:mt-3 md:text-lg md:py-2 md:px-6 bg-blue-400 group-hover:bg-blue-500 group-hover:shadow-md group-hover:shadow-purple-300 transition duration-500 ease-in-out hover:ease-in text-white rounded-full py-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-6 inline text-white" viewBox="0 -960 960 960"><path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160Zm40 200q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
+                    <p class="inline text-white align-middle">Add post</p>
+                </button>
+                <p class="text-xs text-white inline group-hover:text-cyan-500 transition duration-1000  delay-200 ease-in-out">Think before you click</p>
+            </div>
             <p class="inline text-xs md:text-sm mr-1"><span class="font-semibold text-base">300</span> following</p>
             <p class="inline text-xs md:text-sm mr-1"><span class="font-semibold text-base">300</span> followers</p>
             <p class="inline text-xs md:text-sm"><span class="font-semibold text-base">300</span> likes</p>
@@ -55,8 +59,7 @@
 </div>
 <!-- posts and shared -->
 <div class="w-full py-2 mx-auto lg:pl-32 px-10 bg-gradient-to-b from-slate-600 to-slate-600">
-    <x-underline></x-underline>
-    <h4 class="font-semibold mb-1 mt-12 text-xl text-slate-100/25">Posts</h4>
+    <h4 class="font-semibold mb-1 mt-16 text-xl text-slate-100/25">Posts</h4>
     
     <!-- devilink posts loop divs -->
     <div class="bg-whitesmoke border shadow-md drop-shadow-sm rounded-md mb-2 p-6 w-full md:w-1/2 lg:w-1/3">
@@ -207,6 +210,46 @@
             <div class="flex justify-end border-t-4 border-purple-400 mt-6 pt-4">
                 <button type="submit" class="bg-purple-500 p-2 shadow-md drop-shadow-sm text-white font-semibold text-sm rounded-sm mr-2 hover:bg-purple-600">
                     Update
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- modal posting form -->
+<div id="post_form" class="modal fixed hidden top-0 left-0 z-40 pt-20 bg-neutral-900/90 w-screen h-screen">
+    <div class="bg-white h-[300px] w-10/12 md:w-5/12 rounded-md shadow-md mx-auto my-auto p-4 overflow-y-auto">
+        <section class="flex justify-between -mb-3">
+            <figure class="font-bold text-sm text-neutral-400 inline align-">
+                <img src="{{ asset($profile_picture) }}" class="w-8 h-8 border-2 rounded-full shadow-md inline" alt="profile picture">
+                <p class="inline align-middle">Share something interesting</p>
+            </figure>
+            <button class="close_modal inline-block align-bottom">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current text-gray-800" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+            </button>
+        </section>
+        <form action="{{route('user.post')}}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <select name="is_global" id="publicity" class="text-xs text-gray-400 ml-8 focus:outline-none">
+                <option value="1">
+                    Anyone can share & comment
+                </option>
+                <option value="0">
+                    Only friends can comment
+                </option>
+            </select>
+            <x-underline></x-underline>
+            <textarea name="content" rows="2" class="w-full p-3 focus:outline-none rounded-md text-sm text-gray-700" id="about" placeholder="share something here..."></textarea>
+            <!-- picture post preview -->
+            <img src="{{asset('storage/images/no_picture.jpg')}}"  alt="picture" class="picture_preview hidden w-full mt-2 rounded-md outline-4">
+            <section class="mt-11">
+                <figure id="upload_post_picture" class="inline-block">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-blue-500 w-6 h-6 " viewBox="0 -960 960 960"><path d="M440-440ZM120-120q-33 0-56.5-23.5T40-200v-480q0-33 23.5-56.5T120-760h126l74-80h240v80H355l-73 80H120v480h640v-360h80v360q0 33-23.5 56.5T760-120H120Zm640-560v-80h-80v-80h80v-80h80v80h80v80h-80v80h-80ZM440-260q75 0 127.5-52.5T620-440q0-75-52.5-127.5T440-620q-75 0-127.5 52.5T260-440q0 75 52.5 127.5T440-260Zm0-80q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29Z"/></svg>
+                </figure>
+                <input type="file" name="picture" id="post_picture" class="picture text-xs hidden inline-block align-top" accept="image/*">
+            </section>
+            <div class="border-t-2 border-sky-400 py-2">
+                <button type="submit" class="bg-sky-500  w-full p-2 shadow-md drop-shadow-sm text-white font-semibold text-sm rounded-md hover:bg-sky-600">
+                    Post
                 </button>
             </div>
         </form>

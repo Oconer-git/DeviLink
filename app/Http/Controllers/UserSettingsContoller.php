@@ -33,7 +33,7 @@ class UserSettingsContoller extends Controller
 
     public function update_about(Request $request) {
         $request->validate([
-            'about' => 'nullable|string|max:699',
+            'about' => ['nullable', 'string', 'max:699', 'regex:/^[\p{L}\p{N}\p{P}\p{Zs}]+$/u'],
         ]);
         $user = Auth::user();   
         $user->about = $request->about;

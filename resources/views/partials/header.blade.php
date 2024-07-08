@@ -12,7 +12,7 @@
     @vite('resources/js/own_profile.js')
     <!-- post form modals -->
     @vite('resources/js/posting.js')
-    <title>{{$title}}</title>
+    <title>Devlink</title>
     @livewireStyles
 </head>
 <script>

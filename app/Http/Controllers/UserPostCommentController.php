@@ -13,6 +13,7 @@ use App\Models\Comment;
 use App\Models\Reply;
 use App\Models\ReplyLike;
 use App\Models\CommentLike;
+use App\Models\Follower;
 use DateTime;
 
 class UserPostCommentController extends Controller
@@ -53,6 +54,26 @@ class UserPostCommentController extends Controller
         $likers_array = [];
         foreach($likers as $liker) {
             $user = User::where('id', $liker['user_id'])->firstOrFail(['first_name', 'last_name', 'profile_picture', 'username','id']);
+           
+            $ifFollowed = Follower::where('user_id', Auth::user()->id)->where('following_id', $liker['user_id'])->first(['accepted']);
+           
+            if(isset($ifFollowed)) {
+                if($ifFollowed['accepted'] == true) {
+                    //if the user already following the liker
+                    $user->ifFollowed = 'following';
+                }
+                else {
+                     //if the user already requested to follow the liker
+                    $user->ifFollowed = 'requested';
+                }
+            }
+            else {
+                $user->ifFollowed = 'not_following';
+            }
+
+            if($user->id == Auth::user()->id) {
+                $user->ifFollowed = 'self';
+            }
             array_push($likers_array, $user);
         } 
         //see if user liked the post

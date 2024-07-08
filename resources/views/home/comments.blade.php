@@ -1,4 +1,4 @@
-@include('partials.header', ['title' => 'Content'])
+@include('partials.header')
     <!-- navbar section -->
     <x-navbar></x-navbar>
 
@@ -69,7 +69,7 @@
                 <p class="text-gray-600 text-xxs md:text-sm inline align-bottom ">325</p>
             </section>
             <!-- comments -->
-            <div class="px-4 py-4 text-gray-800 lg:h-screen lg:overflow-y-auto">
+            <div class="px-4 py-4 text-gray-800 lg:h-screen lg:overflow-y-auto medium-scrollbar">
                 <!-- comment form textbox input -->
                 <section class="flex flex-row align-middle mb-6">
                     <img src="{{ asset($profile_picture) }}" class="w-11 h-11 rounded-full border-2 shadow-md inline-block mr-1" alt="profile">
@@ -182,7 +182,7 @@
     </div>
     <!-- likers modal -->
     <div id="likers_modal" class="modal hidden fixed top-0 left-0 z-40 pt-32 bg-neutral-900/90 w-screen h-screen">
-        <div class="bg-white w-11/12 md:w-5/12 rounded-md shadow-md mx-auto my-auto p-4">
+        <div class="bg-white w-11/12 md:w-5/12 max-width-6/12 rounded-md shadow-md mx-auto my-auto p-4">
             <section class="flex justify-end">
                 <button class="close_modal inline-block align-middle">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current text-gray-800" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
@@ -191,27 +191,21 @@
             <x-underline></x-underline>
             @if($likers != null)
                 @foreach ($likers as $liker)
-                    <div class="flex justify-between mb-1 rounded-md hover:bg-slate-100 p-2">
+                    <div class="flex justify-between items-center mb-1 rounded-md hover:bg-slate-100 p-2">
                         <section>
                             <figure class="inline-block">
                                 <img src="{{asset($liker->profile_picture)}}" alt="{{$liker->first_name}} {{$liker->last_name}}" class="rounded-full inline w-10">
                             </figure>
                             <svg xmlns="http://www.w3.org/2000/svg"  class="w-6 h-6 inline relative right-5 top-4 rounded-full p-1 text-sky-700 fill-current" viewBox="0 -960 960 960"  fill="#5f6368"><path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z"/></svg>
                             <p class="inline -ml-6 align-middle text-sm text-gray-700">{{$liker->first_name}} {{$liker->last_name}}</p>
-                            <a href="#" class=" text-xxs text-cyan-600">{{'@'.$liker->username}}</a> <!-- in progress -->
-                        </section>
-                        <form class="p-1" action=""> <!-- in progress -->
-                            <input type="hidden" value="{{$liker->id}}">
-                            <button class="align-middle px-2 py-1 bg-sky-500 group hover:bg-sky-600 rounded-md shadow-md" type="submit">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 fill-current text-blue-300 group-hover:text-white inline" viewBox="0 -960 960 960"><path d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm80-80h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0-80Zm0 400Z"/></svg>
-                                <p class="inline text-sm text-neutral-100 group-hover:text-white">Follow</p>
-                            </button>
-                        </form>
+                            <a href="/profile/{{$liker->username}}" class=" text-xxs text-cyan-600">{{'@'.$liker->username}}</a> <!-- in progress -->
+                        </section> 
+                        @livewire('follow',['liker_id' => $liker->id, 'ifFollowed' => $liker->ifFollowed])   
                     </div>
                 @endforeach
             @else
                 <img src="{{asset('storage/images/comments/no_comment.png')}}" class="w-12 mx-auto my-auto" alt="no comment picture">
-                <p class="text-xxs text-center text-gray-500">No likes yet</p>
+                <p class="text-xxs text-center text-gray-500">Wow such empty</p>
             @endif
         </div>
     </div>

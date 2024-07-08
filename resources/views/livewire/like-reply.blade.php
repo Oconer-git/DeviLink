@@ -13,5 +13,4 @@
             @endif
         </button>
         <span class="inline align-bottom text-xxs -mt-1 text-blue-800">{{$reply_likes.' likes'}}</span>
-        <button id="show_replies" class="text-xxs inline align-bottom text-blue-500 hover:text-blue-800"><span>Replies</span></button>
     </form>

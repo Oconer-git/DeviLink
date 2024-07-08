@@ -1,4 +1,4 @@
-@include('partials.header', ['title' => 'Home'])
+@include('partials.header')
     <!-- navbar section -->
     <x-navbar></x-navbar>
     <!-- errors -->
