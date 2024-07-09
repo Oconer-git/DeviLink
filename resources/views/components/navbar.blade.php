@@ -11,17 +11,19 @@
         </form> 
         <!-- notifs and profile -->
         <section class="mr-4">
-            <button id="requests_notif" class="align-middle h-8 w-8 rounded-full bg-slate-500/70 p-1 group hover:bg-blue-300 ease-in delay-300">
+            <button id="requests_notif" class="align-middle h-8 w-8 rounded-full bg-slate-300/70 p-1 group hover:bg-blue-300 ease-in delay-300">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 fill-current inline text-white" viewBox="0 -960 960 960"><path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z"/></svg>
-                <p class="text-xxs relative bg-yellow-500/50 group-hover:bg-yellow-400 ease-in delay-300 text-white font-bold w-6 px-[4px] py-[2px] z-20 bottom-3 text-red ml-3 inline align-middle rounded-full">12</p>
+                <p class="text-xxs relative bg-yellow-500/70 group-hover:bg-yellow-400 ease-in delay-300 text-white font-bold w-6 px-[5px] py-[2px] z-20 bottom-3 text-red ml-3 inline align-middle rounded-full">
+                    {{$requests->count()}}
+                </p>
             </button>
             <button id="profile_settings" class="w-9 h-9 mx-auto border-2 rounded-full inline align-middle my-1">
                 <img src="{{ asset($profile_picture) }}" class="rounded-full border-2 border-gray-500" alt="devilink logo">
             </button>
             <p class="text-sm align-middle text-slate-500 inline">{{$first_name}}</p>
             <!-- settings dropdown -->
-            <div id="profile_dropdown" class="">
-                <div class="absolute right-4 top-14 w-44 p-2 z-20 flex flex-col bg-white/90 text-gray-500 rounded-md shadow-2xl">
+            <div id="profile_dropdown" class="hidden">
+                <div class="absolute right-4 top-14 w-44 p-2 z-20 flex flex-col bg-whitesmoke text-gray-500 rounded-sm shadow-2xl">
                     <section class="hover:bg-slate-200 px-[5px] py-[2px] rounded-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" class="inline fill-current w-5" viewBox="0 -960 960 960"><path d="M200-246q54-53 125.5-83.5T480-360q83 0 154.5 30.5T760-246v-514H200v514Zm280-194q58 0 99-41t41-99q0-58-41-99t-99-41q-58 0-99 41t-41 99q0 58 41 99t99 41ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm80-80h400v-10q-42-35-93-52.5T480-280q-56 0-107 17.5T280-210v10Zm200-320q-25 0-42.5-17.5T420-580q0-25 17.5-42.5T480-640q25 0 42.5 17.5T540-580q0 25-17.5 42.5T480-520Zm0 17Z"/></svg>
                         <a href="/profile/{{$username}}" class="text-sm py-1">Profile</a>
@@ -39,171 +41,29 @@
                     </form>
                 </div>
             </div>
-            <div id="requests_dropdown" class="absolute right-4 top-14 w-96 h-96 p-4 overflow-y-auto small-scrollbar pb-14 text-center z-20 bg-whitesmoke rounded-sm shadow-xl">
+            <!-- requests -->
+            <div id="requests_dropdown" class="absolute hidden right-4 top-14 w-1/2 md:max-w-[450px] h-80 md:h-96 p-4 overflow-y-auto small-scrollbar pb-14 text-center z-20 bg-whitesmoke rounded-sm shadow-2xl">
                 <p class="font-bold text-left text-gray-600/90 -mb-2 ml-1">Follower requests</p>
                 <x-underline></x-underline>
-                <div class="flex justify-between items-center rounded-md mb-1 hover:bg-slate-100 p-1">
-                    <section>
-                        <figure class="inline-block">
-                            <img src="{{asset($profile_picture)}}" alt="{{$first_name}} {{$last_name}}" class="rounded-full inline w-10">
-                        </figure>
-                        <p class="inline ml-1 align-middle text-sm text-gray-700">{{$first_name}} {{$last_name}}</p>
-                        <a href="/profile/{{$username}}" class=" text-xxs text-cyan-600">{{'@'.$username}}</a> <!-- in progress -->
-                    </section> 
-                    <form action="" class=" p-1 -mt-1">
-                        <label for="action" class="align-middle text-gray-900 text-xs">Accept?</label>
-                        <button type="submit" class="inline-block align-middle p-1 bg-green-400 rounded-full group hover:bg-emerald-500" name="action" value="accept">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 text-green-900 group-hover:text-white" viewBox="0 -960 960 960"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                        </button>
-                        <button type="submit" class="inline-block align-middle p-1 bg-red-700 rounded-full group hover:bg-red-900" name="action" value="reject">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 text-red-400 group-hover:text-gray-200" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-                        </button>
-                    </form>
-                </div>
-                <div class="flex justify-between items-center rounded-md mb-1 hover:bg-slate-100 p-1">
-                    <section>
-                        <figure class="inline-block">
-                            <img src="{{asset($profile_picture)}}" alt="{{$first_name}} {{$last_name}}" class="rounded-full inline w-10">
-                        </figure>
-                        <p class="inline ml-1 align-middle text-sm text-gray-700">{{$first_name}} {{$last_name}}</p>
-                        <a href="/profile/{{$username}}" class=" text-xxs text-cyan-600">{{'@'.$username}}</a> <!-- in progress -->
-                    </section> 
-                    <form action="" class=" p-1 -mt-1">
-                        <label for="action" class="align-middle text-gray-900 text-xs">Accept?</label>
-                        <button type="submit" class="inline-block align-middle p-1 bg-green-400 rounded-full group hover:bg-emerald-500" name="action" value="accept">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 text-green-900 group-hover:text-white" viewBox="0 -960 960 960"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                        </button>
-                        <button type="submit" class="inline-block align-middle p-1 bg-red-700 rounded-full group hover:bg-red-900" name="action" value="reject">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 text-red-400 group-hover:text-gray-200" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-                        </button>
-                    </form>
-                </div>
-                <div class="flex justify-between items-center rounded-md mb-1 hover:bg-slate-100 p-1">
-                    <section>
-                        <figure class="inline-block">
-                            <img src="{{asset($profile_picture)}}" alt="{{$first_name}} {{$last_name}}" class="rounded-full inline w-10">
-                        </figure>
-                        <p class="inline ml-1 align-middle text-sm text-gray-700">{{$first_name}} {{$last_name}}</p>
-                        <a href="/profile/{{$username}}" class=" text-xxs text-cyan-600">{{'@'.$username}}</a> <!-- in progress -->
-                    </section> 
-                    <form action="" class=" p-1 -mt-1">
-                        <label for="action" class="align-middle text-gray-900 text-xs">Accept?</label>
-                        <button type="submit" class="inline-block align-middle p-1 bg-green-400 rounded-full group hover:bg-emerald-500" name="action" value="accept">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 text-green-900 group-hover:text-white" viewBox="0 -960 960 960"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                        </button>
-                        <button type="submit" class="inline-block align-middle p-1 bg-red-700 rounded-full group hover:bg-red-900" name="action" value="reject">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 text-red-400 group-hover:text-gray-200" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-                        </button>
-                    </form>
-                </div>
-                <div class="flex justify-between items-center rounded-md mb-1 hover:bg-slate-100 p-1">
-                    <section>
-                        <figure class="inline-block">
-                            <img src="{{asset($profile_picture)}}" alt="{{$first_name}} {{$last_name}}" class="rounded-full inline w-10">
-                        </figure>
-                        <p class="inline ml-1 align-middle text-sm text-gray-700">{{$first_name}} {{$last_name}}</p>
-                        <a href="/profile/{{$username}}" class=" text-xxs text-cyan-600">{{'@'.$username}}</a> <!-- in progress -->
-                    </section> 
-                    <form action="" class=" p-1 -mt-1">
-                        <label for="action" class="align-middle text-gray-900 text-xs">Accept?</label>
-                        <button type="submit" class="inline-block align-middle p-1 bg-green-400 rounded-full group hover:bg-emerald-500" name="action" value="accept">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 text-green-900 group-hover:text-white" viewBox="0 -960 960 960"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                        </button>
-                        <button type="submit" class="inline-block align-middle p-1 bg-red-700 rounded-full group hover:bg-red-900" name="action" value="reject">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 text-red-400 group-hover:text-gray-200" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-                        </button>
-                    </form>
-                </div>
-                <div class="flex justify-between items-center rounded-md mb-1 hover:bg-slate-100 p-1">
-                    <section>
-                        <figure class="inline-block">
-                            <img src="{{asset($profile_picture)}}" alt="{{$first_name}} {{$last_name}}" class="rounded-full inline w-10">
-                        </figure>
-                        <p class="inline ml-1 align-middle text-sm text-gray-700">{{$first_name}} {{$last_name}}</p>
-                        <a href="/profile/{{$username}}" class=" text-xxs text-cyan-600">{{'@'.$username}}</a> <!-- in progress -->
-                    </section> 
-                    <form action="" class=" p-1 -mt-1">
-                        <label for="action" class="align-middle text-gray-900 text-xs">Accept?</label>
-                        <button type="submit" class="inline-block align-middle p-1 bg-green-400 rounded-full group hover:bg-emerald-500" name="action" value="accept">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 text-green-900 group-hover:text-white" viewBox="0 -960 960 960"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                        </button>
-                        <button type="submit" class="inline-block align-middle p-1 bg-red-700 rounded-full group hover:bg-red-900" name="action" value="reject">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 text-red-400 group-hover:text-gray-200" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-                        </button>
-                    </form>
-                </div>
-                <div class="flex justify-between items-center rounded-md mb-1 hover:bg-slate-100 p-1">
-                    <section>
-                        <figure class="inline-block">
-                            <img src="{{asset($profile_picture)}}" alt="{{$first_name}} {{$last_name}}" class="rounded-full inline w-10">
-                        </figure>
-                        <p class="inline ml-1 align-middle text-sm text-gray-700">{{$first_name}} {{$last_name}}</p>
-                        <a href="/profile/{{$username}}" class=" text-xxs text-cyan-600">{{'@'.$username}}</a> <!-- in progress -->
-                    </section> 
-                    <form action="" class=" p-1 -mt-1">
-                        <label for="action" class="align-middle text-gray-900 text-xs">Accept?</label>
-                        <button type="submit" class="inline-block align-middle p-1 bg-green-400 rounded-full group hover:bg-emerald-500" name="action" value="accept">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 text-green-900 group-hover:text-white" viewBox="0 -960 960 960"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                        </button>
-                        <button type="submit" class="inline-block align-middle p-1 bg-red-700 rounded-full group hover:bg-red-900" name="action" value="reject">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 text-red-400 group-hover:text-gray-200" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-                        </button>
-                    </form>
-                </div>
-                <div class="flex justify-between items-center rounded-md mb-1 hover:bg-slate-100 p-1">
-                    <section>
-                        <figure class="inline-block">
-                            <img src="{{asset($profile_picture)}}" alt="{{$first_name}} {{$last_name}}" class="rounded-full inline w-10">
-                        </figure>
-                        <p class="inline ml-1 align-middle text-sm text-gray-700">{{$first_name}} {{$last_name}}</p>
-                        <a href="/profile/{{$username}}" class=" text-xxs text-cyan-600">{{'@'.$username}}</a> <!-- in progress -->
-                    </section> 
-                    <form action="" class=" p-1 -mt-1">
-                        <label for="action" class="align-middle text-gray-900 text-xs">Accept?</label>
-                        <button type="submit" class="inline-block align-middle p-1 bg-green-400 rounded-full group hover:bg-emerald-500" name="action" value="accept">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 text-green-900 group-hover:text-white" viewBox="0 -960 960 960"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                        </button>
-                        <button type="submit" class="inline-block align-middle p-1 bg-red-700 rounded-full group hover:bg-red-900" name="action" value="reject">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 text-red-400 group-hover:text-gray-200" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-                        </button>
-                    </form>
-                </div>
-                <div class="flex justify-between items-center rounded-md mb-1 hover:bg-slate-100 p-1">
-                    <section>
-                        <figure class="inline-block">
-                            <img src="{{asset($profile_picture)}}" alt="{{$first_name}} {{$last_name}}" class="rounded-full inline w-10">
-                        </figure>
-                        <p class="inline ml-1 align-middle text-sm text-gray-700">{{$first_name}} {{$last_name}}</p>
-                        <a href="/profile/{{$username}}" class=" text-xxs text-cyan-600">{{'@'.$username}}</a> <!-- in progress -->
-                    </section> 
-                    <form action="" class=" p-1 -mt-1">
-                        <label for="action" class="align-middle text-gray-900 text-xs">Accept?</label>
-                        <button type="submit" class="inline-block align-middle p-1 bg-green-400 rounded-full group hover:bg-emerald-500" name="action" value="accept">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 text-green-900 group-hover:text-white" viewBox="0 -960 960 960"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                        </button>
-                        <button type="submit" class="inline-block align-middle p-1 bg-red-700 rounded-full group hover:bg-red-900" name="action" value="reject">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 text-red-400 group-hover:text-gray-200" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-                        </button>
-                    </form>
-                </div>
-                <div class="flex justify-between items-center rounded-md mb-1 hover:bg-slate-100 p-1">
-                    <section>
-                        <figure class="inline-block">
-                            <img src="{{asset($profile_picture)}}" alt="{{$first_name}} {{$last_name}}" class="rounded-full inline w-10">
-                        </figure>
-                        <p class="inline ml-1 align-middle text-sm text-gray-700">{{$first_name}} {{$last_name}}</p>
-                        <a href="/profile/{{$username}}" class=" text-xxs text-cyan-600">{{'@'.$username}}</a> <!-- in progress -->
-                    </section> 
-                    <form action="" class=" p-1 -mt-1">
-                        <label for="action" class="align-middle text-gray-900 text-xs">Accept?</label>
-                        <button type="submit" class="inline-block align-middle p-1 bg-green-400 rounded-full group hover:bg-emerald-500" name="action" value="accept">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 text-green-900 group-hover:text-white" viewBox="0 -960 960 960"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                        </button>
-                        <button type="submit" class="inline-block align-middle p-1 bg-red-700 rounded-full group hover:bg-red-900" name="action" value="reject">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 text-red-400 group-hover:text-gray-200" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-                        </button>
-                    </form>
-                </div>
+                @if(!$requests->isEmpty())
+                    @foreach ($requests as $request)
+                    <div class="flex justify-between flex-col sm:flex-row items-center rounded-sm mb-1 border-t-2 md:border-t-0 hover:bg-slate-100 p-1">
+                        <section class="">
+                            <figure class="inline-block">
+                                <img class="rounded-full inline w-8 md:w-10" src="{{ asset($request->user->profile_picture) }}" alt="{{$request->user->first_name}} {{$request->user->last_name}}">
+                            </figure>
+                            <figure class="inline-block">
+                                <p class="md:inline text-sm ml-1 align-middle text-gray-700">{{$request->user->first_name}} {{$request->user->last_name}}</p>
+                                <a href="/profile/{{$username}}" class="text-xxs hidden md:inline text-cyan-600">{{'@'.$request->user->username}}</a> <!-- in progress -->
+                            </figure>
+                        </section> 
+                        @livewire('accept-follower',['follower_id' => $request->user->id, 'accepted' => $request->accepted])
+                    </div>
+                    @endforeach
+                @else
+                    <img src="{{asset('storage/images/comments/no_comment.png')}}" class="w-12 mx-auto my-auto" alt="no comment picture">
+                    <p class="text-xxs text-center text-gray-500">Wow such empty</p>
+                @endif
             </div>
         </section>
     </nav>

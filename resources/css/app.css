@@ -4,18 +4,17 @@
 
 /* width */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 7px;
 }
  
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #c4b9b9;
 }
  
 /* Handle */
 ::-webkit-scrollbar-thumb { 
-    background: #bbbaba;
-    border-radius: 5px;
+    background: #139e9e;
     height: 5px;
 }
  
@@ -31,7 +30,6 @@
 
 .small-scrollbar::-webkit-scrollbar-thumb{
     background-color: #932ba8; /* Color of the scrollbar thumb */
-    border-radius: 5px; /* Rounded corners of the scrollbar thumb */
 }
 
 .small-scrollbar::-webkit-scrollbar-thumb:hover {

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Skill;
+use App\Models\Follower;
 use App\models\Like;
 use App\Models\Post;
 
@@ -61,12 +62,64 @@ class UsersController extends Controller
             }
         }
 
+        //Retrieve followers of the user
+        $followers = Follower::where('following_id',$user->id)->where('accepted', true)->get();
+        foreach($followers as $follower) {
+            $follower->user_info = User::where('id',$follower->user_id)->first(['id','first_name','last_name','email','username','profile_picture']);
+            $ifFollowed = Follower::where('user_id', Auth::user()->id)->where('following_id', $follower->user_info->id)->first(['accepted']);
+            
+            if(isset($ifFollowed)) {
+                if($ifFollowed['accepted'] == true) {
+                    //if the user already following the liker
+                    $follower->user_info->ifFollowed = 'following';
+                }
+                else {
+                     //if the user already requested to follow the liker
+                    $follower->user_info->ifFollowed = 'requested';
+                }
+            }
+            else {
+                $follower->user_info->ifFollowed = 'not_following';
+            }
+
+            if($follower->user_info->id == Auth::user()->id) {
+                $follower->user_info->ifFollowed = 'self';
+            }
+        }
+        $viewdata['followers'] = $followers;
+
+        //retrieve following users
+        $followings = Follower::where('user_id',$user->id)->where('accepted', true)->get();
+        foreach($followings as $following) {
+            $following->user_info = User::where('id',$following->user_id)->first(['id','first_name','last_name','email','username','profile_picture']);
+            $ifFollowed = Follower::where('user_id', Auth::user()->id)->where('following_id', $following->user_info->id)->first(['accepted']);
+            
+            if(isset($ifFollowed)) {
+                if($ifFollowed['accepted'] == true) {
+                    //if the user already following the liker
+                    $following->user_info->ifFollowed = 'following';
+                }
+                else {
+                     //if the user already requested to follow the liker
+                    $following->user_info->ifFollowed = 'requested';
+                }
+            }
+            else {
+                $following->user_info->ifFollowed = 'not_following';
+            }
+
+            if($following->user_info->id == Auth::user()->id) {
+                $following->user_info->ifFollowed = 'self';
+            }
+        }
+        $viewdata['followings'] = $followings;
+
         if($username == Auth::user()->username) {
                 return view('users.own_profile', $viewdata);
             }
-            else {
-                return view('users.profile', $viewdata);
-            }
+        else {
+            return view('users.profile', $viewdata);
+        }
 
     }
 
@@ -121,7 +174,32 @@ class UsersController extends Controller
     }
 
     public function testing() {
-        $user = Auth::user()->id;
-        echo $user;
+            //Retrieve followers of the user
+            $user = User::find(14);
+            $followers = Follower::where('following_id',$user->id)->where('accepted', true)->get();
+
+            foreach($followers as $follower) {
+                $follower->user_info = User::where('id',$follower->user_id)->first(['id','first_name','last_name','email','username','profile_picture']);
+                $ifFollowed = Follower::where('user_id', Auth::user()->id)->where('following_id', $follower->user_info->id)->first(['accepted']);
+                
+                if(isset($ifFollowed)) {
+                    if($ifFollowed['accepted'] == true) {
+                        //if the user already following the liker
+                        $follower->user_info->ifFollowed = 'following';
+                    }
+                    else {
+                         //if the user already requested to follow the liker
+                        $follower->user_info->ifFollowed = 'requested';
+                    }
+                }
+                else {
+                    $follower->user_info->ifFollowed = 'not_following';
+                }
+    
+                if($follower->user_info->id == Auth::user()->id) {
+                    $follower->user_info->ifFollowed = 'self';
+                }
+            }
+        dd($followers);
     }
 }

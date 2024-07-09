@@ -39,6 +39,15 @@
                 reader.readAsDataURL(input.files[0]);
             }
         });
+
+        //for showing followers
+        $('#show_followers').click(function(){
+            $('#followers_modal').show();
+        });
+
+        $('#show_followings').click(function(){
+            $('#followings_modal').show();
+        });
     });
 </script>
 <body class="bg-gray-200 p-0 m-0 box-border">

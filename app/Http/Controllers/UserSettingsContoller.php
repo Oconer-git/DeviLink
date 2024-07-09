@@ -16,7 +16,7 @@ class UserSettingsContoller extends Controller
         $user = Auth::user();   
         if ($request->hasFile('profile_picture')) {
             // Delete the current profile picture in database
-            if($user->profile_picture != 'storage/images/profiles/default.jpg') {   
+            if($user->profile_picture != 'storage/images/profiles/default_profile.jpg') {   
                 // Remove 'storage/' prefix
                 $relative_filepath = str_replace('storage/', '', $user->profile_picture);
                 //delete in storage
