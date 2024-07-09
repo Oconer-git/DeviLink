@@ -91,7 +91,7 @@ class UsersController extends Controller
         //retrieve following users
         $followings = Follower::where('user_id',$user->id)->where('accepted', true)->get();
         foreach($followings as $following) {
-            $following->user_info = User::where('id',$following->user_id)->first(['id','first_name','last_name','email','username','profile_picture']);
+            $following->user_info = User::where('id',$following->following_id)->first(['id','first_name','last_name','email','username','profile_picture']);
             $ifFollowed = Follower::where('user_id', Auth::user()->id)->where('following_id', $following->user_info->id)->first(['accepted']);
             
             if(isset($ifFollowed)) {
