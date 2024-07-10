@@ -14,7 +14,7 @@
             <h1 class="inline text-gray-600 font-lightbold text-xl md:text-3xl">{{$user->first_name}} {{$user->last_name}}</h1>
             <a href="/profile/{{$user->username}}"class="block text-cyan-600 font-light text-md md:text-xl">{{'@'.$user->username}}</a>
             <form action="" class="mt-1 mb-4 md:mt-3">
-                <button type="submit" class="bg-purple-400 hover:bg-blue-600 hover:shadow-md hover:shadow-blue-500 text-white shadow-md rounded-full px-4 py-1 text-md md:text-lg md:py-2 md:px-6">
+                <button type="submit" class="bg-purple-400 hover:bg-purple-600 hover:shadow-sm hover:shadow-purple-500 text-white shadow-md rounded-full px-4 py-1 text-md md:text-lg md:py-2 md:px-6">
                     <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-white w-5 inline align-middle" viewBox="0 -960 960 960"><path d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm80-80h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0-80Zm0 400Z"/></svg>
                     <p class="inline align-middle">Follow</p>
                 </button>
@@ -27,11 +27,16 @@
                 <span class="font-semibold text-base hover:underline hover:underline-offset-2 hover:text-cyan-700">{{$followers->count()}}</span>
                 followers
             </button>
-            <p class="inline text-xs md:text-sm"><span class="font-semibold text-base">300</span> likes</p>
+            <p class="inline text-xs md:text-sm">
+                <span class="font-semibold text-base">
+                    {{$likes}}
+                </span> 
+                likes
+            </p>
         </figure>
     </main>
     <!-- skills section-->
-    <section class="ml-0  p-1 w-42 mt-2">
+    <section class="ml-0 p-1 w-42 mt-2">
         <h3 class="text-gray-500 inline">Skills:</h3>
         @if ($user_skills != null)
             @foreach ($user_skills as $user_skill)
@@ -56,42 +61,11 @@
 </div>
 <!-- posts and shared -->
 @if (!$posts->isEmpty())
-    <div class="w-full py-2 lg:pl-16 mx-auto px-10">
-        <h3 class="font-semibold mb-1 mt-14 text-xl text-slate-400">Posts</h3>
-        <!-- devilink posts loop divs -->
-        
-            @foreach ($posts as $post)
-                <div class="bg-white shadow-md drop-shadow-md rounded-md mb-6 p-6 w-full md:w-6/12">
-                    <img src="{{ asset($user->profile_picture) }}" class="w-11 h-11 rounded-full border-2 shadow-md inline" alt="devilink logo">
-                    <section class="inline-block align-middle">
-                        <p class="inline text-gray-600 font-medium">{{$user->fist_name}} {{$user->last_name}}</p>
-                        <a href="#"class="inline  text-cyan-600 font-light text-sm">{{'@'.$user->username}}</a>
-                        <p class="inline text-gray-400 text-xs ml-1">{{$post->date_time}}</p>
-                    </section>
-                    <section class="mb-6">
-                        <p class="ml-1 mt-2 text-sm text-gray-900">{{$post->content}}</p>
-                        @if($post->image != null)
-                            <img src="{{ asset($post->image) }}" class="w-full md:w-7/12 border-2 rounded-md" alt="{{$user->fist_name}}'s post">
-                        @endif
-                    </section>    
-                    <x-underline></x-underline>
-                    <form action="" class="flex justify-between px-10">
-                        <button type="submit" class="mr-4 text-center">
-                            <svg xmlns="http://www.w3.org/2000/svg"  class="w-6 fill-current text-gray-500 hover:text-cyan-600" viewBox="0 -960 960 960"  fill="#5f6368"><path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z"/></svg>
-                            <p class="text-cyan-600 text-xs">{{$post->likes}}</p>
-                        </button>
-                        <button type="submit" class="mr-4 text-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 fill-current text-gray-500 hover:text-yellow-600" viewBox="0 -960 960 960"><path d="M240-400h480v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM880-80 720-240H160q-33 0-56.5-23.5T80-320v-480q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v720ZM160-320h594l46 45v-525H160v480Zm0 0v-480 480Z"/></svg>
-                            <p class="text-cyan-600 text-xs">{{$post->comments}}</p>
-                        </button>
-                        <button type="submit" class="mr-4 text-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 fill-current text-gray-500 hover:text-orange-600" viewBox="0 -960 960 960"><path d="m600-200-56-57 143-143H300q-75 0-127.5-52.5T120-580q0-75 52.5-127.5T300-760h20v80h-20q-42 0-71 29t-29 71q0 42 29 71t71 29h387L544-624l56-56 240 240-240 240Z"/></svg>                        
-                            <p class="text-cyan-600 text-xs">325</p>
-                        </button>
-                    </form>
-                </div>
-            @endforeach
-    </div>
+    <!-- load all the posts of user here -->
+   @include('partials.posts_profile',['posts' => $posts, 
+                                      'user' => $user, 
+                                      'user_skills' => $user_skills
+                                    ])
 @else
     <div class="w-full py-24 md:py-2 lg:pl-16 mx-auto px-10">
         <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-gray-700/40 w-1/2 md:text-left md:w-80 md:mt-24 mx-auto md:mx-0 md:ml-24" viewBox="0 -960 960 960"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm40-80h480L570-480 450-320l-90-120-120 160Zm-40 80v-560 560Z"/></svg>

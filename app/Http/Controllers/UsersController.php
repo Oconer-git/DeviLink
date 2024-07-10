@@ -133,17 +133,27 @@ class UsersController extends Controller
         }
         foreach($posts as $post) {
             $post->likes = PostLike::where('post_id',$post->id)->get()->count(); //get number of likes
-            $post->comments = Comment::where('post_id',$post->id)->get(); //get comments
+            $post->comments = Comment::where('post_id',$post->id)->get();
+            //get number of comments
             $comment_num = 0;
+            //get number of replies
             foreach($post->comments as $comment) {
-                //get number of replies
                 $comment_num += Reply::where('comment_id',$comment->id)->get()->count(); 
             }
+            //check if the user liked the post
+            $post->liked = PostLike::where('post_id', Auth()->user()->id)->where('user_id', Auth::id())->first();
             //add replies and comments to get total comments
             $post->comments = $post->comments->count() + $comment_num; 
             $post->date_time = $this->date_format($post->created_at);
         }
         $viewdata['posts'] = $posts;
+
+        //get the total likes of the user;
+        $likes = 0;
+        foreach($posts as $post) {
+            $likes += PostLike::where('post_id',$post->id)->get()->count();
+        }
+        $viewdata['likes'] = $likes;
 
         if($username == Auth::user()->username) {
                 return view('users.own_profile', $viewdata);
