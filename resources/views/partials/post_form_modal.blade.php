@@ -1,5 +1,5 @@
-<div id="post_form" class="modal fixed hidden top-0 left-0 z-40 pt-20 bg-neutral-900/90 w-screen h-screen">
-    <div class="bg-white h-[300px] w-10/12 md:w-5/12 rounded-md shadow-md mx-auto my-auto p-4 overflow-y-auto">
+<div id="post_form" class="modal hidden fixed top-0 left-0 z-40 pt-20 bg-neutral-900/90 w-screen h-screen">
+    <div class="bg-white max-h-96 w-10/12 md:w-5/12 rounded-md shadow-md mx-auto my-auto p-4 overflow-y-auto">
         <section class="flex justify-between -mb-3">
             <figure class="font-bold text-sm text-neutral-400 inline align-">
                 <img src="{{ asset($profile_picture) }}" class="w-8 h-8 border-2 rounded-full shadow-md inline" alt="profile picture">
@@ -20,7 +20,7 @@
                 </option>
             </select>
             <x-underline></x-underline>
-            <textarea name="content" rows="2" class="w-full p-3 focus:outline-none rounded-md text-sm text-gray-700" id="about" placeholder="share something here..."></textarea>
+            <textarea name="content" rows="3" class="w-full p-3 focus:outline-none rounded-md text-sm text-gray-700" id="about" placeholder="share something here..."></textarea>
             <!-- picture post preview -->
             <img src="{{asset('storage/images/no_picture.jpg')}}"  alt="picture" class="picture_preview hidden w-full mt-2 rounded-md outline-4">
             <section class="mt-11">

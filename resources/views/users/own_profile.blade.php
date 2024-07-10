@@ -1,20 +1,20 @@
 @include('partials.header')
 <x-navbar></x-navbar>
-<div class="bg-white block w-full lg:w-6/12 lg:top-0 lg:right-0 lg:h-screen lg:fixed pt-20 pb-10 px-10 drop-shadow-md">
+<div class="bg-neutral-100 block w-full lg:w-5/12 lg:top-0 lg:right-0 lg:h-screen lg:fixed pt-20 pb-10 px-10 drop-shadow-md">
     <!-- profile -->
-    <main class="inline-block w-full lg:rounded-full border-r-4 border-r-blue-300/80">
+    <main class="inline-block w-full lg:rounded-full border-r-4 border-r-blue-400">
         <!-- profile picture -->
         <section class="mx-auto inline-block">
-            <figure class="md:p-4 bg-white rounded-full border-2 border-blue-300  p-1 ">
-                <img src="{{ asset($user->profile_picture) }}" class="w-24 h-24 md:w-44 md:h-44 rounded-full shadow-md" alt="profile">
+            <figure class="md:p-4 bg-white rounded-full border-2 border-blue-500  p-1 ">
+                <img src="{{ asset($user->profile_picture) }}" class="w-24 h-24 md:w-34 md:h-34 rounded-full shadow-md" alt="profile">
             </figure>
             <!-- update profile picture -->
-            <button id="update_profile" class="absolute -mt-6 md:mt-0 md:left-48 md:top-64 hover:drop-shadow-md">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 md:w-10 p-2 fill-current rounded-full shadow-sm border-b-4  bg-slate-100 text-slate-600 hover:text-blue-500" viewBox="0 -960 960 960"><path d="M480-260q75 0 127.5-52.5T660-440q0-75-52.5-127.5T480-620q-75 0-127.5 52.5T300-440q0 75 52.5 127.5T480-260Zm0-80q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM160-120q-33 0-56.5-23.5T80-200v-480q0-33 23.5-56.5T160-760h126l74-80h240l74 80h126q33 0 56.5 23.5T880-680v480q0 33-23.5 56.5T800-120H160Zm0-80h640v-480H638l-73-80H395l-73 80H160v480Zm320-240Z"/></svg>
+            <button id="update_profile" class="absolute -mt-6 md:mt-5 md:left-32 md:top-40 hover:drop-shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 p-2 fill-current rounded-full shadow-sm border-b-4  bg-blue-100 text-slate-600 hover:text-blue-500" viewBox="0 -960 960 960"><path d="M480-260q75 0 127.5-52.5T660-440q0-75-52.5-127.5T480-620q-75 0-127.5 52.5T300-440q0 75 52.5 127.5T480-260Zm0-80q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM160-120q-33 0-56.5-23.5T80-200v-480q0-33 23.5-56.5T160-760h126l74-80h240l74 80h126q33 0 56.5 23.5T880-680v480q0 33-23.5 56.5T800-120H160Zm0-80h640v-480H638l-73-80H395l-73 80H160v480Zm320-240Z"/></svg>
             </button>
         </section>    
         <!-- name and followers -->
-        <figure class="inline-block align-top pt-1 ml-2 md:pt-9">
+        <figure class="inline-block align-top pt-1 ml-2 mt-2">
             <h1 class="inline text-gray-600 font-lightbold text-xl md:text-3xl">{{$user->first_name}} {{$user->last_name}}</h1>
             <a href="/profile/{{$user->username}}"class="block text-cyan-600 font-light text-md md:text-xl">{{'@'.$user->username}}</a>
             <div class="group">
@@ -22,11 +22,10 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-6 inline text-white" viewBox="0 -960 960 960"><path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160Zm40 200q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
                     <p class="inline text-white align-middle">Add post</p>
                 </button>
-                <p class="text-xs text-white inline group-hover:text-cyan-500 transition duration-1000  delay-200 ease-in-out">Think before you click</p>
             </div>
             <button id="show_followings" class="inline text-xs md:text-sm mr-1">
                 <span class="font-semibold text-base hover:underline hover:underline-offset-2 hover:text-cyan-700">{{$followings->count()}}</span>
-                following
+                followings
             </button>
             <button id="show_followers" class="inline text-xs md:text-sm mr-1">
                 <span class="font-semibold text-base hover:underline hover:underline-offset-2 hover:text-cyan-700">{{$followers->count()}}</span>
@@ -36,7 +35,7 @@
         </figure>
     </main>
     <!-- skills section-->
-    <section class="ml-0 lg:ml-52 p-1 w-42 mt-2">
+    <section class="ml-0 p-1 w-42 mt-2">
         <button id="update_skills" class="bg-gray-200 rounded-full p-1 align-bottom hover:bg-slate-300">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"viewBox="0 -960 960 960" fill="#5f6368"><path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
         </button>
@@ -64,71 +63,51 @@
     </section>
 </div>
 <!-- posts and shared -->
-<div class="w-full py-2 mx-auto lg:pl-32 px-10 bg-gradient-to-b from-purple-300 to-neutral-500">
-    <h4 class="font-semibold mb-1 mt-16 text-xl text-slate-100/80">Posts</h4>
-    
+@if (!$posts->isEmpty())
+    <div class="w-full py-2 lg:pl-16 mx-auto px-10 ">
+        <h3 class="font-semibold mb-1 mt-14 text-xl text-slate-400">Posts</h3>
     <!-- devilink posts loop divs -->
-    <div class="bg-whitesmoke border shadow-md drop-shadow-sm rounded-md mb-2 p-6 w-full md:w-1/2 lg:w-1/3">
-        <img src="{{ asset('storage/images/figure_about.png') }}" class="w-11 h-11 rounded-full border-2 shadow-md inline" alt="devilink logo">
-        <section class="inline-block align-middle">
-            <p class="inline text-gray-600 font-medium">Jacob Sartorius</p>
-            <a href="#"class="inline  text-cyan-600 font-light text-sm">@JynkZi</a>
-            <p class="inline text-gray-400 text-xs ml-1">9h ago</p>
-        </section>
-        <section class="mb-6">
-            <p class="ml-1 mt-2 text-gray-500">Nah I'd win</p>
-            <img src="{{ asset('storage/images/post1.jpeg') }}" class="w-full border-2 rounded-md" alt="devilink post">
-        </section>    
-        <x-underline></x-underline>
-        <form action="" class="flex justify-between px-10">
-            <button type="submit" class="mr-4 text-center">
-                <svg xmlns="http://www.w3.org/2000/svg"  class="w-6 fill-current text-gray-500 hover:text-cyan-600" viewBox="0 -960 960 960"  fill="#5f6368"><path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z"/></svg>
-                <p class="text-cyan-600 text-xs">325</p>
-            </button>
-            <button type="submit" class="mr-4 text-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 fill-current text-gray-500 hover:text-yellow-600" viewBox="0 -960 960 960"><path d="M240-400h480v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM880-80 720-240H160q-33 0-56.5-23.5T80-320v-480q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v720ZM160-320h594l46 45v-525H160v480Zm0 0v-480 480Z"/></svg>
-                <p class="text-cyan-600 text-xs">325</p>
-            </button>
-            <button type="submit" class="mr-4 text-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 fill-current text-gray-500 hover:text-orange-600" viewBox="0 -960 960 960"><path d="m600-200-56-57 143-143H300q-75 0-127.5-52.5T120-580q0-75 52.5-127.5T300-760h20v80h-20q-42 0-71 29t-29 71q0 42 29 71t71 29h387L544-624l56-56 240 240-240 240Z"/></svg>                        
-                <p class="text-cyan-600 text-xs">325</p>
-            </button>
-        </form>
+        
+            @foreach ($posts as $post)
+                <div class="bg-white shadow-md drop-shadow-md rounded-md mb-6 p-6 w-full md:w-6/12">
+                    <img src="{{ asset($user->profile_picture) }}" class="w-11 h-11 rounded-full border-2 shadow-md inline" alt="devilink logo">
+                    <section class="inline-block align-middle">
+                        <p class="inline text-gray-600 font-medium">{{$user->fist_name}} {{$user->last_name}}</p>
+                        <a href="#"class="inline  text-cyan-600 font-light text-sm">{{'@'.$user->username}}</a>
+                        <p class="inline text-gray-400 text-xs ml-1">{{$post->date_time}}</p>
+                    </section>
+                    <section class="mb-6">
+                        <p class="ml-1 mt-2 text-sm text-gray-900">{{$post->content}}</p>
+                        @if($post->image != null)
+                            <img src="{{ asset($post->image) }}" class="w-full md:w-7/12 border-2 rounded-md" alt="{{$user->fist_name}}'s post">
+                        @endif
+                    </section>    
+                    <x-underline></x-underline>
+                    <form action="" class="flex justify-between px-10">
+                        <button type="submit" class="mr-4 text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg"  class="w-6 fill-current text-gray-500 hover:text-cyan-600" viewBox="0 -960 960 960"  fill="#5f6368"><path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z"/></svg>
+                            <p class="text-cyan-600 text-xs">{{$post->likes}}</p>
+                        </button>
+                        <button type="submit" class="mr-4 text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 fill-current text-gray-500 hover:text-yellow-600" viewBox="0 -960 960 960"><path d="M240-400h480v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM880-80 720-240H160q-33 0-56.5-23.5T80-320v-480q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v720ZM160-320h594l46 45v-525H160v480Zm0 0v-480 480Z"/></svg>
+                            <p class="text-cyan-600 text-xs">{{$post->comments}}</p>
+                        </button>
+                        <button type="submit" class="mr-4 text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 fill-current text-gray-500 hover:text-orange-600" viewBox="0 -960 960 960"><path d="m600-200-56-57 143-143H300q-75 0-127.5-52.5T120-580q0-75 52.5-127.5T300-760h20v80h-20q-42 0-71 29t-29 71q0 42 29 71t71 29h387L544-624l56-56 240 240-240 240Z"/></svg>                        
+                            <p class="text-cyan-600 text-xs">325</p>
+                        </button>
+                    </form>
+                </div>
+            @endforeach
     </div>
-    <x-underline></x-underline>
-    <div class="bg-whitesmoke border shadow-md drop-shadow-sm rounded-md mb-2 p-6 w-full md:w-1/2 lg:w-1/3">
-        <img src="{{ asset('storage/images/figure_about.png') }}" class="w-11 h-11 rounded-full border-2 shadow-md inline" alt="devilink logo">
-        <section class="inline-block align-top">
-            <p class="inline text-gray-600 font-medium">Jacob Sartorius</p>
-            <a href="#"class="inline  text-cyan-600 font-light text-sm">@JynkZi</a>
-            <p class="inline text-gray-400 text-xs ml-1">9h ago</p>
-            <p class=" text-purple-500 text-xs font-semibold ml-1">Shared</p>
-
-        </section>
-        <section class="mb-6">
-            <p class="ml-1 mt-2 text-gray-500">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim corporis alias molestias in ratione dolor iure nobis deleniti voluptatum animi autem voluptas, excepturi sunt? Illum sunt odit eum eos harum.
-            Possimus velit mollitia quo ut quas excepturi atque? Reiciendis, dolorem similique libero inventore maxime dolore hic blanditiis quas nisi fuga dolorum tempora nulla praesentium natus, deleniti culpa. Temporibus, ut aut.
-            Nemo dolore illo, vel numquam consectetur magni ut aperiam possimus ratione ea placeat natus dolorem, delectus assumenda hic cum, reiciendis rem provident? Quibusdam iure rem dolores mollitia atque culpa beatae?</p>
-        </section>    
-        <x-underline></x-underline>
-        <form action="" class="flex justify-between px-10">
-            <button type="submit" class="mr-4 text-center">
-                <svg xmlns="http://www.w3.org/2000/svg"  class="w-6 fill-current text-gray-500 hover:text-cyan-600" viewBox="0 -960 960 960"  fill="#5f6368"><path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z"/></svg>
-                <p class="text-cyan-600 text-xs">325</p>
-            </button>
-            <button type="submit" class="mr-4 text-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 fill-current text-gray-500 hover:text-yellow-600" viewBox="0 -960 960 960"><path d="M240-400h480v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM880-80 720-240H160q-33 0-56.5-23.5T80-320v-480q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v720ZM160-320h594l46 45v-525H160v480Zm0 0v-480 480Z"/></svg>
-                <p class="text-cyan-600 text-xs">325</p>
-            </button>
-            <button type="submit" class="mr-4 text-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 fill-current text-gray-500 hover:text-orange-600" viewBox="0 -960 960 960"><path d="m600-200-56-57 143-143H300q-75 0-127.5-52.5T120-580q0-75 52.5-127.5T300-760h20v80h-20q-42 0-71 29t-29 71q0 42 29 71t71 29h387L544-624l56-56 240 240-240 240Z"/></svg>                        
-                <p class="text-cyan-600 text-xs">325</p>
-            </button>
-        </form>
+@else
+    <div class="w-full py-24 md:py-2 lg:pl-16 mx-auto px-10">
+        <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-gray-700/40 w-1/2 md:text-left md:w-80 md:mt-24 mx-auto md:mx-0 md:ml-24" viewBox="0 -960 960 960"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm40-80h480L570-480 450-320l-90-120-120 160Zm-40 80v-560 560Z"/></svg>
+        <p class="text-center -mt-4 md:text-left md:ml-52 font-extrabold text-gray-700/30">No posts yet</p>
     </div>
-</div>
+@endif
 <!-- modal for opening updating profile form -->
-<div id="profile_form" class="modal fixed hidden top-0 left-0 z-40 pt-32 bg-neutral-900/90 w-screen h-screen">
+<div id="profile_form" class="modal fixed hidden top-0 left-0 z-40 pt-20 bg-neutral-900/90 w-screen h-screen">
     <div class="bg-white  w-9/12 md:w-1/3 rounded-sm shadow-md mx-auto my-auto p-4">
        <section class="flex justify-between">
         <p class="font-bold text-gray-600 inline">Choose profile picture</p>
@@ -153,7 +132,7 @@
     </div>
 </div>
 <!-- modal for opening updating about section form -->
-<div id="about_form" class="modal fixed hidden top-0 left-0 z-40 pt-32 bg-neutral-900/90 w-screen h-screen">
+<div id="about_form" class="modal fixed hidden top-0 left-0 z-40 pt-20 bg-neutral-900/90 w-screen h-screen">
     <div class="bg-white w-10/12 md:w-5/12 rounded-md shadow-md mx-auto my-auto p-4">
         <section class="flex justify-between">
             <p class="font-bold text-lg text-neutral-600 inline">Personalize Your About Section</p>
@@ -179,7 +158,7 @@
     </div>
 </div>
 <!-- modal for adding skills form -->
-<div id="skills_form" class="modal fixed hidden top-0 left-0 z-40 pt-32 bg-neutral-900/90 w-screen h-screen">
+<div id="skills_form" class="modal fixed hidden top-0 left-0 z-40 pt-20 bg-neutral-900/90 w-screen h-screen">
     <div class="bg-white w-8/12 lg:w-5/12 rounded-md shadow-md mx-auto my-auto p-4">
         <section class="flex justify-between">
             <p class="font-bold text-lg text-neutral-600 inline">Update and choose your skills</p>
@@ -221,8 +200,6 @@
         </form>
     </div>
 </div>
-<!-- modal posting form -->
-@include('partials.post_form_modal')
 <!-- modal for showing followers -->
 <div id="followers_modal" class="modal fixed hidden top-0 left-0 z-40 pt-20 bg-neutral-900/90 w-screen h-screen">
     <div class="bg-white w-11/12 md:w-5/12 max-width-6/12 h-96 rounded-md shadow-md my-auto overflow-y-auto small-scrollbar mx-auto p-4">
@@ -255,37 +232,14 @@
         @endif
     </div>
 </div>
-<!-- modal for showing followings -->
-<div id="followings_modal" class="modal fixed hidden top-0 left-0 z-40 pt-20 bg-neutral-900/90 w-screen h-screen">
-    <div class="bg-white w-11/12 md:w-5/12 max-width-6/12 h-96 rounded-md shadow-md my-auto overflow-y-auto small-scrollbar mx-auto p-4">
-        <section class="flex justify-between">
-            <figure class="pl-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="inline fill-current w-5 text-cyan-400" viewBox="0 -960 960 960"><path d="M40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm720 0v-120q0-44-24.5-84.5T666-434q51 6 96 20.5t84 35.5q36 20 55 44.5t19 53.5v120H760ZM360-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm400-160q0 66-47 113t-113 47q-11 0-28-2.5t-28-5.5q27-32 41.5-71t14.5-81q0-42-14.5-81T544-792q14-5 28-6.5t28-1.5q66 0 113 47t47 113ZM120-240h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0 320Zm0-400Z"/></svg>
-                <p class="text-sm font-bold inline text-gray-400">Followings</p>
-            </figure>
-            <button class="close_modal inline-block align-middle">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current text-gray-800" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-            </button>
-        </section>
-        <x-underline></x-underline>
-        @if(!$followings->isEmpty())
-            @foreach ($followings as $following)
-                <div class="flex justify-between items-center mb-1 rounded-md hover:bg-slate-100 p-2">
-                    <section>
-                        <figure class="inline-block">
-                            <img src="{{asset($following->user_info->profile_picture)}}" alt="{{$following->user_info->first_name}} {{$following->user_info->last_name}}" class="rounded-full inline w-10">
-                        </figure>
-                        <p class="inline align-middle text-sm text-gray-700">{{$following->user_info->first_name}} {{$following->user_info->last_name}}</p>
-                        <a href="/profile/{{$following->user_info->username}}" class=" text-xxs text-cyan-600">{{'@'.$following->user_info->username}}</a> <!-- in progress -->
-                    </section> 
-                    @livewire('follow',['liker_id' => $following->user_info->id, 'ifFollowed' => $following->user_info->ifFollowed])   
-                </div>
-            @endforeach
-        @else
-            <img src="{{asset('storage/images/comments/no_comment.png')}}" class="w-16 mx-auto my-auto" alt="no comment picture">
-            <p class="text-xxs text-center text-gray-500 mt-1">Wow such empty... pfftt..</p>
-        @endif
-    </div>
-</div>
+<!-- modal for showing followers -->
+@include('partials.followers_modal', ['followers' => $followers])
+
+<!-- modal for showing followers -->
+@include('partials.followings_modal', ['followings' => $followings])
+
+<!-- modal posting form -->
+@include('partials.post_form_modal')
+
 <x-colors_skills></x-colors_skills>
 @include('partials.footer')

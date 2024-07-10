@@ -12,6 +12,9 @@ use App\Models\Skill;
 use App\Models\Follower;
 use App\models\Like;
 use App\Models\Post;
+use App\Models\Comment;
+use App\Models\PostLike;
+use App\Models\Reply;
 
 class UsersController extends Controller
 {
@@ -114,6 +117,34 @@ class UsersController extends Controller
         }
         $viewdata['followings'] = $followings;
 
+        //retrieve the posts of the user
+        $ifFollowing = Follower::where('user_id', Auth::user()->id)
+                                ->where('following_id', $user->id)
+                                ->where('accepted',true)->exists();
+        if($ifFollowing) {
+            //when following the user retrieve this
+            $posts = Post::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+        }
+        else {
+            //when not following the user retrieve this
+            $posts = Post::where('user_id', $user->id)
+                            ->where('is_global',true)
+                            ->orderBy('created_at','desc')->get();
+        }
+        foreach($posts as $post) {
+            $post->likes = PostLike::where('post_id',$post->id)->get()->count(); //get number of likes
+            $post->comments = Comment::where('post_id',$post->id)->get(); //get comments
+            $comment_num = 0;
+            foreach($post->comments as $comment) {
+                //get number of replies
+                $comment_num += Reply::where('comment_id',$comment->id)->get()->count(); 
+            }
+            //add replies and comments to get total comments
+            $post->comments = $post->comments->count() + $comment_num; 
+            $post->date_time = $this->date_format($post->created_at);
+        }
+        $viewdata['posts'] = $posts;
+
         if($username == Auth::user()->username) {
                 return view('users.own_profile', $viewdata);
             }
@@ -173,33 +204,37 @@ class UsersController extends Controller
         return redirect('/');
     }
 
-    public function testing() {
-            //Retrieve followers of the user
-            $user = User::find(14);
-            $followers = Follower::where('following_id',$user->id)->where('accepted', true)->get();
+    private function date_format($date) {
+        $timestamp = strtotime($date);
+        $current_timestamp = time(); // current timestamp
+        $difference = $current_timestamp - $timestamp;
 
-            foreach($followers as $follower) {
-                $follower->user_info = User::where('id',$follower->user_id)->first(['id','first_name','last_name','email','username','profile_picture']);
-                $ifFollowed = Follower::where('user_id', Auth::user()->id)->where('following_id', $follower->user_info->id)->first(['accepted']);
-                
-                if(isset($ifFollowed)) {
-                    if($ifFollowed['accepted'] == true) {
-                        //if the user already following the liker
-                        $follower->user_info->ifFollowed = 'following';
-                    }
-                    else {
-                         //if the user already requested to follow the liker
-                        $follower->user_info->ifFollowed = 'requested';
-                    }
-                }
-                else {
-                    $follower->user_info->ifFollowed = 'not_following';
-                }
-    
-                if($follower->user_info->id == Auth::user()->id) {
-                    $follower->user_info->ifFollowed = 'self';
-                }
-            }
-        dd($followers);
+        if ($difference < 60) {
+            return "Just now";
+        } elseif ($difference < 3600) {
+            $minutes = floor($difference / 60);
+            return $minutes." minutes ago";
+        } elseif ($difference < 86400) {
+            $hours = floor($difference / 3600);
+            return $hours." hours ago";
+        } else {
+            //set it to readable date
+            return date('F j, Y', $timestamp);
+        }
+    }
+
+    public function testing() {
+        //Retrieve followers of the user
+        $ifFollowing = Follower::where('user_id',13)
+                                ->where('following_id',14)
+                                ->where('accepted',true)->exists();
+        if($ifFollowing) {
+            //when following the user retrieve this
+            $posts = Post::where('user_id',14)->get();
+        }
+        else {
+            //when not following the user retrieve this
+            $posts = Post::where('user_id',14)->where('is_global',true)->get();
+        }
     }
 }

@@ -45,7 +45,9 @@
                  <!-- publicity of post -->
                 <p class="ml-1 mt-2 mb-1 text-sm text-gray-600">{{$post->content}}</p>
                 <!-- image post -->
-                <img src="{{ asset($post->image) }}" class="w-full lg:w-11/12 border-2 rounded-md" alt="devilink post">
+                @if($post->image)
+                    <img src="{{ asset($post->image) }}" class="w-full lg:w-11/12 border-2 rounded-md" alt="devilink post">
+                @endif
             </section>    
         </main>
         <!-- comment sidebar-->
@@ -109,7 +111,7 @@
                                 <img src="{{ asset($comment->user->profile_picture) }}" class="w-10 h-10 rounded-full border-2 shadow-md inline align-top" alt="profile">
                                 <div class="inline-block align-midde">
                                     <p class="inline text-gray-600 text-sm md:text-md font-medium">{{$comment->user->first_name}} {{$comment->user->last_name}}</p>
-                                    <a href="#"class="inline text-cyan-600 text-xs md:text-md font-light">{{'@'.$comment->user->username}}</a>
+                                    <a href="/profile/{{$comment->user->username}}"class="inline text-cyan-600 text-xs md:text-md font-light">{{'@'.$comment->user->username}}</a>
                                     <p class="inline text-gray-500 text-xxs ml-1">{{$comment->date_time}}</p>
                                     @if(isset($skills))
                                         @include('partials.comments_skills_load', ['skills' => $comment->user->skills])
@@ -155,7 +157,7 @@
                                                 <img src="{{ asset($reply->user->profile_picture) }}" class="w-9 h-9 rounded-full border-2 shadow-md inline align-top" alt="profile">
                                                 <div class="inline-block align-midde">
                                                     <p class="inline text-gray-600 text-xs md:text-md font-medium">{{$reply->user->first_name}} {{$reply->user->last_name}}</p>
-                                                    <a href="#"class="inline text-cyan-600 text-xs md:text-md font-light">{{'@'.$reply->user->username}}</a>
+                                                    <a href="/profile/{{$reply->user->username}}"class="inline text-cyan-600 text-xs md:text-md font-light">{{'@'.$reply->user->username}}</a>
                                                     <p class="inline text-gray-500 text-xxs ml-1">{{$reply->date_time}}</p>
                                                     @if(isset($reply->user->skills))
                                                         @include('partials.comments_skills_load', ['skills' => $reply->user->skills])

@@ -38,6 +38,7 @@ class UserPostCommentController extends Controller
 
         $post->content = $request->content;
         $post->user_id = Auth::user()->id;   
+        $post->is_global = $request->is_global;
         $post->save();
         return redirect()->back();
     }
