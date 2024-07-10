@@ -35,6 +35,26 @@ class UsersController extends Controller
     public function profile($username) {
         // Get username info
         $user = User::where('username', $username)->firstOrFail(['first_name', 'last_name', 'about', 'profile_picture', 'username', 'id']);
+        
+        //get if the user is following the profile user 
+        $ifFollowed = Follower::where('user_id', Auth::user()->id)->where('following_id', $user->id)->first(['accepted']);
+        if(isset($ifFollowed)) {
+            if($ifFollowed['accepted'] == true) {
+                //if the user already following the liker
+                $user->ifFollowed = 'following';
+            }
+            else {
+                //if the user already requested to follow the liker
+                $user->ifFollowed = 'requested';
+            }
+        }
+        else {
+            $user->ifFollowed = 'not_following';
+        }
+
+        if($user->id == Auth::user()->id) {
+            $user->ifFollowed = 'self';
+        }
         $viewdata['user'] = $user;
     
         // Retrieve unique skills for the specific user
@@ -157,7 +177,7 @@ class UsersController extends Controller
 
         if($username == Auth::user()->username) {
                 return view('users.own_profile', $viewdata);
-            }
+        }
         else {
             return view('users.profile', $viewdata);
         }

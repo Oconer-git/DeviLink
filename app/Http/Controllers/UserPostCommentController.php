@@ -71,7 +71,7 @@ class UserPostCommentController extends Controller
             else {
                 $user->ifFollowed = 'not_following';
             }
-
+          
             if($user->id == Auth::user()->id) {
                 $user->ifFollowed = 'self';
             }
