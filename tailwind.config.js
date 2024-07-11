@@ -7,15 +7,13 @@ export default {
   ],
   theme: {
     extend: {
-      backgroundImage:{
-        'hero-pattern': "url('/storage/app/public/images/bg_index.jpg')",
-      },
       display: 'Oswald, ui-serif', // Adds a new `font-display` class
       width: () => ({
         'comments': '49%',
       }),
       colors: {
-         whitesmoke: '#FCFBFA'
+         whitesmoke: '#FCFBFA',
+         lightseagreen: '#17cab5'
       },
       fontSize: {
         'xxs': '10px', 
