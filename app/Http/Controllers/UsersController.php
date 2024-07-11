@@ -141,8 +141,9 @@ class UsersController extends Controller
         $ifFollowing = Follower::where('user_id', Auth::user()->id)
                                 ->where('following_id', $user->id)
                                 ->where('accepted',true)->exists();
-        if($ifFollowing) {
-            //when following the user retrieve this
+
+        if($ifFollowing || ($user->id ==  Auth::user()->id)) {
+            //when the user stalks his own profile or if the user is following another user retrieve this
             $posts = Post::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
         }
         else {
