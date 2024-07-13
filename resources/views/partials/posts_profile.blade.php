@@ -25,7 +25,7 @@
             </section>    
             <x-underline></x-underline>
             <div class="flex justify-between px-12 md:px-2 md:justify-start ">
-                <div class="text-center">
+                <div class="livewire-component text-center">
                     @livewire('like',['post_id' => $post->id, 'likes_post' => $post->likes, 'is_profile' => true])
                 </div>
                 <div class="text-center ml-0 md:ml-8 mt-[2.5px]">
