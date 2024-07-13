@@ -54,14 +54,13 @@
         <article>
             <h2 class="text-cyan-600 font-semibold text-xl inline-block align-middle">About</h2>
             @if($user->about)
-                <p class="text-gray-800 text-md">{{$user->about}}</p>
+                <p class="text-gray-800 text-sm">{{$user->about}}</p>
             @else
                 <div class="mt-2">
-                    <img src="{{asset('storage/images/comments/no_comment.png')}}" class="w-8 inline" alt="no comment picture">
+                    <img src="{{asset('storage/images/comments/no_comment.png')}}" class="w-8 inline" alt="about picture">
                     <p class="inline align-bottom text-sm mt-4 text-gray-500">Wow such empty</p>
                 </div>
             @endif
-            <p>{{$user->ifFollowed}}</p>
         </article>
     </section>
 </div>

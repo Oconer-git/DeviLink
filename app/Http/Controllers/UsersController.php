@@ -18,14 +18,57 @@ use App\Models\Reply;
 
 class UsersController extends Controller
 {
+
     public function login() {
         return view('users.index');
     }
 
     public function main() {
-        $view_data = array( 'first_name' => auth()->user()->first_name,
-                            'last_name' => auth()->user()->last_name);
-        return view('home.main', $view_data);
+        //get posts from followings
+        $friends_posts = DB::table('followers')
+                            ->where('followers.user_id', Auth::id()) // Specify the table for user_id
+                            ->where('followers.accepted', true) // Specify the table for accepted
+                            ->leftJoin('posts', 'followers.following_id', '=', 'posts.user_id')
+                            ->leftJoin('users', 'posts.user_id', '=','users.id')
+                            ->select('posts.*', 
+                                    'users.first_name', 
+                                    'users.last_name', 
+                                    'users.username', 
+                                    'users.profile_picture',
+                                    DB::raw('1 as priority'),
+                                    DB::raw('true as friends'),
+                                    ) // Select only the columns from posts table
+                            ->limit(30)
+                            ->get();
+        
+        $global_posts = DB::table('posts')
+                            ->where('is_global', true)
+                            ->leftJoin('users', 'posts.user_id', '=','users.id')
+                            ->select('posts.*', 
+                                    'users.first_name', 
+                                    'users.last_name', 
+                                    'users.username', 
+                                    'users.profile_picture',
+                                    DB::raw('2 as priority'),
+                            )
+                            ->limit(20) // Select only the columns from posts table
+                            ->get();
+
+        // Combine both queries using union and order by priority and created_at
+        $all_posts = $friends_posts->merge($global_posts)
+                                    ->sortBy([
+                                        ['priority', 'asc'],
+                                        ['created_at', 'desc']
+                                        ])
+                                    ->values()
+                                    ->all();
+        
+    
+        $viewdata['suggest_users'] = $this->suggest_users(); //suggest which users to follow to user
+        // add skills, date format, number of comments and likes to the post
+        $viewdata['posts'] = $this->populate_post($all_posts);
+
+        return view('home.main')->with($viewdata);
     }
 
     public function comments() {
@@ -237,35 +280,117 @@ class UsersController extends Controller
 
     private function date_format($date) {
         $timestamp = strtotime($date);
-        $current_timestamp = time(); // current timestamp
+        $current_timestamp = time();
         $difference = $current_timestamp - $timestamp;
-
+    
         if ($difference < 60) {
             return "Just now";
         } elseif ($difference < 3600) {
             $minutes = floor($difference / 60);
-            return $minutes." minutes ago";
+            return $minutes . " minutes ago";
         } elseif ($difference < 86400) {
             $hours = floor($difference / 3600);
-            return $hours." hours ago";
+            return $hours . " hours ago";
+        } elseif ($difference < 172800) { // 1 day (24 hours)
+            return "1 day ago";
+        } elseif ($difference < 259200) { // 2 days
+            return "2 days ago";
+        } elseif ($difference < 345600) { // 3 days
+            return "3 days ago";
+        } elseif ($difference < 432000) { // 4 days
+            return "4 days ago";
+        } elseif ($difference < 518400) { // 5 days
+            return "5 days ago";
+        } elseif ($difference < 604800) { // 6 days
+            return "6 days ago";
+        } elseif ($difference < 1209600) { // 1 week
+            return "1 week ago";
         } else {
-            //set it to readable date
+            // Set it to readable date
             return date('F j, Y', $timestamp);
         }
     }
 
-    public function testing() {
-        //Retrieve followers of the user
-        $ifFollowing = Follower::where('user_id',13)
-                                ->where('following_id',14)
-                                ->where('accepted',true)->exists();
-        if($ifFollowing) {
-            //when following the user retrieve this
-            $posts = Post::where('user_id',14)->get();
+    private function suggest_users() {
+        $users = DB::table('users')
+                    ->select('id','first_name','last_name','profile_picture','username')
+                    ->orderBy('created_at','desc')
+                    ->get();
+        $count = 0;
+        $suggest_users = [];
+        foreach($users as $user) {
+            if($user->id == Auth::id()) {
+                continue;
+            }
+            $ifFollowed = Follower::where('user_id',Auth::id())
+                                    ->where('following_id',$user->id)
+                                    ->exists();
+            if(!$ifFollowed) {
+                $suggest_users[] = $user;
+                $count++;
+            }
+            
+            if($count >= 3) {
+                break;
+            }
         }
-        else {
-            //when not following the user retrieve this
-            $posts = Post::where('user_id',14)->where('is_global',true)->get();
-        }
+        return $suggest_users;
     }
+
+    private function populate_post($all_posts) {
+        foreach($all_posts as $post) {
+            $post->skills = DB::table('skill_user')
+                                ->where('user_id', $post->user_id)
+                                ->leftJoin('skills', 'skill_user.skill_id', '=', 'skills.id')
+                                ->select('skills.name','skills.bg_color')
+                                ->get();
+            $post->date_time = $this->date_format($post->created_at);
+            $post->comments = Comment::where('post_id',$post->id)->get();
+            //get number of comments
+            $comment_num = 0;
+            //get number of replies
+            foreach($post->comments as $comment) {
+                $comment_num += Reply::where('comment_id',$comment->id)->get()->count(); 
+            }
+            //check if the user liked the post
+            $post->liked = PostLike::where('post_id', Auth()->user()->id)->where('user_id', Auth::id())->first();
+            //add replies and comments to get total comments
+            $post->comments = $post->comments->count() + $comment_num; 
+            //get number of likes
+            $post->likes = PostLike::where('post_id',$post->id)->get()->count(); 
+        }
+
+        return $all_posts;
+
+    }
+
+    public function testing() {
+
+       $users = DB::table('users')
+                    ->select('id','first_name','last_name','profile_picture','username')
+                    ->orderBy('created_at','desc')
+                    ->get();
+        $count = 0;
+        $suggest_users = [];
+        foreach($users as $user) {
+            if($user->id == Auth::id()) {
+                continue;
+            }
+            $ifFollowed = Follower::where('user_id',Auth::id())
+                                    ->where('following_id',$user->id)
+                                    ->exists();
+            if(!$ifFollowed) {
+                $suggest_users[] = $user;
+                $count++;
+            }
+            
+            if($count >= 3) {
+                break;
+            }
+        }
+        
+        dd($suggest_users);
+        die();
+    }
+    
 }

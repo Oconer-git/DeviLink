@@ -2,7 +2,8 @@
     <h3 class="font-semibold mb-1 mt-14 text-xl text-slate-400">Posts</h3>
 <!-- devilink posts loop divs -->
     @foreach ($posts as $post)
-        <div class="bg-white shadow-md drop-shadow-md rounded-md mb-6 px-6 pt-6 pb-3 w-full md:w-6/12">
+        <div class="post bg-white hover:bg-slate-50 shadow-md drop-shadow-md rounded-md mb-6 px-6 pt-6 pb-3 w-full md:w-6/12"
+            data-post-id="{{$post->id}}">
             <img src="{{ asset($user->profile_picture) }}" class="w-11 h-11 rounded-full border-2 shadow-md inline" alt="devilink logo">
             <section class="inline-block align-middle">
                 <p class="inline text-gray-600 font-medium">{{$user->first_name}} {{$user->last_name}}</p>
@@ -16,7 +17,8 @@
                 @include('partials.comments_skills_load',['skills' => $user_skills])
             </section>
             <section class="mb-6">
-                <p class="ml-1 mt-2 text-sm text-gray-900">{{$post->content}}</p>
+                <!-- post text -->
+                <p class="ml-1 mt-2 mb-1 text-sm text-gray-900">{{$post->content}}</p>
                 @if($post->image != null)
                     <img src="{{ asset($post->image) }}" class="w-full md:w-5/12 border-2 rounded-md" alt="{{$user->fist_name}}'s post">
                 @endif

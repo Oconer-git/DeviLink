@@ -2,6 +2,9 @@
         <!-- logo -->
         <section class="">
             <img src="{{ asset('storage/images/devilink_logo.png') }}" class="w-14 inline -mt-3" alt="devilink logo">
+            <a href="/" class="inline md:hidden align-top">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 fill-current text-purple-300 hover:text-purple-800 inline" viewBox="0 -960 960 960"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg>
+            </a>
             <a href="/" class="hidden md:inline font-extrabold text-2xl text-purple-200 hover:text-purple-300 my-auto">DEVILINK</a>
         </section>
         <!-- search textbox -->

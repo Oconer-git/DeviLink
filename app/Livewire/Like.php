@@ -15,6 +15,7 @@ class Like extends Component
     public $likes_post;
     public $liked;
     public $is_profile;
+    public $is_home;
 
     public function mount($post_id, $likes_post)
     {

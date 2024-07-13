@@ -12,11 +12,11 @@
         <form action="{{route('user.post')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <select name="is_global" id="publicity" class="text-xs text-gray-400 ml-8 focus:outline-none">
+                <option value="0">
+                    Only friends can see this
+                </option>
                 <option value="1">
                     Anyone can share & comment
-                </option>
-                <option value="0">
-                    Only friends can comment
                 </option>
             </select>
             <x-underline></x-underline>

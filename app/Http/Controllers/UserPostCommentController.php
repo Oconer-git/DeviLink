@@ -24,7 +24,7 @@ class UserPostCommentController extends Controller
         //validation
         $request->validate([
             'is_global' => 'boolean',
-            'content' => 'required|string|max:5776',
+            'content' => 'required|string|max:5776|',
             'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 

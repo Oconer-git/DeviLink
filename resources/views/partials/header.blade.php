@@ -48,6 +48,15 @@
         $('#show_followings').click(function(){
             $('#followings_modal').show();
         });
+
+        //click posts and redirect to comments
+        $('.post').click(function(){
+            console.log('div is clicked')
+            var post_id = $(this).data('post-id');
+            if(post_id) {
+                window.location.href = "/post/" + post_id;
+            }
+        })
     });
 </script>
 <body class="bg-gray-200 p-0 m-0 box-border">
