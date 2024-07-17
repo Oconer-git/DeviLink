@@ -16,6 +16,7 @@ use App\Models\Comment;
 use App\Models\PostLike;
 use App\Models\Reply;
 use Carbon\Carbon;
+use App\Models\Share;
 
 class UsersController extends Controller
 {
@@ -206,8 +207,6 @@ class UsersController extends Controller
             foreach($post->comments as $comment) {
                 $comment_num += Reply::where('comment_id',$comment->id)->get()->count(); 
             }
-            //check if the user liked the post
-            $post->liked = PostLike::where('post_id', Auth()->user()->id)->where('user_id', Auth::id())->first();
             //add replies and comments to get total comments
             $post->comments = $post->comments->count() + $comment_num; 
             $post->date_time = $this->date_format($post->created_at);
@@ -361,6 +360,7 @@ class UsersController extends Controller
             //get number of likes
             $post->likes = PostLike::where('post_id',$post->id)->get()->count(); 
             //get number of shares
+            $post->shares = Share::where('post_id',$post->id)->get()->count();
         }
 
         return $all_posts;
@@ -394,7 +394,19 @@ class UsersController extends Controller
     }
 
     public function testing() {
-
+        $shared = DB::table('shares')
+                    ->where('shares.user_id',13)
+                    ->leftJoin('posts', 'shares.post_id', '=', 'posts.id')
+                    ->leftJoin('users', 'posts.user_id', '=', 'users.id')
+                    ->select('posts.*', 
+                            'users.first_name', 
+                            'users.last_name', 
+                            'users.username', 
+                            'users.profile_picture',
+                            DB::raw('true as shared'))
+                    ->get();
+        $shared = $this->populate_post($shared);
+        dd($shared);
     }
     
 }

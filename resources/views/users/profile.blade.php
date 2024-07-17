@@ -65,18 +65,20 @@
     </section>
 </div>
 <!-- posts and shared -->
-@if (!$posts->isEmpty())
-    <!-- load all the posts of user here -->
-   @include('partials.posts_profile',['posts' => $posts, 
-                                      'user' => $user, 
-                                      'user_skills' => $user_skills
-                                    ])
-@else
-    <div class="w-full py-24 md:py-2 lg:pl-16 mx-auto px-10">
+<div class="w-full py-2 lg:pl-16 mx-auto px-10">
+    <h3 class="font-semibold mb-1 mt-14 text-xl text-slate-400">Posts</h3>
+    @if (!$posts->isEmpty())
+        <!-- load all the posts of user here -->
+    @include('partials.posts_profile',['posts' => $posts, 
+                                        'user' => $user, 
+                                        'user_skills' => $user_skills
+                                        ])
+    @else
         <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-gray-700/40 w-1/2 md:text-left md:w-80 md:mt-24 mx-auto md:mx-0 md:ml-24" viewBox="0 -960 960 960"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm40-80h480L570-480 450-320l-90-120-120 160Zm-40 80v-560 560Z"/></svg>
         <p class="text-center -mt-4 md:text-left md:ml-52 font-extrabold text-gray-700/30">No posts yet</p>
-    </div>
-@endif
+   
+    @endif
+</div>
 <!-- modal for showing followers -->
 @include('partials.followers_modal', ['followers' => $followers])
 <!-- modal for showing followers -->

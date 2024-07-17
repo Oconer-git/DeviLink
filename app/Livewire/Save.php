@@ -4,10 +4,10 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
-class Share extends Component
+class Save extends Component
 {
     public function render()
     {
-        return view('livewire.share');
+        return view('livewire.save');
     }
 }

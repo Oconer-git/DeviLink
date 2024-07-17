@@ -1,5 +1,4 @@
-<div class="w-full py-2 lg:pl-16 mx-auto px-10">
-    <h3 class="font-semibold mb-1 mt-14 text-xl text-slate-400">Posts</h3>
+
 <!-- devilink posts loop divs -->
     @foreach ($posts as $post)
         <div class="post bg-white hover:bg-slate-50 shadow-md drop-shadow-md rounded-md mb-6 px-6 pt-6 pb-3 w-full md:w-6/12"
@@ -42,4 +41,3 @@
             </div>
         </div>
     @endforeach
-</div>

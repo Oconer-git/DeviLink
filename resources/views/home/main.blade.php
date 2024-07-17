@@ -60,7 +60,7 @@
             @foreach ($posts as $post)
                 @if($post->id == null)
                 @else
-                <div class="post bg-whitesmoke hover:bg-slate-100 hover:shadow-lg hover:shadow-slate-300 shadow-md drop-shadow-sm rounded-md mx-auto mb-2 p-5"
+                <div class="post bg-whitesmoke hover:bg-slate-100 hover:shadow-lg hover:shadow-slate-300 shadow-md drop-shadow-sm rounded-md mx-auto mb-2 pt-5 px-5 pb-3"
                     data-post-id="{{$post->id}}">
                     <!-- profile picture -->
                     <img src="{{ asset($post->profile_picture) }}" class="w-11 h-11 rounded-full border-2 shadow-md inline" alt="devilink logo">
@@ -92,7 +92,7 @@
                                     <svg xmlns="http://www.w3.org/2000/svg"  class="ml-1 fill-current w-4 h-4 inline text-green-500" viewBox="0 -960 960 960"><path d="M40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm720 0v-120q0-44-24.5-84.5T666-434q51 6 96 20.5t84 35.5q36 20 55 44.5t19 53.5v120H760ZM360-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm400-160q0 66-47 113t-113 47q-11 0-28-2.5t-28-5.5q27-32 41.5-71t14.5-81q0-42-14.5-81T544-792q14-5 28-6.5t28-1.5q66 0 113 47t47 113ZM120-240h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0 320Zm0-400Z"/></svg>
                                 @endif
                                 <p class="inline text-gray-400 text-xs">{{$post->date_time}}</p> 
-                            </div>        
+                            </div>          
                         @endif
                     </section>
                     <section class="mb-6">
@@ -105,19 +105,25 @@
                     </section>    
                     <x-underline></x-underline>
                     <div class="flex justify-between px-10">
+                        <!-- like -->
                         <div class="livewire-component text-center">
                             @livewire('like',['post_id' => $post->id, 'likes_post' => $post->likes, 'is_profile' => true, 'is_home' => true])
                         </div>
-                        <div class="text-center pt-[2px]">
+                        <!-- show comments -->
+                        <div class="text-center pt-[4px]">
                             <a href="/post/{{$post->id}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-7 fill-current text-gray-500 hover:text-yellow-600" viewBox="0 -960 960 960"><path d="M240-400h480v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM880-80 720-240H160q-33 0-56.5-23.5T80-320v-480q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v720ZM160-320h594l46 45v-525H160v480Zm0 0v-480 480Z"/></svg>
-                                <p class="text-cyan-600 text-xs">{{$post->comments}}</p>
+                                <p class="text-cyan-600 text-xs -mt-[2.5px]">{{$post->comments}}</p>
                             </a>
                         </div>
+                        <!-- share or save -->
                         <div class="livewire-component text-center">
-                            @livewire('share')
+                            @if(($post->is_global) == true)
+                                @livewire('share-post', ['post_id' => $post->id, 'shares' => $post->shares])
+                            @else
+                                @livewire('save')
+                            @endif
                         </div>
-                       
                     </div>
                 </div>
                 <x-underline></x-underline>
