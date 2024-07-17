@@ -22,7 +22,9 @@ class Follow extends Component
             'liker_id' => 'required|numeric'
         ]);
 
-        $link = Follower::where('user_id', Auth::user()->id)->where('following_id', $this->liker_id)->first(['id','user_id','following_id','accepted']);
+        $link = Follower::where('user_id', Auth::user()->id)
+                        ->where('following_id', $this->liker_id)
+                        ->first(['id','user_id','following_id','accepted']);
         if ($link) {
             if ($link->accepted) {
                 // If the user is already following the liker, then unfollow

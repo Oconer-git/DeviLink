@@ -15,6 +15,7 @@ use App\Models\Post;
 use App\Models\Comment;
 use App\Models\PostLike;
 use App\Models\Reply;
+use Carbon\Carbon;
 
 class UsersController extends Controller
 {
@@ -63,10 +64,11 @@ class UsersController extends Controller
                                     ->values()
                                     ->all();
         
-    
+        
         $viewdata['suggest_users'] = $this->suggest_users(); //suggest which users to follow to user
         // add skills, date format, number of comments and likes to the post
         $viewdata['posts'] = $this->populate_post($all_posts);
+        $viewdata['trending_posts'] = $this->get_trending(2);
 
         return view('home.main')->with($viewdata);
     }
@@ -358,39 +360,41 @@ class UsersController extends Controller
             $post->comments = $post->comments->count() + $comment_num; 
             //get number of likes
             $post->likes = PostLike::where('post_id',$post->id)->get()->count(); 
+            //get number of shares
         }
 
         return $all_posts;
 
     }
 
+    private function get_trending($limit){
+        $posts = DB::table('posts')
+                    ->where('is_global', true)
+                    ->whereNotNull('image')
+                    ->where('posts.created_at', '>', Carbon::now()->subWeek()) // Filter posts created in the last week
+                    ->leftJoin('users', 'posts.user_id', '=', 'users.id')
+                    ->leftJoin('postlikes', 'postlikes.post_id', '=', 'posts.id')
+                    ->select(
+                        'posts.*', 
+                        'users.first_name', 
+                        'users.last_name', 
+                        'users.username', 
+                        'users.profile_picture',
+                        DB::raw('COUNT(postlikes.post_id) as likes') //get lieks
+                    )
+                    ->groupBy('posts.id', 'users.id') // Grouping by the primary keys of the posts and users tables
+                    ->orderBy('likes', 'desc')
+                    ->limit($limit) // Limits the number of results to 2
+                    ->get();
+
+        foreach($posts as $post) {
+            $post->content = substr($post->content,0,74) .'....';
+        }
+        return $posts;
+    }
+
     public function testing() {
 
-       $users = DB::table('users')
-                    ->select('id','first_name','last_name','profile_picture','username')
-                    ->orderBy('created_at','desc')
-                    ->get();
-        $count = 0;
-        $suggest_users = [];
-        foreach($users as $user) {
-            if($user->id == Auth::id()) {
-                continue;
-            }
-            $ifFollowed = Follower::where('user_id',Auth::id())
-                                    ->where('following_id',$user->id)
-                                    ->exists();
-            if(!$ifFollowed) {
-                $suggest_users[] = $user;
-                $count++;
-            }
-            
-            if($count >= 3) {
-                break;
-            }
-        }
-        
-        dd($suggest_users);
-        die();
     }
     
 }

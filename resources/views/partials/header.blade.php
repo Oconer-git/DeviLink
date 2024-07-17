@@ -51,15 +51,7 @@
 
         //click posts and redirect to comments
         $('.post').click(function(){
-            // console.log('div is clicked')
-            // var post_id = $(this).data('post-id');
-            // if(post_id) {
-            //     window.location.href = "/post/" + post_id;
-            // }
-            // else {
-            //     event.stopPropagation();
-            // }
-
+            //stop propagation, there is livewire on like button
             if ($(event.target).closest('.livewire-component').length === 0) {
                 var post_id = $(this).data('post-id');
                 if (post_id) {
@@ -67,7 +59,6 @@
                 }
             } 
             else {
-                // Prevent the click event from propagating to the parent div
                 event.stopPropagation();
             }
         })
