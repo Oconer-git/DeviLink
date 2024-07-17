@@ -220,8 +220,22 @@ class UsersController extends Controller
         }
         $viewdata['likes'] = $likes;
 
+        //get shared posts
+        $shared_posts = DB::table('shares')
+                    ->where('shares.user_id',$user->id)
+                    ->leftJoin('posts', 'shares.post_id', '=', 'posts.id')
+                    ->leftJoin('users', 'posts.user_id', '=', 'users.id')
+                    ->select('posts.*', 
+                            'users.first_name', 
+                            'users.last_name', 
+                            'users.username', 
+                            'users.profile_picture',
+                            DB::raw('true as shared'))
+                    ->get();
+        $viewdata['shared_posts'] = $this->populate_post($shared_posts);
+
         if($username == Auth::user()->username) {
-                return view('users.own_profile', $viewdata);
+            return view('users.own_profile', $viewdata);
         }
         else {
             return view('users.profile', $viewdata);

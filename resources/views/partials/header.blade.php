@@ -62,6 +62,25 @@
                 event.stopPropagation();
             }
         })
+
+        $('.show_posts').click(function(){
+            $('.user_shared').hide();
+            $('#post_label').removeClass('text-slate-500');
+            $('#post_label').addClass('text-purple-600');
+            $('#shared_label').removeClass('text-orange-600');
+            $('#shared_label').addClass('text-slate-500');
+            $('.user_posts').show();
+        });
+
+        
+        $('.show_shared').click(function(){
+            $('.user_posts').hide();
+            $('#post_label').removeClass('text-purple-600');
+            $('#post_label').addClass('text-slate-500');
+            $('#shared_label').removeClass('text-slate-500');
+            $('#shared_label').addClass('text-orange-600');
+            $('.user_shared').show();
+        });
     });
 </script>
 <body class="bg-gray-200 p-0 m-0 box-border">
