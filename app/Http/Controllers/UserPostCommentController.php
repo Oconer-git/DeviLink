@@ -128,27 +128,6 @@ class UserPostCommentController extends Controller
                     ->with('liked',$liked);
     }
 
-    public function like_post(Request $request) {
-        //validated post_id
-        $validate = $request->validate(['post_id' => 'required|numeric']);
-
-        //check if liked
-        $user_id = Auth::user()->id;
-        $liked = PostLike::where('post_id',$request->post_id)->where('user_id', $user_id)->first();
-
-        if($liked != null) {
-            //unlike
-            $liked->delete();
-        }
-        else{
-            $like = new PostLike;
-            $like->user_id = $user_id;
-            $like->post_id = $validate['post_id'];
-            $like->save();
-        }
-        return redirect()->back();
-    }
-
     public function comment(Request $request) {
         $validate = $request->validate([
             'post_id' => 'required|numeric',
