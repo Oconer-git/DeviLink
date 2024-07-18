@@ -26,9 +26,11 @@ class UsersController extends Controller
     }
 
     public function main() {
+        $user_id = Auth::id();
+
         //get posts from followings
         $friends_posts = DB::table('followers')
-                            ->where('followers.user_id', Auth::id()) // Specify the table for user_id
+                            ->where('followers.user_id', $user_id) // Specify the table for user_id
                             ->where('followers.accepted', true) // Specify the table for accepted
                             ->leftJoin('posts', 'followers.following_id', '=', 'posts.user_id')
                             ->leftJoin('users', 'posts.user_id', '=','users.id')
@@ -43,18 +45,25 @@ class UsersController extends Controller
                             ->limit(30)
                             ->get();
         
+
         $global_posts = DB::table('posts')
-                            ->where('is_global', true)
-                            ->leftJoin('users', 'posts.user_id', '=','users.id')
-                            ->select('posts.*', 
-                                    'users.first_name', 
-                                    'users.last_name', 
-                                    'users.username', 
-                                    'users.profile_picture',
-                                    DB::raw('2 as priority'),
-                            )
-                            ->limit(20) // Select only the columns from posts table
-                            ->get();
+                        ->where('is_global', true)
+                        ->leftJoin('users', 'posts.user_id', '=', 'users.id')
+                        ->leftJoin('followers', function($join) use ($user_id) {
+                            $join->on('users.id', '=', 'followers.following_id')
+                                ->where('followers.user_id', '=', $user_id);
+                        })
+                        ->whereNull('followers.accepted') 
+                        // Ensure the followers.id is null, meaning the authenticated user is not following the post's user
+                        ->select('posts.*', 
+                                'users.first_name', 
+                                'users.last_name', 
+                                'users.username', 
+                                'users.profile_picture',
+                                DB::raw('2 as priority')
+                        )
+                        ->limit(20)
+                        ->get(); // Retrieve the results
 
         // Combine both queries using union and order by priority and created_at
         $all_posts = $friends_posts->merge($global_posts)
@@ -72,10 +81,6 @@ class UsersController extends Controller
         $viewdata['trending_posts'] = $this->get_trending(2);
 
         return view('home.main')->with($viewdata);
-    }
-
-    public function comments() {
-        return view('home.comments');
     }
 
     public function profile($username) {
@@ -410,19 +415,27 @@ class UsersController extends Controller
     }
 
     public function testing() {
-        $shared = DB::table('shares')
-                    ->where('shares.user_id',13)
-                    ->leftJoin('posts', 'shares.post_id', '=', 'posts.id')
-                    ->leftJoin('users', 'posts.user_id', '=', 'users.id')
-                    ->select('posts.*', 
-                            'users.first_name', 
-                            'users.last_name', 
-                            'users.username', 
-                            'users.profile_picture',
-                            DB::raw('true as shared'))
-                    ->get();
-        $shared = $this->populate_post($shared);
-        dd($shared);
+        $user_id = Auth::id();
+
+        $global_posts = DB::table('posts')
+                        ->where('is_global', true)
+                        ->leftJoin('users', 'posts.user_id', '=', 'users.id')
+                        ->leftJoin('followers', function($join) use ($user_id) {
+                            $join->on('users.id', '=', 'followers.following_id')
+                                ->where('followers.user_id', '=', $user_id);
+                        })
+                        ->whereNull('followers.accepted') 
+                        // Ensure the followers.id is null, meaning the authenticated user is not following the post's user
+                        ->select('posts.*', 
+                                'users.first_name', 
+                                'users.last_name', 
+                                'users.username', 
+                                'users.profile_picture',
+                                DB::raw('2 as priority')
+                        )
+                        ->limit(20)
+                        ->get(); // Retrieve the results
+        dd($global_posts);
     }
     
 }
