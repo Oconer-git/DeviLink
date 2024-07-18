@@ -4,10 +4,10 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
-class Save extends Component
+class SavePost extends Component
 {
     public function render()
     {
-        return view('livewire.save');
+        return view('livewire.save-post');
     }
 }

@@ -121,7 +121,7 @@
                             @if(($post->is_global) == true)
                                 @livewire('share-post', ['post_id' => $post->id, 'shares' => $post->shares])
                             @else
-                                @livewire('save')
+                                @livewire('save-post')
                             @endif
                         </div>
                     </div>

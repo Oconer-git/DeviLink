@@ -210,6 +210,8 @@ class UsersController extends Controller
             //add replies and comments to get total comments
             $post->comments = $post->comments->count() + $comment_num; 
             $post->date_time = $this->date_format($post->created_at);
+            //get number of shares
+            $post->shares = Share::where('post_id',$post->id)->get()->count();
         }
         $viewdata['posts'] = $posts;
 
