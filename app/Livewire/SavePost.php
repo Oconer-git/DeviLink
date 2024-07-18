@@ -26,7 +26,7 @@ class SavePost extends Component
         $saved_post->user_id = Auth::id();
         $saved_post->post_id = $this->post_id;
         $saved_post->save();
-        $this->if_saved = true;
+        $this->if_saved = true; 
     }
 
     private function check_if_saved($post_id) {

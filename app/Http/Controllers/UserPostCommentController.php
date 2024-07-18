@@ -14,6 +14,7 @@ use App\Models\Reply;
 use App\Models\ReplyLike;
 use App\Models\CommentLike;
 use App\Models\Follower;
+use App\Models\Share;
 use DateTime;
 
 class UserPostCommentController extends Controller
@@ -24,7 +25,7 @@ class UserPostCommentController extends Controller
         //validation
         $request->validate([
             'is_global' => 'boolean',
-            'content' => 'required|string|max:5776|',
+            'content' => 'required_without:picture|string|max:5776|',
             'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -79,9 +80,12 @@ class UserPostCommentController extends Controller
         } 
         //see if user liked the post
         $liked = PostLike::where('post_id',$id)->where('user_id', Auth::user()->id)->first();
+        $shares = Share::where('post_id',$id)->get()->count();
         //get comments
         $comments = Comment::where('post_id',$id)->get(['comment', 'image', 'user_id', 'created_at','id']);
-    
+        //get number of comments
+        $comments_num = $comments->count();
+        
         if($comments != null) {
             foreach($comments as $comment) {
                 //change the comment of date to human readable
@@ -107,31 +111,37 @@ class UserPostCommentController extends Controller
                         //get total likes for each reply
                         $reply->likes = ReplyLike::where('reply_id',$reply->id)->get()->count();
                     }
+
+                    //add number of replies to comments
+                    $comments_num += $comment->replies->count();
                 }         
             }
         }
 
         //get the data and time the post was posted
         $date_posted = $this->date_format($post->created_at);
-
+        
         $view_data = [
                       'post' => $post,
                       'poster' => $poster,
                       'skills' => $skills,
                       'likers' => $likers_array,
-                      'comments' => $comments
+                      'comments' => $comments,
+                      'shares' => $shares
                      ];
         
         return view('home.comments',$view_data)
                     ->with('date_posted',$date_posted)
                     ->with('likes_post',$likers->count())
-                    ->with('liked',$liked);
+                    ->with('liked',$liked)
+                    ->with('comments_num',$comments_num)
+                    ->with('shares',$shares);
     }
 
     public function comment(Request $request) {
         $validate = $request->validate([
             'post_id' => 'required|numeric',
-            'comment' => 'required|string|max:5049',
+            'comment' => 'required_without:image|max:5049',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         

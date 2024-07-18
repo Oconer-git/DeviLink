@@ -11,6 +11,7 @@ class SharePost extends Component
     public $post_id;
     public $if_shared;
     public $shares;
+    public $is_post;
 
     public function mount($post_id) {
         $this->post_id = $post_id;

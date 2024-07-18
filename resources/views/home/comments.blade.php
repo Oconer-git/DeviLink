@@ -28,17 +28,28 @@
             <section class="inline-block align-top">
                 <p class="inline text-gray-600 font-medium">{{$poster->first_name}} {{$poster->last_name}}</p>
                 <a href="/profile/{{$poster->username}}" class="inline text-blue-600 hover:text-blue-700 text-sm font-light hover:drop-shadow-xl">{{'@'.$poster->username}} </a>
-                <figure class="inline text-purple-500 ">
-                    @if(($post->is_global) == true)
-                        <svg xmlns="http://www.w3.org/2000/svg"  class="ml-4 fill-current w-4 h-4 inline" viewBox="0 -960 960 960" ><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm-40-82v-78q-33 0-56.5-23.5T360-320v-40L168-552q-3 18-5.5 36t-2.5 36q0 121 79.5 212T440-162Zm276-102q20-22 36-47.5t26.5-53q10.5-27.5 16-56.5t5.5-59q0-98-54.5-179T600-776v16q0 33-23.5 56.5T520-680h-80v80q0 17-11.5 28.5T400-560h-80v80h240q17 0 28.5 11.5T600-440v120h40q26 0 47 15.5t29 40.5Z"/></svg>
-                    @else
-                        <svg xmlns="http://www.w3.org/2000/svg"  class="ml-4 fill-current w-4 h-4 inline" viewBox="0 -960 960 960"><path d="M40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm720 0v-120q0-44-24.5-84.5T666-434q51 6 96 20.5t84 35.5q36 20 55 44.5t19 53.5v120H760ZM360-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm400-160q0 66-47 113t-113 47q-11 0-28-2.5t-28-5.5q27-32 41.5-71t14.5-81q0-42-14.5-81T544-792q14-5 28-6.5t28-1.5q66 0 113 47t47 113ZM120-240h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0 320Zm0-400Z"/></svg>
-                    @endif
-                    <p class="inline text-gray-400 text-xxs ml-0">{{$date_posted}}</p>
-                </figure>
-                <!-- //skills -->
-                @if(isset($skills))
+                @if(!$skills->isEmpty())
+                    <figure class="inline text-purple-500 ">
+                        @if(($post->is_global) == true)
+                            <svg xmlns="http://www.w3.org/2000/svg"  class="ml-4 fill-current w-4 h-4 inline" viewBox="0 -960 960 960" ><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm-40-82v-78q-33 0-56.5-23.5T360-320v-40L168-552q-3 18-5.5 36t-2.5 36q0 121 79.5 212T440-162Zm276-102q20-22 36-47.5t26.5-53q10.5-27.5 16-56.5t5.5-59q0-98-54.5-179T600-776v16q0 33-23.5 56.5T520-680h-80v80q0 17-11.5 28.5T400-560h-80v80h240q17 0 28.5 11.5T600-440v120h40q26 0 47 15.5t29 40.5Z"/></svg>
+                        @else
+                            <svg xmlns="http://www.w3.org/2000/svg"  class="ml-4 fill-current w-4 h-4 inline" viewBox="0 -960 960 960"><path d="M40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm720 0v-120q0-44-24.5-84.5T666-434q51 6 96 20.5t84 35.5q36 20 55 44.5t19 53.5v120H760ZM360-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm400-160q0 66-47 113t-113 47q-11 0-28-2.5t-28-5.5q27-32 41.5-71t14.5-81q0-42-14.5-81T544-792q14-5 28-6.5t28-1.5q66 0 113 47t47 113ZM120-240h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0 320Zm0-400Z"/></svg>
+                        @endif
+                        <p class="inline text-gray-400 text-xxs ml-0">{{$date_posted}}</p>
+                    </figure>
+                    <!-- //skills -->
                     @include('partials.skills_load', ['skills' => $skills])
+                @else
+                    <div class="-mt-1 w-[300px] md:w-[370px]">
+                        <figure class="inline text-purple-500 ">
+                            @if(($post->is_global) == true)
+                                <svg xmlns="http://www.w3.org/2000/svg"  class="fill-current w-4 h-4 inline" viewBox="0 -960 960 960" ><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm-40-82v-78q-33 0-56.5-23.5T360-320v-40L168-552q-3 18-5.5 36t-2.5 36q0 121 79.5 212T440-162Zm276-102q20-22 36-47.5t26.5-53q10.5-27.5 16-56.5t5.5-59q0-98-54.5-179T600-776v16q0 33-23.5 56.5T520-680h-80v80q0 17-11.5 28.5T400-560h-80v80h240q17 0 28.5 11.5T600-440v120h40q26 0 47 15.5t29 40.5Z"/></svg>
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg"  class="fill-current w-4 h-4 inline" viewBox="0 -960 960 960"><path d="M40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm720 0v-120q0-44-24.5-84.5T666-434q51 6 96 20.5t84 35.5q36 20 55 44.5t19 53.5v120H760ZM360-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm400-160q0 66-47 113t-113 47q-11 0-28-2.5t-28-5.5q27-32 41.5-71t14.5-81q0-42-14.5-81T544-792q14-5 28-6.5t28-1.5q66 0 113 47t47 113ZM120-240h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0 320Zm0-400Z"/></svg>
+                            @endif
+                            <p class="inline text-gray-400 text-xxs ml-0">{{$date_posted}}</p>
+                        </figure>      
+                    </div>
                 @endif
             </section>
             <section class="mb-6">
@@ -57,21 +68,28 @@
                 <!-- likes of post -->
                  @livewire('like',['post_id' => $post->id, 'likes_post' => $likes_post])
                 <!-- number of comments -->
-                <figure class="inline-block ml-2">
+                <figure class="inline-block ml-3">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 inline fill-current text-gray-400" viewBox="0 -960 960 960"><path d="M240-400h480v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM880-80 720-240H160q-33 0-56.5-23.5T80-320v-480q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v720ZM160-320h594l46 45v-525H160v480Zm0 0v-480 480Z"/></svg>
-                    <p class="text-gray-600 text-xxs md:text-sm inline align-bottom">325</p>
+                    <p class="text-gray-600 text-xxs md:text-sm mr-2 inline align-bottom">
+                        {{$comments_num}}
+                    </p>
                 </figure>
                 <!-- share button -->
-                <form class="inline-block text-gray-500 hover:text-orange-600 ml-2">
+                 @livewire('share-post',['post_id' => $post->id, 'is_post' => true])
+                <!-- <form class="inline-block text-gray-500 hover:text-orange-600 ml-2">
                     <button type="submit">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 inline fill-current " viewBox="0 -960 960 960"><path d="m600-200-56-57 143-143H300q-75 0-127.5-52.5T120-580q0-75 52.5-127.5T300-760h20v80h-20q-42 0-71 29t-29 71q0 42 29 71t71 29h387L544-624l56-56 240 240-240 240Z"/></svg>                        
                     </button>
-                </form>
+                </form> -->
                 <!-- number of shares -->
-                <p class="text-gray-600 text-xxs md:text-sm inline align-bottom ">325</p>
             </section>
             <!-- comments -->
-            <div class="px-4 py-4 text-gray-800 lg:h-screen lg:overflow-y-auto medium-scrollbar">
+            @if($comments->isEmpty())
+            <div class="px-4 py-4 bg-whitesmoke text-gray-800 lg:h-[350px] lg:overflow-y-auto medium-scrollbar">
+            @else
+            <div class="px-4 py-4 bg-whitesmoke text-gray-800 lg:h-screen lg:overflow-y-auto medium-scrollbar">
+            @endif
+
                 <!-- comment form textbox input -->
                 <section class="flex flex-row align-middle mb-6">
                     <img src="{{ asset($profile_picture) }}" class="w-11 h-11 rounded-full border-2 shadow-md inline-block mr-1" alt="profile">
@@ -123,7 +141,7 @@
                                 </p> 
                                 <!-- image -->
                                 @if ($comment->image != null)
-                                    <img src="{{ asset($comment->image) }}" class="w-full md:w-8/12 p-3 -mt-1 rounded-2xl" alt="image">
+                                    <img src="{{ asset($comment->image) }}" class="w-full md:w-7/12 p-3 -mt-2 -mb-4 rounded-2xl" alt="image">
                                 @endif
                                 <!-- number of likes -->
                                 @livewire('like-comment',['comment_id' => $comment->id, 'comment_likes' => $comment->likes])
@@ -178,7 +196,6 @@
                         @endforeach
                     @endif
                 </article>
-           
             </div>
         </aside>
     </div>
