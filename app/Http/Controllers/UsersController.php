@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Skill;
 use App\Models\Follower;
@@ -17,9 +17,11 @@ use App\Models\PostLike;
 use App\Models\Reply;
 use Carbon\Carbon;
 use App\Models\Share;
+use App\SharedMethods;
 
 class UsersController extends Controller
 {
+    use SharedMethods;
 
     public function login() {
         return view('users.index');
@@ -43,6 +45,7 @@ class UsersController extends Controller
                                     DB::raw('true as friends'),
                                     ) // Select only the columns from posts table
                             ->limit(30)
+                            ->orderBy('created_at','desc')
                             ->get();
         
 
@@ -63,6 +66,7 @@ class UsersController extends Controller
                                 DB::raw('2 as priority')
                         )
                         ->limit(20)
+                        ->orderBy('created_at','desc')
                         ->get(); // Retrieve the results
 
         // Combine both queries using union and order by priority and created_at
@@ -74,10 +78,9 @@ class UsersController extends Controller
                                     ->values()
                                     ->all();
         
-        
+        $viewdata['posts'] = $this->populate_post($all_posts);
         $viewdata['suggest_users'] = $this->suggest_users(); //suggest which users to follow to user
         // add skills, date format, number of comments and likes to the post
-        $viewdata['posts'] = $this->populate_post($all_posts);
         $viewdata['trending_posts'] = $this->get_trending(2);
 
         return view('home.main')->with($viewdata);
@@ -238,6 +241,7 @@ class UsersController extends Controller
                             'users.username', 
                             'users.profile_picture',
                             DB::raw('true as shared'))
+                    ->orderBy('posts.created_at','asc')
                     ->get();
         $viewdata['shared_posts'] = $this->populate_post($shared_posts);
 
@@ -300,142 +304,39 @@ class UsersController extends Controller
         return redirect('/');
     }
 
-    private function date_format($date) {
-        $timestamp = strtotime($date);
-        $current_timestamp = time();
-        $difference = $current_timestamp - $timestamp;
-    
-        if ($difference < 60) {
-            return "Just now";
-        } elseif ($difference < 3600) {
-            $minutes = floor($difference / 60);
-            return $minutes . " minutes ago";
-        } elseif ($difference < 86400) {
-            $hours = floor($difference / 3600);
-            return $hours . " hours ago";
-        } elseif ($difference < 172800) { // 1 day (24 hours)
-            return "1 day ago";
-        } elseif ($difference < 259200) { // 2 days
-            return "2 days ago";
-        } elseif ($difference < 345600) { // 3 days
-            return "3 days ago";
-        } elseif ($difference < 432000) { // 4 days
-            return "4 days ago";
-        } elseif ($difference < 518400) { // 5 days
-            return "5 days ago";
-        } elseif ($difference < 604800) { // 6 days
-            return "6 days ago";
-        } elseif ($difference < 1209600) { // 1 week
-            return "1 week ago";
-        } else {
-            // Set it to readable date
-            return date('F j, Y', $timestamp);
-        }
-    }
-
-    private function suggest_users() {
-        $users = DB::table('users')
-                    ->select('id','first_name','last_name','profile_picture','username')
-                    ->orderBy('created_at','desc')
-                    ->get();
-        $count = 0;
-        $suggest_users = [];
-        foreach($users as $user) {
-            if($user->id == Auth::id()) {
-                continue;
-            }
-            $ifFollowed = Follower::where('user_id',Auth::id())
-                                    ->where('following_id',$user->id)
-                                    ->exists();
-            if(!$ifFollowed) {
-                $suggest_users[] = $user;
-                $count++;
-            }
-            
-            if($count >= 3) {
-                break;
-            }
-        }
-        return $suggest_users;
-    }
-
-    private function populate_post($all_posts) {
-        foreach($all_posts as $post) {
-            $post->skills = DB::table('skill_user')
-                                ->where('user_id', $post->user_id)
-                                ->leftJoin('skills', 'skill_user.skill_id', '=', 'skills.id')
-                                ->select('skills.name','skills.bg_color')
-                                ->get();
-            $post->date_time = $this->date_format($post->created_at);
-            $post->comments = Comment::where('post_id',$post->id)->get();
-            //get number of comments
-            $comment_num = 0;
-            //get number of replies
-            foreach($post->comments as $comment) {
-                $comment_num += Reply::where('comment_id',$comment->id)->get()->count(); 
-            }
-            //check if the user liked the post
-            $post->liked = PostLike::where('post_id', Auth()->user()->id)->where('user_id', Auth::id())->first();
-            //add replies and comments to get total comments
-            $post->comments = $post->comments->count() + $comment_num; 
-            //get number of likes
-            $post->likes = PostLike::where('post_id',$post->id)->get()->count(); 
-            //get number of shares
-            $post->shares = Share::where('post_id',$post->id)->get()->count();
-        }
-
-        return $all_posts;
-
-    }
-
-    private function get_trending($limit){
-        $posts = DB::table('posts')
-                    ->where('is_global', true)
-                    ->whereNotNull('image')
-                    ->where('posts.created_at', '>', Carbon::now()->subWeek()) // Filter posts created in the last week
-                    ->leftJoin('users', 'posts.user_id', '=', 'users.id')
-                    ->leftJoin('postlikes', 'postlikes.post_id', '=', 'posts.id')
-                    ->select(
-                        'posts.*', 
-                        'users.first_name', 
-                        'users.last_name', 
-                        'users.username', 
-                        'users.profile_picture',
-                        DB::raw('COUNT(postlikes.post_id) as likes') //get lieks
-                    )
-                    ->groupBy('posts.id', 'users.id') // Grouping by the primary keys of the posts and users tables
-                    ->orderBy('likes', 'desc')
-                    ->limit($limit) // Limits the number of results to 2
-                    ->get();
-
-        foreach($posts as $post) {
-            $post->content = substr($post->content,0,74) .'....';
-        }
-        return $posts;
-    }
-
     public function testing() {
-        $user_id = Auth::id();
+        $users = DB::table('users')
+                    ->where(function($query) {
+                        $query->where('first_name','like','%Donell%')
+                        ->orWhere('users.last_name', 'like', '%Donell%')
+                        ->orWhere('users.username', 'like', '%Donell%');
+                    })
+                    ->select('id','first_name','last_name','profile_picture','username')
+                    ->get();
+                    
 
         $global_posts = DB::table('posts')
-                        ->where('is_global', true)
                         ->leftJoin('users', 'posts.user_id', '=', 'users.id')
-                        ->leftJoin('followers', function($join) use ($user_id) {
-                            $join->on('users.id', '=', 'followers.following_id')
-                                ->where('followers.user_id', '=', $user_id);
+                        ->where(function($query) {
+                            $query->where('posts.content', 'like', '%Donell%')
+                                ->orWhere('users.first_name', 'like', '%Donell%')
+                                ->orWhere('users.last_name', 'like', '%Donell%')
+                                ->orWhere('users.username', 'like', '%Donell%');
                         })
-                        ->whereNull('followers.accepted') 
-                        // Ensure the followers.id is null, meaning the authenticated user is not following the post's user
-                        ->select('posts.*', 
-                                'users.first_name', 
-                                'users.last_name', 
-                                'users.username', 
-                                'users.profile_picture',
-                                DB::raw('2 as priority')
+                        ->where('posts.is_global', true)
+                        ->select(
+                            'posts.*', 
+                            'users.first_name', 
+                            'users.last_name', 
+                            'users.username', 
+                            'users.profile_picture',
+                            DB::raw('2 as priority')
                         )
                         ->limit(20)
+                        ->orderBy('posts.created_at', 'desc')
                         ->get(); // Retrieve the results
         dd($global_posts);
+     
     }
     
 }

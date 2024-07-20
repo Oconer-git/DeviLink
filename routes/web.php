@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\NavigateController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\UserSettingsContoller;
 use App\Http\Controllers\UserPostCommentController;
-
 
 Route::get('/',[UsersController::class,'main'])->name('main')->middleware('auth');
 Route::get('/login',[UsersController::class,'login'])->name('login');
@@ -33,8 +33,11 @@ Route::post('/reply',[UserPostCommentController::class,'reply'])->name('user.rep
 //for viewing post
 Route::get('/post/{id}',[UserPostCommentController::class,'view_post'])->name('view.post');
 
-//for testing
 
+//for searching
+Route::get('/search/{thing}',[NavigateController::class, 'search']);
+
+//for testing
 Route::get('/testing',[UsersController::class,'testing']);
 Route::get('/testing1',[UserSettingsContoller::class,'testing']);
 
