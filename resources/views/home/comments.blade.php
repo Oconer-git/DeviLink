@@ -66,7 +66,7 @@
             <!-- likes comments shares -->
             <section class="bg-gray-50 drop-shadow-sm border-b-2 rounded-lg px-8 py-2">
                 <!-- likes of post -->
-                 @livewire('like',['post_id' => $post->id, 'likes_post' => $likes_post])
+                @livewire('like',['post_id' => $post->id, 'likes_post' => $likes_post])
                 <!-- number of comments -->
                 <figure class="inline-block ml-3">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 inline fill-current text-gray-400" viewBox="0 -960 960 960"><path d="M240-400h480v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM880-80 720-240H160q-33 0-56.5-23.5T80-320v-480q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v720ZM160-320h594l46 45v-525H160v480Zm0 0v-480 480Z"/></svg>
@@ -75,12 +75,7 @@
                     </p>
                 </figure>
                 <!-- share button -->
-                 @livewire('share-post',['post_id' => $post->id, 'is_post' => true])
-                <!-- <form class="inline-block text-gray-500 hover:text-orange-600 ml-2">
-                    <button type="submit">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 inline fill-current " viewBox="0 -960 960 960"><path d="m600-200-56-57 143-143H300q-75 0-127.5-52.5T120-580q0-75 52.5-127.5T300-760h20v80h-20q-42 0-71 29t-29 71q0 42 29 71t71 29h387L544-624l56-56 240 240-240 240Z"/></svg>                        
-                    </button>
-                </form> -->
+                @livewire('share-post',['post_id' => $post->id, 'is_post' => true])
                 <!-- number of shares -->
             </section>
             <!-- comments -->

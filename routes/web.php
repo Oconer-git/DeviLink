@@ -36,6 +36,8 @@ Route::get('/post/{id}',[UserPostCommentController::class,'view_post'])->name('v
 
 //for searching
 Route::get('/search/{thing}',[NavigateController::class, 'search']);
+//searching form 
+Route::get('/input_search',[NavigateController::class, 'input_search'])->name('search');
 
 //for testing
 Route::get('/testing',[UsersController::class,'testing']);

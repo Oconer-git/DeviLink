@@ -78,6 +78,8 @@ class NavigateController extends Controller
         return view('home.search',$viewdata);
     }
 
-   
+    public function input_search(Request $request) {
+        return redirect('search/'.$request->search);
+    }
 
 }
