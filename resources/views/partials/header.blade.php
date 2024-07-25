@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="icon" href="{{asset('devilink_logo.svg')}}" type="image/x-icon">
+    <link rel="icon" href="{{asset('storage/images/tealbean_logo.svg')}}" type="image/x-icon">
     <!-- tailwind -->
     @vite('resources/css/app.css')
     <!--profile modals -->
     @vite('resources/js/own_profile.js')
     <!-- post form modals -->
     @vite('resources/js/posting.js')
-    <title>Devlink</title>
+    <title>Tealbean</title>
     @livewireStyles
 </head>
 <script>

@@ -1,11 +1,14 @@
 <nav class="fixed z-20 flex flex-row  justify-between bg-gradient-to-l from-purple-100 to-white w-full px-2 pt-2 border-b-gray-500/25 drop-shadow-md">
         <!-- logo -->
         <section>
-            <img src="{{ asset('storage/images/devilink_logo.png') }}" class="w-14 inline -mt-3" alt="devilink logo">
+            <img src="{{ asset('storage/images/tealbean_logo.svg') }}" class="w-11 inline -mt-1 md:-mt-3 p-1" alt="tealbean logo">
             <a href="/" class="inline md:hidden align-top">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 fill-current text-purple-300 hover:text-purple-800 inline" viewBox="0 -960 960 960"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 fill-current text-purple-300 hover:text-purple-800 inline -ml-3 mt-[2px]" viewBox="0 -960 960 960"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg>
             </a>
-            <a href="/" class="hidden md:inline font-extrabold text-2xl text-purple-200 hover:text-purple-300 my-auto">DEVILINK</a>
+            <a href="/" class="hidden md:inline font-extrabold text-2xl -ml-3 text-teal-800 hover:text-purple-300 my-auto">
+                Tealbean
+                <span class="text-red-800 font-medium text-xs -ml-1">beta</span>
+            </a>
         </section>
         <!-- search textbox -->
         <form action="{{route('search')}}" class="bg-gray-200 rounded-full shadow-md w-4/12 md:w-80 h-8 pt-1 px-4">
@@ -21,7 +24,7 @@
                 </p>
             </button>
             <button id="profile_settings" class="w-9 h-9 mx-auto border-2 rounded-full inline align-middle my-1">
-                <img src="{{ asset($profile_picture) }}" class="rounded-full border-2 border-gray-500" alt="devilink logo">
+                <img src="{{ asset($profile_picture) }}" class="rounded-full border-2 border-gray-500" alt="tealbean logo">
             </button>
             <p class="text-sm align-middle text-slate-500 inline">{{$first_name}}</p>
             <!-- settings dropdown -->

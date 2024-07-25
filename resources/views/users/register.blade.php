@@ -12,55 +12,9 @@
                 <span class="block sm:inline">{{session('error')}}</span>
             </div>
         @endif
-        <div class="flex flex-row">
-            <section class="hidden -ml-12 lg:block lg:w-8/12 text-center">
-                <fieldset id="devilink_label" class="hidden -mb-8">
-                    <h2 class="font-extrabold text-4xl text-orange-300 drop-shadow-lg inline">
-                        #tealbean
-                    </h2>
-                    <img src="{{asset('storage/images/tealbean_logo.png')}}" class="w-8 -ml-2 mb-2 inline"alt="">
-                </fieldset>
-                <fieldset id="main_field" class="hidden ml-3">
-                    <h1 class="inline font-extrabold text-5xl text-white drop-shadow-lg -mr-12">Meet</h1>
-                    <img src="{{ asset('storage/images/figure_landing.png')}}" class="w-7/12 mx-auto inline" id="main_picture" alt="devilink logo">
-                    <h2 class="inline font-extrabold text-5xl text-white drop-shadow-lg -ml-16">Coders</h2>
-                </fieldset>
-                <h2 id="online_label" class="hidden font-extrabold text-5xl text-blue-100 drop-shadow-lg -mt-8">Online</h2>
-            </section>
-            <form action="{{route('login.user')}}" method="POST" class="bg-gray-100 mt-5 mb-6 py-4 px-4 w-full sm:mx-auto md:mx-auto md:w-1/2 lg:w-4/12 rounded-lg shadow-xl">
-                @csrf
-                <div class="w-full h-32 bg-cover rounded-lg shadow-sm mb-2" style="background-image: url('{{  asset('storage/images/cover.png') }}');">
 
-                </div>
-                <!-- <img src="{{ asset('storage/images/tealbean_background.png') }}" class="w-48 h-48 shadow-lg drop-shadow-lg rounded mx-auto" alt="tealbeanlogo"> -->
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-                        Email
-                    </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="email" type="email" placeholder="user@email.com">
-                </div>
-                <div class="mb-9">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-                        Password 
-                    </label>
-                    <input class="shadow appearance-none borde rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="password" type="password">
-                    @if ($errors->any())
-                            <p class="text-red-500 text-sm inline">Incorrect password</p>
-                    @endif
-                </div>
-                <div class="flex items-center justify-between mb-6">
-                    <button type="submit" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                        Sign In
-                    </button>
-                    <a class="text-cyan-800 text-sm hover:text-cyan-900" href="/register_user">Register here</a>
-                </div>
-                <a href="{{ route('google.redirect') }}" class="btn btn-primary"> Login with Google </a>
-
-                <p class="text-center text-gray-500 text-xs">
-                    &copy;2020 Oconer Corp. All rights reserved.
-                </p>
-            </form>
-        
+        <div>
+            <h1>Hello World</h1>
         </div>
     </div>
     <!-- Main modal -->

@@ -20,11 +20,11 @@
     <!-- main content -->
     <div class="bg-gradient-to-l from-gray-200 to-gray-100/10 w-full mx-auto pt-[70px] px-4 pb-24"> 
         <!-- profile options and settings  -->
-        @include('partials.sidebar');
+        <x-sidebar></x-sidebar>
         <!-- main contents scroll -->
         <main class=" w-full sm:w-8/12 md:w-5/12 lg:w-5/12 mx-auto">
             <!-- post section  -->
-            <div class="bg-gray-100 group shadow-md drop-shadow-sm rounded-md h-24 mx-auto -mt-3 mb-2 p-4 border-t-2 border-t-slate-100 hover:border-t-blue-400 hover:bg-stone-100 transition duration-500">
+            <div class="bg-gray-100 group shadow-md drop-shadow-sm rounded-md h-24 mx-auto mb-2 p-4 border-t-2 border-t-slate-100 hover:border-t-blue-400 hover:bg-stone-100 transition duration-500">
                 <section class="p-2 ">
                     <img src="{{ asset($profile_picture) }}" class="w-12 h-12 border-2 group-hover:shadow-xl group-hover:shadow-blue-400 transition duration-500 rounded-full shadow-md inline" alt="devilink logo">
                     <!-- open modal when button is clicked -->

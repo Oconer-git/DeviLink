@@ -4,11 +4,11 @@
     <!-- main content -->
     <div class="bg-gradient-to-l from-gray-200 to-gray-100/10 w-full mx-auto pt-[70px] px-4 pb-24"> 
         <!-- profile options and settings  -->
-        @include('partials.sidebar');
+        <x-sidebar></x-sidebar>
         <!-- main contents scroll -->
         <main class=" w-full sm:w-8/12 md:w-5/12 lg:w-5/12 mx-auto">
             <!-- people section  -->
-            <h1 class="mb-2 -mt-5 font-bold text-slate-500 text-xl">People</h1>
+            <h1 class="mb-2 font-bold text-slate-500 text-xl">People</h1>
             @if($users != null)
                 @if($users->count() > 2)
                     <section class="bg-neutral-100 border-l-4 h-80 border-l-cyan-400 shadow-md drop-shadow-sm rounded-md mx-auto mb-2 py-5 px-2 overflow-y-auto small-scrollbar">

@@ -304,6 +304,9 @@ class UsersController extends Controller
         return redirect('/');
     }
 
+    public function register_user() {
+        return view('users.register');
+    }
     public function testing() {
         $users = DB::table('users')
                     ->where(function($query) {

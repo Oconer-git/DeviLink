@@ -5,12 +5,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\UserSettingsContoller;
 use App\Http\Controllers\UserPostCommentController;
+use App\Http\Controllers\GoogleLoginController;
 
 Route::get('/',[UsersController::class,'main'])->name('main')->middleware('auth');
 Route::get('/login',[UsersController::class,'login'])->name('login');
 Route::get('/comments',[UsersController::class,'comments']);
 Route::get('/profile/{username}',[UsersController::class,'profile'])->middleware('auth');;
 
+//for going to register page
+Route::get('/register_user',[UsersController::class,'register_user']);
 
 Route::post('/register',[UsersController::class,'register'])->name('register.user');
 Route::post('/login_user',[UsersController::class,'login_user'])->name('login.user');
@@ -33,7 +36,6 @@ Route::post('/reply',[UserPostCommentController::class,'reply'])->name('user.rep
 //for viewing post
 Route::get('/post/{id}',[UserPostCommentController::class,'view_post'])->name('view.post');
 
-
 //for searching
 Route::get('/search/{thing}',[NavigateController::class, 'search']);
 //searching form 
@@ -43,5 +45,8 @@ Route::get('/input_search',[NavigateController::class, 'input_search'])->name('s
 Route::get('/testing',[UsersController::class,'testing']);
 Route::get('/testing1',[UserSettingsContoller::class,'testing']);
 
+//Google authentication
+Route::get('/google/redirect', [GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');
+Route::get('/google/callback', [GoogleLoginController::class, 'handleGoogleCallback'])->name('google.callback');
 
 
