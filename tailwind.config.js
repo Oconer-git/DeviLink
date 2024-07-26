@@ -9,7 +9,8 @@ export default {
     extend: {
       display: 'Oswald, ui-serif', // Adds a new `font-display` class
       width: () => ({
-        'comments': '49%',
+        'half': '49%',
+        'registration': '57%'
       }),
       colors: {
          whitesmoke: '#FCFBFA',

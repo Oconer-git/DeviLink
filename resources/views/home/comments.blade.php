@@ -62,7 +62,7 @@
             </section>    
         </main>
         <!-- comment sidebar-->
-        <aside class="bg-whitesmoke w-full pb-96 sm:pb-12 rounded-md block mx-auto mt-2 align-top border-t-2 border-t-purple-500 lg:w-comments lg:inline-block lg:border-t-0 lg:border-l-4  lg:border-l-purple-500 ">
+        <aside class="bg-whitesmoke w-full pb-96 sm:pb-12 rounded-md block mx-auto mt-2 align-top border-t-2 border-t-purple-500 lg:w-half lg:inline-block lg:border-t-0 lg:border-l-4  lg:border-l-purple-500 ">
             <!-- likes comments shares -->
             <section class="bg-gray-50 drop-shadow-sm border-b-2 rounded-lg px-8 py-2">
                 <!-- likes of post -->

@@ -8,7 +8,7 @@ use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\DB;
-
+use Faker\Factory as Faker;
 
 class GoogleLoginController extends Controller
 {
@@ -22,19 +22,33 @@ class GoogleLoginController extends Controller
     {
         $googleUser = Socialite::driver('google')->stateless()->user();
 
-        dd($googleUser);
         $user = User::where('email', $googleUser->email)->first();
-        if(!$user)
-        {
-            $user = User::create(['first_name' => $googleUser->user->given_name, 
-                                  'last_name' => $googleUser->user->family_name,
+        
+        if(!$user) {
+            //generate username and check if username exist in database 'echo $faker->username;'
+            $faker = Faker::create();
+            $new_username = $faker->username;
+            $username_exists = User::where('username', $new_username)->exists();
+            if($username_exists) {
+                $new_username .= rand(0,2000);
+            }
+
+            if(isset($googleUser->user['family_name'])) {
+                $family_name = $googleUser->user['family_name'];
+            }   
+            else {
+                $family_name = null;
+            }
+            $user = User::create(['first_name' => $googleUser->user['given_name'], 
+                                  'last_name' => $family_name,
                                   'profile_picture' => 'storage/images/profiles/default_profile.jpg',
-                                  'email_verified_at' => now(),
                                   'email' => $googleUser->email, 
+                                  'username' => $new_username,
+                                  'email_verified_at' => now(),
                                   'password' => \Hash::make(rand(100000,999999))]);
         }
 
-        Auth::login($user);
+        auth()->login($user);
         $check = 0;
         
         DB::statement('SET GLOBAL FOREIGN_KEY_CHECKS = ?;',[$check]);

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +17,7 @@ use App\Models\Reply;
 use Carbon\Carbon;
 use App\Models\Share;
 use App\SharedMethods;
+use Faker\Factory as Faker;
 
 class UsersController extends Controller
 {
@@ -262,6 +262,8 @@ class UsersController extends Controller
             'email' => 'required|email|unique:users,email',
             'username' => 'required|string|min:3|max:20|unique:users,username|alpha_num:ascii|alpha_dash:ascii',
             'password' => 'required|string|min:7|confirmed',
+            'dob' => 'required|date|before:'. now()->subYears(12)->format('Y-m-d'),
+            'gender' => 'required|in:Male,Female'
         ]);
 
         $validated['profile_picture'] = 'storage/images/profiles/default_profile.jpg';
@@ -308,38 +310,13 @@ class UsersController extends Controller
         return view('users.register');
     }
     public function testing() {
-        $users = DB::table('users')
-                    ->where(function($query) {
-                        $query->where('first_name','like','%Donell%')
-                        ->orWhere('users.last_name', 'like', '%Donell%')
-                        ->orWhere('users.username', 'like', '%Donell%');
-                    })
-                    ->select('id','first_name','last_name','profile_picture','username')
-                    ->get();
-                    
-
-        $global_posts = DB::table('posts')
-                        ->leftJoin('users', 'posts.user_id', '=', 'users.id')
-                        ->where(function($query) {
-                            $query->where('posts.content', 'like', '%Donell%')
-                                ->orWhere('users.first_name', 'like', '%Donell%')
-                                ->orWhere('users.last_name', 'like', '%Donell%')
-                                ->orWhere('users.username', 'like', '%Donell%');
-                        })
-                        ->where('posts.is_global', true)
-                        ->select(
-                            'posts.*', 
-                            'users.first_name', 
-                            'users.last_name', 
-                            'users.username', 
-                            'users.profile_picture',
-                            DB::raw('2 as priority')
-                        )
-                        ->limit(20)
-                        ->orderBy('posts.created_at', 'desc')
-                        ->get(); // Retrieve the results
-        dd($global_posts);
-     
+        $faker = Faker::create();
+        $new_username = 'Kaiser';
+        $username_exists = User::where('username', $new_username)->exists();
+        if($username_exists) {
+            $new_username .= rand(0,2000);
+        }
+        echo $new_username;
     }
     
 }
