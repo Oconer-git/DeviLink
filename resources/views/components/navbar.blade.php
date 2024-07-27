@@ -26,24 +26,27 @@
             <button id="profile_settings" class="w-9 h-9 mx-auto border-2 rounded-full inline align-middle my-1">
                 <img src="{{ asset($profile_picture) }}" class="rounded-full border-2 border-gray-500" alt="tealbean logo">
             </button>
-            <p class="text-sm align-middle text-slate-500 inline">{{$first_name}}</p>
             <!-- settings dropdown -->
             <div id="profile_dropdown" class="hidden">
-                <div class="absolute right-4 top-14 w-44 p-2 z-20 flex flex-col bg-whitesmoke text-gray-500 rounded-sm shadow-2xl">
-                    <section class="hover:bg-slate-200 px-[5px] py-[2px] rounded-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="inline fill-current w-5" viewBox="0 -960 960 960"><path d="M200-246q54-53 125.5-83.5T480-360q83 0 154.5 30.5T760-246v-514H200v514Zm280-194q58 0 99-41t41-99q0-58-41-99t-99-41q-58 0-99 41t-41 99q0 58 41 99t99 41ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm80-80h400v-10q-42-35-93-52.5T480-280q-56 0-107 17.5T280-210v10Zm200-320q-25 0-42.5-17.5T420-580q0-25 17.5-42.5T480-640q25 0 42.5 17.5T540-580q0 25-17.5 42.5T480-520Zm0 17Z"/></svg>
-                        <a href="/profile/{{$username}}" class="text-sm py-1">Profile</a>
+                <div class="absolute right-4 top-14 w-52 z-20 flex py-2 flex-col bg-whitesmoke text-gray-500 rounded-md shadow-2xl">
+                    <section class="px-4 py-2 border-b-2 border-b-teal-400/50">
+                        <img src="{{ asset($profile_picture) }}" class="rounded-full w-12 border-2 inline-block align-middle border-teal-500" alt="tealbean logo">
+                        <p class="inline text-sm align-middle text-teal-700">{{$first_name}} {{$last_name}}</p>
                     </section>
-                    <section class="hover:bg-slate-200 px-[5px] py-[2px] rounded-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="inline fill-current w-5" viewBox="0 -960 960 960"><path d="M580-40q-25 0-42.5-17.5T520-100v-280q0-25 17.5-42.5T580-440h280q25 0 42.5 17.5T920-380v280q0 25-17.5 42.5T860-40H580Zm0-60h280v-32q-25-31-61-49.5T720-200q-43 0-79 18.5T580-132v32Zm140-140q25 0 42.5-17.5T780-300q0-25-17.5-42.5T720-360q-25 0-42.5 17.5T660-300q0 25 17.5 42.5T720-240ZM480-480Zm2-140q-58 0-99 41t-41 99q0 48 27 84t71 50v-90q-8-8-13-20.5t-5-23.5q0-25 17.5-42.5T482-540q14 0 25 5.5t19 14.5h90q-13-44-49.5-72T482-620ZM370-80l-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-85 65H696q-1-5-2-10.5t-3-10.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q24 25 54 42t65 22v184h-70Z"/></svg>
-                        <a href="/settings" class="text-sm  py-1">Settings</a>
+                    <section class="hover:bg-slate-200 px-[12px] py-[2px] rounded-sm group">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="inline fill-current w-4 group-hover:text-teal-700 group-hover:scale-110 duration-300" viewBox="0 -960 960 960"><path d="M200-246q54-53 125.5-83.5T480-360q83 0 154.5 30.5T760-246v-514H200v514Zm280-194q58 0 99-41t41-99q0-58-41-99t-99-41q-58 0-99 41t-41 99q0 58 41 99t99 41ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm80-80h400v-10q-42-35-93-52.5T480-280q-56 0-107 17.5T280-210v10Zm200-320q-25 0-42.5-17.5T420-580q0-25 17.5-42.5T480-640q25 0 42.5 17.5T540-580q0 25-17.5 42.5T480-520Zm0 17Z"/></svg>
+                        <a href="/profile/{{$username}}" class="inline align-middle text-sm py-1">Profile</a>
                     </section>
-                    <form action="{{route('logout')}}" method="POST" class="text-xs px-[5px] py-[2px] rounded-sm hover:bg-slate-200">
+                    <section class="hover:bg-slate-200 px-[12px] py-[2px] rounded-sm group">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="inline fill-current w-4  group-hover:text-cyan-800 group-hover:scale-110 duration-300" viewBox="0 -960 960 960"><path d="M580-40q-25 0-42.5-17.5T520-100v-280q0-25 17.5-42.5T580-440h280q25 0 42.5 17.5T920-380v280q0 25-17.5 42.5T860-40H580Zm0-60h280v-32q-25-31-61-49.5T720-200q-43 0-79 18.5T580-132v32Zm140-140q25 0 42.5-17.5T780-300q0-25-17.5-42.5T720-360q-25 0-42.5 17.5T660-300q0 25 17.5 42.5T720-240ZM480-480Zm2-140q-58 0-99 41t-41 99q0 48 27 84t71 50v-90q-8-8-13-20.5t-5-23.5q0-25 17.5-42.5T482-540q14 0 25 5.5t19 14.5h90q-13-44-49.5-72T482-620ZM370-80l-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-85 65H696q-1-5-2-10.5t-3-10.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q24 25 54 42t65 22v184h-70Z"/></svg>
+                        <a href="/settings" class="inline align-middle text-sm py-1">Settings</a>
+                    </section>
+                    <form action="{{route('logout')}}" method="POST" class="text-xs px-[12px] py-[2px] rounded-sm hover:bg-slate-200 group">
                         @csrf
-                        <button>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="inline fill-current w-5" viewBox="0 -960 960 960"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
+                        <button type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="inline fill-current w-4 group-hover:text-red-800 group-hover:scale-110 duration-300" viewBox="0 -960 960 960"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
+                            <p class="text-sm inline align-middle py-1">Log Out</p>
                         </button>
-                        <input type="submit" class="text-sm py-1" value="Log Out">
                     </form>
                 </div>
             </div>

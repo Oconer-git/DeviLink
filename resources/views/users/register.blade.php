@@ -22,12 +22,12 @@
                     <section>
                         <fieldset class="inline-block w-half ">
                             <label for="first_name" class="text-sm text-gray-500 font-semibold">First name</label>
-                            <input type="text" name="first_name" class="rounded-md text-xs w-full text-gray-600 bg-slate-200 p-1 shadow-sm" value="{{old('first_name    ')}}">
+                            <input type="text" name="first_name" class="rounded-md text-xs w-full text-gray-600 bg-slate-200 p-1 shadow-sm" value="{{old('first_name')}}">
                             
                         </fieldset>
                         <fieldset class="inline-block w-half ">
                             <label for="last_name" class="text-sm text-gray-500 font-semibold">Last name</label>
-                            <input type="text" name="last_name" class="rounded-md w-full text-xs text-gray-600 bg-slate-200 focus:outline-teal-700 p-1 shadow-sm ">
+                            <input type="text" name="last_name" class="rounded-md w-full text-xs text-gray-600 bg-slate-200 focus:outline-teal-700 p-1 shadow-sm" value="{{old('last_name')}}">
                         </fieldset>
                         @error('first_name')
                             <p class="text-red-900 text-xs inline -mb-2">{{$message}}</p>
@@ -39,7 +39,7 @@
                     <!-- email -->
                     <fieldset class="mt-2">
                         <label for="email" class="text-sm text-gray-500 font-semibold">Email</label>
-                        <input type="email" name="email" class="rounded-md text-xs w-full text-gray-600 bg-slate-200 focus:outline-teal-700 p-1 shadow-sm ">
+                        <input type="email" name="email" class="rounded-md text-xs w-full text-gray-600 bg-slate-200 focus:outline-teal-700 p-1 shadow-sm" value="{{old('email')}}">
                         @error('email')
                             <p class="text-red-900 text-xs -mb-2">{{$message}}</p>
                         @enderror
@@ -47,7 +47,7 @@
                     <!-- username -->
                     <fieldset class="mt-2">
                         <label for="username" class="text-sm text-gray-500 font-semibold">Username</label>
-                        <input type="text" name="username" class="rounded-md text-xs w-full text-gray-600 bg-slate-200 focus:outline-teal-700 p-1 shadow-sm ">
+                        <input type="text" name="username" class="rounded-md text-xs w-full text-gray-600 bg-slate-200 focus:outline-teal-700 p-1 shadow-sm" value="{{old('username')}}">
                         @error('username')
                             <p class="text-red-900 text-xs -mb-2">{{$message}}</p>
                         @enderror

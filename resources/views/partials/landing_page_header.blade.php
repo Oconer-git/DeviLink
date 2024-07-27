@@ -70,4 +70,4 @@
             })
         })
     </script>
-<body class="bg-gradient-to-r from-neutral-100 to-purple-400 ">
+<body class="bg-gradient-to-l from-white to-gray-300 ">
