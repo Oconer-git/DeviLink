@@ -23,27 +23,28 @@
         </div>
     @endif
     <!-- main content -->
-    <div class="bg-gradient-to-l from-gray-200 to-gray-100/10 w-full mx-auto pt-[70px] px-4 pb-24"> 
+    <div class="bg-white w-full mx-auto pt-[70px] px-4 pb-24"> 
         <!-- profile options and settings  -->
         <x-sidebar></x-sidebar>
         <!-- main contents scroll -->
         <main class="w-full sm:w-8/12 md:w-5/12 lg:w-7/12 lg:ml-56 mx-auto pr-0 lg:pl-4 lg:pr-20 lg:border-l-2 border-l-gray-400/20">
-            <!-- post section  -->  
-            <div class="group mx-auto mb-2 py-4 pr-4 border-b-2 border-b-teal-600/80">
-                <img src="{{ asset($profile_picture) }}" class="w-12 h-12 border-2 border-white group-hover:shadow-xl group-hover:shadow-blue-400 transition duration-500 rounded-full shadow-md inline" alt="devilink logo">
-                <!-- open modal when button is clicked -->
-                <button id="post_modal" class="bg-white w-9/12 text-xs lg:text-sm lg:w-1/2 h-10 shadow-sm text-gray-500 align-middle rounded-full text-left pl-3 group-hover:bg-slate-400 group-hover:text-whitesmoke transition duration-300">
-                    <p>Hey coder, any stories for today? 💭</p>
-                </button>
-            </div>
-            <!-- devilink posts loop divs -->
-            <article class="mb-2 px-2 md:px-0">
+            <article class="px-2 md:px-0">
                 <h1 class="font-bold text-teal-600 text-xl inline">Posts today</h1>
                 <p class="font-light text-teal-600 text-sm inline">See what is happening</p>
-            </article>
+            </article> 
+            <!-- post section  -->  
+            <div class="group mx-auto mb-2 py-4 md:px-0 md:pr-4 border-b-2 border-b-teal-600/80">
+                <img src="{{ asset($profile_picture) }}" class="w-12 h-12 border-2 border-white group-hover:shadow-xl group-hover:shadow-blue-400 transition duration-500 rounded-full shadow-md inline" alt="devilink logo">
+                <!-- open modal when button is clicked -->
+                <button id="post_modal" class="bg-slate-300 w-8/12 text-xs lg:text-sm lg:w-7/12 h-10 shadow-sm text-gray-500 align-middle rounded-full text-left pl-3 group-hover:bg-slate-400 group-hover:text-whitesmoke transition duration-300">
+                    <p>Hey coder, any stories for today? 💭</p>
+                </button>
+                <img src="{{ asset('storage/images/giphy.webp') }}" class="w-12 inline hover:scale-110 duration-300" alt="devilink logo">
+            </div>
+            <!-- devilink posts loop divs -->
             @foreach ($posts as $post)
                 @if($post->id != null)
-                <div class="post bg-whitesmoke hover:bg-slate-100 hover:shadow-lg hover:shadow-slate-300 shadow-md drop-shadow-sm rounded-md mx-auto mb-2 pt-5 px-5 pb-3"
+                <div class="post hover:bg-slate-100 hover:shadow-md rounded-md mx-auto mb-2 pt-5 px-5 pb-3"
                     data-post-id="{{$post->id}}">
                     <!-- profile picture -->
                     <img src="{{ asset($post->profile_picture) }}" class="w-11 h-11 rounded-full border-2 shadow-md inline" alt="devilink logo">
@@ -78,7 +79,7 @@
                             </div>          
                         @endif
                     </section>
-                    <section class="mb-6">
+                    <section class="mb-2">
                         <!-- content -->
                         <p class="ml-1 mt-2 mb-1 text-sm text-gray-800">{{$post->content}}</p>
                         <!-- image -->
@@ -86,8 +87,7 @@
                             <img src="{{ asset($post->image) }}" class="w-full border-2 rounded-md" alt="{{$post->first_name}}'s post">
                         @endif
                     </section>    
-                    <x-underline></x-underline>
-                    <div class="flex justify-between px-10">
+                    <div class="flex justify-between w-5/12 lg:px-2 md:w-3/12">
                         <!-- like -->
                         <div class="livewire-component text-center">
                             @livewire('like',['post_id' => $post->id, 'likes_post' => $post->likes, 'is_profile' => true, 'is_home' => true])
@@ -95,8 +95,8 @@
                         <!-- show comments -->
                         <div class="text-center pt-[4px]">
                             <a href="/post/{{$post->id}}">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 fill-current text-gray-500 hover:text-yellow-600" viewBox="0 -960 960 960"><path d="M240-400h480v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM880-80 720-240H160q-33 0-56.5-23.5T80-320v-480q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v720ZM160-320h594l46 45v-525H160v480Zm0 0v-480 480Z"/></svg>
-                                <p class="text-cyan-600 text-xs -mt-[2.5px]">{{$post->comments}}</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 fill-current text-gray-500 hover:text-yellow-600" viewBox="0 -960 960 960"><path d="M240-400h480v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM880-80 720-240H160q-33 0-56.5-23.5T80-320v-480q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v720ZM160-320h594l46 45v-525H160v480Zm0 0v-480 480Z"/></svg>
+                                <p class="text-gray-400 text-xs -mt-[2.5px]">{{$post->comments}}</p>
                             </a>
                         </div>
                         <!-- share or save -->
@@ -116,7 +116,7 @@
         </main>
         <!-- People you might know section section -->
         <div class="z-5 fixed top-20 right-6 hidden md:w-3/12 md:block lg:w-3/12 align-top ">
-            <div class="bg-gray-100 p-3 rounded-md shadow-md">
+            <div class="bg-gray-100 p-3 rounded-md">
                 <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-cyan-500 w-4 inline align-middle" viewBox="0 -960 960 960"><path d="M440-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm0-80q33 0 56.5-23.5T520-640q0-33-23.5-56.5T440-720q-33 0-56.5 23.5T360-640q0 33 23.5 56.5T440-560ZM884-20 756-148q-21 12-45 20t-51 8q-75 0-127.5-52.5T480-300q0-75 52.5-127.5T660-480q75 0 127.5 52.5T840-300q0 27-8 51t-20 45L940-76l-56 56ZM660-200q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29Zm-540 40v-111q0-34 17-63t47-44q51-26 115-44t142-18q-12 18-20.5 38.5T407-359q-60 5-107 20.5T221-306q-10 5-15.5 14.5T200-271v31h207q5 22 13.5 42t20.5 38H120Zm320-480Zm-33 400Z"/></svg>
                 <h2 class="text-sm text-gray-500 font-semibold mb-2 inline align-middle">People you might follow</h2>
                 @if($suggest_users != null)

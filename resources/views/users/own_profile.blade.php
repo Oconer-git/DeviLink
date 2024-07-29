@@ -2,10 +2,10 @@
     <x-navbar></x-navbar>
     <div class="bg-neutral-100 block w-full lg:w-5/12 lg:top-0 lg:right-0 lg:h-screen lg:fixed pt-20 pb-10 px-10 drop-shadow-md">
         <!-- profile -->
-        <main class="inline-block w-full lg:rounded-full border-r-4 border-r-blue-400">
+        <main class="inline-block w-full lg:rounded-full border-r-4 border-r-teal-400">
             <!-- profile picture -->
             <section class="mx-auto inline-block">
-                <figure class="md:p-4 bg-white rounded-full border-2 border-blue-500  p-1 ">
+                <figure class="md:p-4 bg-white rounded-full border-2 border-teal-500  p-1 ">
                     <img src="{{ asset($user->profile_picture) }}" class="w-24 h-24 md:w-34 md:h-34 rounded-full shadow-md" alt="profile">
                 </figure>
                 <!-- update profile picture -->
