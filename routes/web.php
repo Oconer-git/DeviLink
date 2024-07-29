@@ -45,7 +45,7 @@ Route::get('/search/{thing}',[NavigateController::class, 'search']);
 Route::get('/input_search',[NavigateController::class, 'input_search'])->name('search');
 
 //for testing
-Route::get('/testing',[UsersController::class,'testing']);
+Route::get('/testing/{id}',[UsersController::class,'testing']);
 Route::get('/testing1',[UserSettingsContoller::class,'testing']);
 
 //Google authentication

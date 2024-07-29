@@ -29,6 +29,11 @@
             $('#likers_modal').show();
         });
 
+        //comment page back button
+        $('#back').click(function(){
+            window.history.back();
+        });
+
         //for previewing picture before uploading
         $('.picture').change(function(event) {
             var input = event.target;
@@ -58,7 +63,7 @@
             if ($(event.target).closest('.livewire-component').length === 0) {
                 var post_id = $(this).data('post-id');
                 if (post_id) {
-                    window.location.href = "/post/" + post_id;
+                    window.location.href = "/testing/" + post_id;
                 }
             } 
             else {
@@ -74,7 +79,6 @@
             $('#shared_label').addClass('text-slate-500');
             $('.user_posts').show();
         });
-
         
         $('.show_shared').click(function(){
             $('.user_posts').hide();

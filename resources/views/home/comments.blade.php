@@ -6,9 +6,9 @@
     <div class="bg-white w-full pt-16 px-4 pb-24"> 
         <!-- devilink post-->
         <section class="flex lg:justify-end px-2 md:px-5">
-            <a href="/" class="shadow-sm mb-2">        
+            <button class="shadow-sm mb-2" id="back">        
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-8 md:w-10 text-gray-800 bg-neutral-200 rounded-md  hover:text-gray-800 hover:bg-slate-300 fill-current" viewBox="0 -960 960 960" ><path d="M280-200v-80h284q63 0 109.5-40T720-420q0-60-46.5-100T564-560H312l104 104-56 56-200-200 200-200 56 56-104 104h252q97 0 166.5 63T800-420q0 94-69.5 157T564-200H280Z"/></svg>
-            </a>
+            </button>
         </section>
         <!-- user post -->
         @if ($errors->any())

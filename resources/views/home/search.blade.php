@@ -6,15 +6,11 @@
         <!-- profile options and settings  -->
         <x-sidebar></x-sidebar>
         <!-- main contents scroll -->
-        <main class=" w-full sm:w-8/12 md:w-5/12 lg:w-5/12 mx-auto">
+        <main class=" w-full sm:w-8/12 md:w-5/12 lg:w-6/12 lg:ml-56 mx-auto ">
             <!-- people section  -->
             <h1 class="mb-2 font-bold text-slate-500 text-xl">People</h1>
             @if($users != null)
-                @if($users->count() > 2)
-                    <section class="bg-neutral-100 border-l-4 h-80 border-l-cyan-400 shadow-md drop-shadow-sm rounded-md mx-auto mb-2 py-5 px-2 overflow-y-auto small-scrollbar">
-                @else
-                    <section class="bg-neutral-100 border-l-4 h-48 border-l-cyan-400 shadow-md drop-shadow-sm rounded-md mx-auto mb-2 py-5 px-2 overflow-y-auto small-scrollbar">
-                @endif
+                <section class="bg-neutral-100 border-l-4 max-h-48 border-l-cyan-400 shadow-md drop-shadow-sm rounded-md mx-auto mb-2 py-5 px-2 overflow-y-auto small-scrollbar">
                     @foreach ($users as $user)
                         <div class="flex justify-between items-center hover:bg-slate-200 p-2 rounded-md">
                             <section>

@@ -317,8 +317,48 @@ class UsersController extends Controller
     public function register_user() {
         return view('users.register');
     }
-    public function testing() {
-        return view('auth.verify_custom_email');
+    public function testing($id) {
+        $post = DB::table('posts')
+                            ->where('posts.id', $id)
+                            ->leftJoin('users','posts.user_id','=','users.id')
+                            ->select('posts.*', 
+                                    'users.first_name', 
+                                    'users.last_name', 
+                                    'users.username', 
+                                    'users.profile_picture'
+                            )
+                            ->first(); // Retrieve the results
+        
+        //add neccessary datas to post
+        /* START */
+        $post->skills = DB::table('skill_user')
+                                ->where('user_id', $post->user_id)
+                                ->leftJoin('skills', 'skill_user.skill_id', '=', 'skills.id')
+                                ->select('skills.name','skills.bg_color')
+                                ->get();
+            $post->date_time = $this->date_format($post->created_at);
+            $post->comments = Comment::where('post_id',$post->id)->get();
+            //get number of comments
+            $comment_num = 0;
+            //get number of replies
+            foreach($post->comments as $comment) {
+                $comment_num += Reply::where('comment_id',$comment->id)->get()->count(); 
+            }
+            //check if the user liked the post
+            $post->liked = PostLike::where('post_id', Auth()->user()->id)->where('user_id', Auth::id())->first();
+            //add replies and comments to get total comments
+            $post->comments = $post->comments->count() + $comment_num; 
+            //get number of likes
+            $post->likes = PostLike::where('post_id',$post->id)->get()->count(); 
+            //get number of shares
+            $post->shares = Share::where('post_id',$post->id)->get()->count();
+        /* END */
+
+        $viewdata['post'] = $post;
+        $viewdata['suggest_users'] = $this->suggest_users(); //suggest which users to follow to user
+        // add skills, date format, number of comments and likes to the post
+        $viewdata['trending_posts'] = $this->get_trending(2);
+        return view('home.view_post',$viewdata);
     }
     
 }

@@ -27,21 +27,22 @@
         <!-- profile options and settings  -->
         <x-sidebar></x-sidebar>
         <!-- main contents scroll -->
-        <main class=" w-full sm:w-8/12 md:w-5/12 lg:w-5/12 mx-auto">
-            <!-- post section  -->
-            <div class="bg-gray-100 group shadow-md drop-shadow-sm rounded-md h-24 mx-auto mb-2 p-6 border-t-2 border-t-slate-100 hover:border-t-blue-400 hover:bg-stone-100 transition duration-500">
-                <img src="{{ asset($profile_picture) }}" class="w-12 h-12 border-2 group-hover:shadow-xl group-hover:shadow-blue-400 transition duration-500 rounded-full shadow-md inline" alt="devilink logo">
+        <main class="w-full sm:w-8/12 md:w-5/12 lg:w-7/12 lg:ml-56 mx-auto pr-0 lg:pl-4 lg:pr-20 lg:border-l-2 border-l-gray-400/20">
+            <!-- post section  -->  
+            <div class="group mx-auto mb-2 py-4 pr-4 border-b-2 border-b-teal-600/80">
+                <img src="{{ asset($profile_picture) }}" class="w-12 h-12 border-2 border-white group-hover:shadow-xl group-hover:shadow-blue-400 transition duration-500 rounded-full shadow-md inline" alt="devilink logo">
                 <!-- open modal when button is clicked -->
-                <button id="post_modal" class="bg-slate-200 w-9/12 text-xs lg:text-sm lg:w-10/12 h-10 shadow-sm text-gray-500 align-middle rounded-full text-left pl-3 group-hover:bg-slate-400 group-hover:text-whitesmoke transition duration-300">
-                    Hey coder, any stories for today? 💭
+                <button id="post_modal" class="bg-white w-9/12 text-xs lg:text-sm lg:w-1/2 h-10 shadow-sm text-gray-500 align-middle rounded-full text-left pl-3 group-hover:bg-slate-400 group-hover:text-whitesmoke transition duration-300">
+                    <p>Hey coder, any stories for today? 💭</p>
                 </button>
-                <x-underline></x-underline>
             </div>
-            <x-underline></x-underline>
             <!-- devilink posts loop divs -->
+            <article class="mb-2 px-2 md:px-0">
+                <h1 class="font-bold text-teal-600 text-xl inline">Posts today</h1>
+                <p class="font-light text-teal-600 text-sm inline">See what is happening</p>
+            </article>
             @foreach ($posts as $post)
-                @if($post->id == null)
-                @else
+                @if($post->id != null)
                 <div class="post bg-whitesmoke hover:bg-slate-100 hover:shadow-lg hover:shadow-slate-300 shadow-md drop-shadow-sm rounded-md mx-auto mb-2 pt-5 px-5 pb-3"
                     data-post-id="{{$post->id}}">
                     <!-- profile picture -->
@@ -138,7 +139,7 @@
                 @endif
             </div>
             <div class="mt-4 border-l-4 border-purple-300 pl-2 -mb-2">
-                    <h1 class="text-lg text-gray-500 font-semibold mb-2 inline align-middle">Trending Posts</h1>
+                    <h3 class="text-lg text-gray-500 font-semibold mb-2 inline align-middle">Trending Posts</h3>
                     <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-gray-400 w-6 inline align-middle"viewBox="0 -960 960 960"><path d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143ZM233-120l65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Zm247-350Z"/></svg>
             </div>
             <div class="pl-2 pr-12 py-3">

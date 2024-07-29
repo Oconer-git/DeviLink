@@ -96,10 +96,10 @@ trait SharedMethods
             return "Just now";
         } elseif ($difference < 3600) {
             $minutes = floor($difference / 60);
-            return $minutes . " minutes ago";
+            return $minutes == 1 ? "1 minute ago" : "$minutes minutes ago";
         } elseif ($difference < 86400) {
             $hours = floor($difference / 3600);
-            return $hours . " hours ago";
+            return $hours == 1 ? "1 hour ago" : "$hours hours ago";
         } elseif ($difference < 172800) { // 1 day (24 hours)
             return "1 day ago";
         } elseif ($difference < 259200) { // 2 days
