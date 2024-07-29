@@ -6,8 +6,11 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\UserSettingsContoller;
 use App\Http\Controllers\UserPostCommentController;
 use App\Http\Controllers\GoogleLoginController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
-Route::get('/',[UsersController::class,'main'])->name('main')->middleware('auth');
+
+Route::get('/',[UsersController::class,'main'])->name('main')->middleware('auth', 'verified');
 Route::get('/login',[UsersController::class,'login'])->name('login');
 Route::get('/comments',[UsersController::class,'comments']);
 Route::get('/profile/{username}',[UsersController::class,'profile'])->middleware('auth');;
@@ -49,3 +52,20 @@ Route::get('/testing1',[UserSettingsContoller::class,'testing']);
 Route::get('/google/redirect', [GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');
 Route::get('/google/callback', [GoogleLoginController::class, 'handleGoogleCallback'])->name('google.callback');
 
+//email verification notice
+Route::get('/email/verify', function () {
+    return view('auth.verify_email');
+})->middleware('auth')->name('verification.notice');
+
+//email verification handler
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/')->with('message', 'Congratulation! Your account is verified');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+//resending the verification email
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');

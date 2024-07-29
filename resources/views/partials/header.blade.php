@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="icon" href="{{asset('storage/images/tealbean_logo.svg')}}" type="image/x-icon">
+    <link rel="icon" href="{{asset('storage/images/tealbean_logo_transparent.png')}}" type="image/x-icon">
     <!-- tailwind -->
     @vite('resources/css/app.css')
     <!--profile modals -->
@@ -14,6 +14,9 @@
     @vite('resources/js/posting.js')
     <title>Tealbean</title>
     @livewireStyles
+    <!-- font -->
+    <!-- <link rel="preload" href="/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous"
+    /> -->
 </head>
 <script>
     $(function(){
@@ -81,6 +84,13 @@
             $('#shared_label').addClass('text-orange-600');
             $('.user_shared').show();
         });
+
+        //for showing message on home
+        $('.message').show(); 
+        setTimeout(function() {
+            $('.message').fadeOut(); // Hide the message after 4 seconds
+        }, 4000); // 4000 milliseconds = 4 seconds
+        
     });
 </script>
 <body class="bg-gray-200 p-0 m-0 box-border">

@@ -7,6 +7,9 @@ use Illuminate\Support\facades\View;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Follower;
 use App\Models\User;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Notifications\Messages\MailMessage;
+ 
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,6 +41,17 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('profile_picture', Auth::user()->profile_picture);
                 $view->with('requests', $requests);
             }
+        });
+
+        VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
+            return (new MailMessage)
+                ->view('auth.verify_custom_email', [
+                    'user' => $notifiable,
+                    'url' => $url
+                ]);
+                // ->subject('Verify Email Address')
+                // ->line('Click the button below to verify your email address.')
+                // ->action('Verify Email Address', $url);
         });
     }
 }

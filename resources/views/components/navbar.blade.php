@@ -1,6 +1,6 @@
 <nav class="fixed z-20 flex flex-row  justify-between bg-gradient-to-l from-purple-100 to-white w-full px-2 pt-2 border-b-gray-500/25 drop-shadow-md">
         <!-- logo -->
-        <section>
+        <section class="ml-4">
             <img src="{{ asset('storage/images/tealbean_logo.svg') }}" class="w-11 inline -mt-1 md:-mt-3 p-1" alt="tealbean logo">
             <a href="/" class="inline md:hidden align-top">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-8 fill-current text-purple-300 hover:text-purple-800 inline -ml-3 mt-[2px]" viewBox="0 -960 960 960"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg>
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <!-- requests -->
-            <div id="requests_dropdown" class="absolute hidden right-4 top-14 w-1/2 md:max-w-[450px] h-80 md:h-96 p-4 overflow-y-auto small-scrollbar pb-14 text-center z-20 bg-whitesmoke rounded-sm shadow-2xl">
+            <div id="requests_dropdown" class="absolute hidden right-4 top-14 w-1/2 md:max-w-[450px] h-80 md:h-96 p-4 overflow-y-auto small-scrollbar pb-14 text-center z-20 bg-whitesmoke rounded-md shadow-2xl">
                 <p class="font-bold text-left text-gray-600/90 -mb-2 ml-1">Follower requests</p>
                 <x-underline></x-underline>
                 @if(!$requests->isEmpty())

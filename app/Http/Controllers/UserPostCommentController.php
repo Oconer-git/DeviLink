@@ -46,7 +46,7 @@ class UserPostCommentController extends Controller
 
     public function view_post($id) {
         //post info
-        $post = Post::findOrFail($id);
+        $post = Post::find($id);
         //user info
         $poster = User::where('id', $post->user_id)->firstOrFail(['first_name', 'last_name', 'profile_picture', 'username','id']);
         //user skills
@@ -117,7 +117,6 @@ class UserPostCommentController extends Controller
                 }         
             }
         }
-
         //get the data and time the post was posted
         $date_posted = $this->date_format($post->created_at);
         
@@ -127,15 +126,19 @@ class UserPostCommentController extends Controller
                       'skills' => $skills,
                       'likers' => $likers_array,
                       'comments' => $comments,
-                      'shares' => $shares
+                      'shares' => $shares,
+                      'date_posted' => $date_posted,
+                      'likes_post' => $likers->count(),
+                      'liked' => $liked,
+                      'comments_num' => $comments_num,
                      ];
-        
-        return view('home.comments',$view_data)
-                    ->with('date_posted',$date_posted)
-                    ->with('likes_post',$likers->count())
-                    ->with('liked',$liked)
-                    ->with('comments_num',$comments_num)
-                    ->with('shares',$shares);
+                     
+        return view('home.comments',$view_data);
+                    // ->with('date_posted',$date_posted)
+                    // ->with('likes_post',$likers->count())
+                    // ->with('liked',$liked)
+                    // ->with('comments_num',$comments_num)
+                    // ->with('shares',$shares);
     }
 
     public function comment(Request $request) {

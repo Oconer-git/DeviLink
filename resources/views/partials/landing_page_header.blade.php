@@ -66,8 +66,17 @@
                 // Stop event propagation
                 event.stopPropagation();
                 window.location.href = "/"
-
             })
-        })
+
+            //for showing message on registration
+            $('.message').show(); 
+            setTimeout(function() {
+                $('.message').fadeOut(); // Hide the message after 4 seconds
+            }, 4000); // 4000 milliseconds = 4 seconds
+            })
     </script>
-<body class="bg-gradient-to-l from-white to-gray-300 ">
+@if($background != null)
+<body class="bg-fixed bg-cover" style="background-image: url('{{$background}}');">
+@else
+<body class="bg-gradient-to-r from-whitesmoke to-neutral-200">
+@endif

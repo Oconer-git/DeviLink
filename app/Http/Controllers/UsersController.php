@@ -6,6 +6,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Auth\Events\Registered;
+
 use App\Models\User;
 use App\Models\Skill;
 use App\Models\Follower;
@@ -268,8 +270,10 @@ class UsersController extends Controller
 
         $validated['profile_picture'] = 'storage/images/profiles/default_profile.jpg';
         $validated['password'] = bcrypt($validated['password']);
+        $validated['dob'] = Carbon::createFromFormat('m/d/Y', $validated['dob'])->format('Y-m-d');
         $user = User::create($validated);
         auth()->login($user);
+        event(new Registered($user));
 
         //set zero for updating foreign key checks
         $check = 0;
@@ -306,17 +310,15 @@ class UsersController extends Controller
         return redirect('/');
     }
 
+    public function verification_page() {
+        return view('users.verification');
+    }
+
     public function register_user() {
         return view('users.register');
     }
     public function testing() {
-        $faker = Faker::create();
-        $new_username = 'Kaiser';
-        $username_exists = User::where('username', $new_username)->exists();
-        if($username_exists) {
-            $new_username .= rand(0,2000);
-        }
-        echo $new_username;
+        return view('auth.verify_custom_email');
     }
     
 }

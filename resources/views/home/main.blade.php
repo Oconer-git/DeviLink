@@ -3,19 +3,24 @@
     <x-navbar></x-navbar>
     <!-- errors -->
     @if ($errors->any())
-            <div class="w-1/3 md:4/12 bg-red-100 border border-red-400 shadow-lg shadow-red-500 text-red-700 px-4 py-3 rounded fixed z-20 right-10 top-16" role="alert">
-                <strong class="font-bold">Whoops!</strong>
-                <span class="block sm:inline">There were some problems with your inputs. Try again</span>
-                @error('content')
-                    <p class="text-red-900 text-sm">{{$message}}</p>
-                @enderror
-                @error('is_global')
-                    <p class="text-red-900 text-sm">{{$message}}</p>
-                @enderror
-                @error('picture')
-                    <p class="text-red-900 text-sm">{{$message}}</p>
-                @enderror
-            </div>
+        <div class="message hidden w-1/2 md:w-3/12 bg-red-100 border border-red-400/20 shadow-lg shadow-red-500 text-red-700 px-4 py-3 rounded fixed z-20 right-10 top-16" role="alert">
+            <strong class="font-bold">Whoops!</strong>
+            <span class="block sm:inline">There were some problems. Try again</span>
+            @error('content')
+                <p class="text-red-900 text-sm">{{$message}}</p>
+            @enderror
+            @error('is_global')
+                <p class="text-red-900 text-sm">{{$message}}</p>
+            @enderror
+            @error('picture')
+                <p class="text-red-900 text-sm">{{$message}}</p>
+            @enderror
+        </div>
+    @endif
+    @if(session('message'))
+        <div class="message hidden w-1/2 md:w-3/12 bg-green-100 border border-red-400/20 shadow-lg shadow-green-500 text-green-700 px-4 py-3 rounded-md fixed z-20 right-10 top-16" role="alert">
+            <span class="block sm:inline">{{session('message')}}</span>
+        </div>
     @endif
     <!-- main content -->
     <div class="bg-gradient-to-l from-gray-200 to-gray-100/10 w-full mx-auto pt-[70px] px-4 pb-24"> 
@@ -24,15 +29,13 @@
         <!-- main contents scroll -->
         <main class=" w-full sm:w-8/12 md:w-5/12 lg:w-5/12 mx-auto">
             <!-- post section  -->
-            <div class="bg-gray-100 group shadow-md drop-shadow-sm rounded-md h-24 mx-auto mb-2 p-4 border-t-2 border-t-slate-100 hover:border-t-blue-400 hover:bg-stone-100 transition duration-500">
-                <section class="p-2 ">
-                    <img src="{{ asset($profile_picture) }}" class="w-12 h-12 border-2 group-hover:shadow-xl group-hover:shadow-blue-400 transition duration-500 rounded-full shadow-md inline" alt="devilink logo">
-                    <!-- open modal when button is clicked -->
-                    <button id="post_modal" class="bg-slate-200 w-9/12 text-xs lg:text-sm lg:w-10/12 h-10 shadow-sm text-gray-500 align-middle rounded-full text-left pl-3 group-hover:bg-slate-400 group-hover:text-whitesmoke transition duration-300">
-                        Hey coder, any stories for today? 💭
-                    </button>
-                    <x-underline></x-underline>
-                </section>
+            <div class="bg-gray-100 group shadow-md drop-shadow-sm rounded-md h-24 mx-auto mb-2 p-6 border-t-2 border-t-slate-100 hover:border-t-blue-400 hover:bg-stone-100 transition duration-500">
+                <img src="{{ asset($profile_picture) }}" class="w-12 h-12 border-2 group-hover:shadow-xl group-hover:shadow-blue-400 transition duration-500 rounded-full shadow-md inline" alt="devilink logo">
+                <!-- open modal when button is clicked -->
+                <button id="post_modal" class="bg-slate-200 w-9/12 text-xs lg:text-sm lg:w-10/12 h-10 shadow-sm text-gray-500 align-middle rounded-full text-left pl-3 group-hover:bg-slate-400 group-hover:text-whitesmoke transition duration-300">
+                    Hey coder, any stories for today? 💭
+                </button>
+                <x-underline></x-underline>
             </div>
             <x-underline></x-underline>
             <!-- devilink posts loop divs -->

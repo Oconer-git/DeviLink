@@ -1,7 +1,7 @@
 
 <!-- devilink posts loop divs -->
     @foreach ($posts as $post)
-        <div class="post bg-white hover:bg-slate-50 shadow-md drop-shadow-md rounded-md mb-6 px-6 pt-6 pb-3 w-full md:w-6/12"
+        <div class="post bg-white hover:bg-slate-100 hover:scale-105 duration-300 shadow-md drop-shadow-md rounded-md mb-6 px-6 pt-6 pb-3 w-full md:w-6/12"
             data-post-id="{{$post->id}}">
             <img src="{{ asset($user->profile_picture) }}" class="w-11 h-11 rounded-full border-2 shadow-md inline" alt="devilink logo">
             <section class="inline-block align-middle">

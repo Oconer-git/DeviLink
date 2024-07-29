@@ -22,6 +22,7 @@ class GoogleLoginController extends Controller
     {
         $googleUser = Socialite::driver('google')->stateless()->user();
 
+        $date = now();
         $user = User::where('email', $googleUser->email)->first();
         
         if(!$user) {
@@ -44,7 +45,7 @@ class GoogleLoginController extends Controller
                                   'profile_picture' => 'storage/images/profiles/default_profile.jpg',
                                   'email' => $googleUser->email, 
                                   'username' => $new_username,
-                                  'email_verified_at' => now(),
+                                  'email_verified_at' => $date,
                                   'password' => \Hash::make(rand(100000,999999))]);
         }
 
