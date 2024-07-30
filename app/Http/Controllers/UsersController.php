@@ -336,22 +336,57 @@ class UsersController extends Controller
                                 ->leftJoin('skills', 'skill_user.skill_id', '=', 'skills.id')
                                 ->select('skills.name','skills.bg_color')
                                 ->get();
-            $post->date_time = $this->date_format($post->created_at);
-            $post->comments = Comment::where('post_id',$post->id)->get();
-            //get number of comments
-            $comment_num = 0;
-            //get number of replies
-            foreach($post->comments as $comment) {
-                $comment_num += Reply::where('comment_id',$comment->id)->get()->count(); 
+        $post->date_time = $this->date_format($post->created_at);
+        $post->comments = Comment::where('post_id',$post->id)->get();
+        //get number of comments
+        $comment_num = 0;
+        //get number of replies
+        foreach($post->comments as $comment) {
+            $comment_num += Reply::where('comment_id',$comment->id)->get()->count(); 
+        }
+        //check if the user liked the post
+        $post->liked = PostLike::where('post_id', Auth()->user()->id)->where('user_id', Auth::id())->first();
+        //add replies and comments to get total comments
+        $post->comments = $post->comments->count() + $comment_num; 
+        //get number of likes
+        $post->likes = PostLike::where('post_id',$post->id)->get()->count(); 
+        //get number of shares
+        $post->shares = Share::where('post_id',$post->id)->get()->count();
+        /* END */
+
+        //get comments
+        /* START */
+        $comments = Comment::where('post_id',$id)->get(['comment', 'image', 'user_id', 'created_at','id']);
+        //get number of comments
+        
+        if($comments != null) {
+            foreach($comments as $comment) {
+                //change the comment of date to human readable
+                $comment->date_time = $this->date_format($comment->created_at);
+                //get commenter
+                $comment->user = User::where('id', $comment->user_id)->firstOrFail(['id', 'first_name', 'last_name', 'profile_picture', 'username']);
+                //get skills of commenter
+                $comment->user->skills =  $comment->user->skills()->orderBy('name')->get();
+                //get replies
+                $comment->replies = Reply::where('comment_id',$comment->id)->get(['reply','comment_id','user_id','created_at','id']);
+                //get number of likes for each comment
+                $comment->likes = CommentLike::where('comment_id',$comment->id)->get()->count();
+
+                if(!$comment->replies->isEmpty()) {
+                    //get date huamn readable date format for each comment
+                    foreach($comment->replies as $reply) {
+                        //get human readable date for each reply
+                        $reply->date_time = $this->date_format($reply->created_at);
+                        //get user info for each reply
+                        $reply->user = User::where('id', $reply->user_id)->firstOrFail(['id', 'first_name', 'last_name', 'profile_picture', 'username']);
+                        //get user skills for each reply
+                        $reply->user->skills = $reply->user->skills()->orderBy('name')->get();
+                        //get total likes for each reply
+                        $reply->likes = ReplyLike::where('reply_id',$reply->id)->get()->count();
+                    }
+                }         
             }
-            //check if the user liked the post
-            $post->liked = PostLike::where('post_id', Auth()->user()->id)->where('user_id', Auth::id())->first();
-            //add replies and comments to get total comments
-            $post->comments = $post->comments->count() + $comment_num; 
-            //get number of likes
-            $post->likes = PostLike::where('post_id',$post->id)->get()->count(); 
-            //get number of shares
-            $post->shares = Share::where('post_id',$post->id)->get()->count();
+        }
         /* END */
 
         $viewdata['post'] = $post;

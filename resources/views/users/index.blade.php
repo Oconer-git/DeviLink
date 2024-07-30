@@ -1,5 +1,5 @@
 @include('partials.landing_page_header', ['title' => 'Welcome', 'background' => null])    
-    <div class="w-full h-[700px] bg-gradient-to-r from-cyan-300 to-blue-900 pt-8 px-10">
+    <div class="w-full h-[700px] bg-gradient-to-r from-teal-300 to-blue-900 pt-8 px-10">
         <div class="flex flex-row">
             <section class="hidden -ml-12 mt-8 lg:block lg:w-8/12 text-center">
                 <fieldset id="devilink_label" class="hidden -mb-12">
@@ -22,18 +22,18 @@
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
                         Email
                     </label>
-                    <input class="rounded w-full text-gray-700 text-sm p-1 shadow-sm drop-shadow-sm focus:outline-blue-500" name="email" type="email" placeholder="user@email.com" value="{{old('email')}}">
+                    <input class="rounded w-full text-gray-700 text-sm p-1 shadow-sm drop-shadow-sm focus:outline-teal-500" name="email" type="email" placeholder="user@email.com" value="{{old('email')}}">
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
                         Password 
                     </label>
-                    <input class="rounded w-full text-gray-700 text-sm p-1 shadow-sm drop-shadow-sm focus:outline-blue-500" name="password" type="password">
+                    <input class="rounded w-full text-gray-700 text-sm p-1 shadow-sm drop-shadow-sm focus:outline-teal-500" name="password" type="password">
                     @if ($errors->any())
                         <p class="text-red-500 text-xs inline">Wrong credentials. Try again</p>
                     @endif
                 </div>
-                <button type="submit" class="bg-blue-500 hover:bg-blue-600 hover:text-teal-300 w-full text-white font-bold py-2 px-4 rounded-lg shadow-md drop-shadow-md hover:scale-105 duration-300">
+                <button type="submit" class="bg-blue-600 hover:bg-gradient-to-br from-blue-600 to-teal-600/90 hover:text-teal-300 w-full text-white font-bold py-2 px-4 rounded-lg shadow-md drop-shadow-md hover:scale-105 duration-300">
                     Sign In
                 </button>
                 <p class="text-center text-gray-500 m-2">or</p>

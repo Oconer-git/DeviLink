@@ -1,4 +1,4 @@
-@include('partials.header')
+@include('partials.header',['background' => 'bg-white'])
     <!-- navbar section -->
     <x-navbar></x-navbar>
     <!-- errors -->
@@ -30,10 +30,10 @@
         <main class="w-full sm:w-8/12 md:w-5/12 lg:w-7/12 lg:ml-56 mx-auto pr-0 lg:pl-4 lg:pr-20 lg:border-l-2 border-l-gray-400/20">
             <article class="px-2 md:px-0">
                 <h1 class="font-bold text-teal-600 text-xl inline">Posts today</h1>
-                <p class="font-light text-teal-600 text-sm inline">See what is happening</p>
+                <p class="font-light text-cyan-600 text-sm inline">See what is happening</p>
             </article> 
             <!-- post section  -->  
-            <div class="group mx-auto mb-2 py-4 md:px-0 md:pr-4 border-b-2 border-b-teal-600/80">
+            <div class="group mx-auto mb-2 py-4 px-auto px-4 bg-slate-200 rounded-md md:rounded-b-none md:bg-white md:px-0 md:pr-4 border-b-2 border-b-cyan-600/80">
                 <img src="{{ asset($profile_picture) }}" class="w-12 h-12 border-2 border-white group-hover:shadow-xl group-hover:shadow-blue-400 transition duration-500 rounded-full shadow-md inline" alt="devilink logo">
                 <!-- open modal when button is clicked -->
                 <button id="post_modal" class="bg-slate-300 w-8/12 text-xs lg:text-sm lg:w-7/12 h-10 shadow-sm text-gray-500 align-middle rounded-full text-left pl-3 group-hover:bg-slate-400 group-hover:text-whitesmoke transition duration-300">

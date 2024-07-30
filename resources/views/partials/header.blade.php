@@ -97,4 +97,4 @@
         
     });
 </script>
-<body class="bg-gray-200 p-0 m-0 box-border">
+<body class="{{$background}} p-0 m-0 box-border">

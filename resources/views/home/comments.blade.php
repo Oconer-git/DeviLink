@@ -1,7 +1,6 @@
-@include('partials.header')
+@include('partials.header',['title' => 'Tealbean', 'background' => 'bg-gray-200'])
     <!-- navbar section -->
     <x-navbar></x-navbar>
-
     <!-- main content -->
     <div class="bg-white w-full pt-16 px-4 pb-24"> 
         <!-- devilink post-->

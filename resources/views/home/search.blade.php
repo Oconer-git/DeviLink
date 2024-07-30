@@ -1,4 +1,4 @@
-@include('partials.header')
+@include('partials.header',['background' => 'bg-white'])
     <!-- navbar section -->
     <x-navbar></x-navbar>   
     <!-- main content -->

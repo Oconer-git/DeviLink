@@ -1,4 +1,4 @@
-@include('partials.header')
+@include('partials.header',['background' => 'bg-white'])
     <!-- navbar section -->
     <x-navbar></x-navbar>   
     <!-- main content -->
@@ -8,12 +8,15 @@
         <!-- main contents scroll -->
         <main class="w-full sm:w-8/12 md:w-5/12 lg:w-7/12 lg:ml-56 mx-auto pr-0 lg:pl-4 lg:pr-20 lg:border-l-2 border-l-gray-400/20">
             <!-- people section  -->
-            <button class="mb-2 inline-block align-middle rounded-full hover:bg-slate-900 p-1" id="back"> 
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 text-orange-600 hover:text-gray-80 fill-current" viewBox="0 -960 960 960" ><path d="M280-200v-80h284q63 0 109.5-40T720-420q0-60-46.5-100T564-560H312l104 104-56 56-200-200 200-200 56 56-104 104h252q97 0 166.5 63T800-420q0 94-69.5 157T564-200H280Z"/></svg>
+            <!-- <button class="back mb-2 inline-block align-middle rounded-full hover:bg-slate-900 p-1 hover:scale-105 duration-300"> 
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 text-yellow-600 hover:text-gray-80 fill-current" viewBox="0 -960 960 960"><path d="M280-200v-80h284q63 0 109.5-40T720-420q0-60-46.5-100T564-560H312l104 104-56 56-200-200 200-200 56 56-104 104h252q97 0 166.5 63T800-420q0 94-69.5 157T564-200H280Z"/></svg>
+            </button> -->
+            <button id="back" class=" mb-2 text-gray-700 hover:bg-neutral-200 rounded-full relative inline-block align-middle p-1">        
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 fill-current" viewBox="0 -960 960 960" ><path d="M280-200v-80h284q63 0 109.5-40T720-420q0-60-46.5-100T564-560H312l104 104-56 56-200-200 200-200 56 56-104 104h252q97 0 166.5 63T800-420q0 94-69.5 157T564-200H280Z"/></svg>
             </button>
             <h1 class="mb-2 inline-block align-middle font-semibold text-slate-600 text-lg">Post</h1>
             @if($post->id != null)
-                <div class="post hover:bg-slate-100 hover:shadow-md rounded-md mx-auto mb-2 pt-5 px-5 pb-3"
+                <div class="post bg-slate-100 rounded-md drop-shadow-sm mx-auto mb-2 pt-5 px-5 pb-3"
                     data-post-id="{{$post->id}}">
                     <!-- profile picture -->
                     <img src="{{ asset($post->profile_picture) }}" class="w-11 h-11 rounded-full border-2 shadow-md inline" alt="devilink logo">

@@ -7,7 +7,7 @@
             </a>
             <a href="/" class="hidden md:inline font-extrabold text-2xl -ml-3 text-teal-800 hover:text-purple-300 my-auto">
                 Tealbean
-                <span class="text-red-800 font-medium text-xs -ml-1">beta</span>
+                <span class="text-red-600 font-semibold text-xs -ml-1">beta</span>
             </a>
         </section>
         <!-- search textbox -->

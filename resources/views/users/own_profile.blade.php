@@ -1,4 +1,4 @@
-@include('partials.header')
+@include('partials.header',['title' => 'Tealbean', 'background' => 'bg-gray-200'])
     <x-navbar></x-navbar>
     <div class="bg-neutral-100 block w-full lg:w-5/12 lg:top-0 lg:right-0 lg:h-screen lg:fixed pt-20 pb-10 px-10 drop-shadow-md">
         <!-- profile -->
@@ -63,11 +63,11 @@
         </section>
     </div>
     <div class="-mb-2">
-        <button class="show_posts font-semibold mb-1 mt-20 ml-16 inline text-purple-500 hover:text-purple-600">
-            <p id="post_label" class="text-slate-500 inline">Posts</p>
+        <button class="show_posts font-semibold mb-1 mt-20 ml-16 inline text-purple-500 hover:scale-110 duration-500">
+            <p id="post_label" class=" inline">Posts</p>
             <span class="text-sm text-slate-400">{{'('.$posts->count().')'}}</span> 
         </button>
-        <button class="show_shared font-semibold ml-3 mb-1 inline text-slate-400 hover:text-orange-600">
+        <button class="show_shared font-semibold ml-3 mb-1 inline text-slate-400 hover:scale-110 duration-500">
             <p id="shared_label" class="text-slate-500 inline">Shares</p>
             <span class="text-sm text-slate-400">{{'('.$shared_posts->count().')'}}</span> 
         </button>

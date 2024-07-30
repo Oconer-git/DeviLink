@@ -1,6 +1,6 @@
 <!-- devilink posts loop divs -->
 @foreach ($shared_posts as $post)
-        <div class="post bg-white hover:bg-slate-100 hover:scale-105 duration-300 shadow-md drop-shadow-md rounded-md mb-6 px-6 pt-6 pb-3 w-full md:w-6/12"
+        <div class="post bg-white hover:bg-slate-100     shadow-md drop-shadow-md rounded-md mb-6 px-6 pt-6 pb-3 w-full md:w-6/12"
             data-post-id="{{$post->id}}">
             <img src="{{ asset($post->profile_picture) }}" class="w-11 h-11 rounded-full border-2 shadow-md inline" alt="devilink logo">
             <section class="inline-block align-middle">
@@ -24,9 +24,13 @@
             </section>
             <section class="mb-6">
                 <!-- post text -->
-                <p class="ml-1 mt-2 mb-1 text-sm text-gray-900">{{$post->content}}</p>
+                @if(strlen($post->content) <= 93)
+                    <p class="ml-1 mt-2 mb-1 text-lg text-gray-900">{{$post->content}}</p>
+                @else
+                    <p class="ml-1 mt-2 mb-1 text-sm text-gray-900">{{$post->content}}</p>
+                @endif
                 @if($post->image != null)
-                    <img src="{{ asset($post->image) }}" class="w-full md:w-5/12 border-2 rounded-md" alt="{{$post->first_name}}'s post">
+                    <img src="{{ asset($post->image) }}" class="w-full md:w-7/12 border-2 rounded-md" alt="{{$user->fist_name}}'s post">
                 @endif
             </section>    
             <x-underline></x-underline>
