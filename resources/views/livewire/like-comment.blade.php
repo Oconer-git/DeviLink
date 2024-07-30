@@ -1,4 +1,4 @@
-    <form wire:submit.prevent="toggleLike" class="mt-1 -ml-1 pl-4">
+    <form wire:submit.prevent="toggleLike" class="mt-1 -ml-1 pl-4 inline-block">
         @csrf
         <input type="hidden" wire:model="comment_id">
         <button type="submit" class="mt-1 inline-block align-middle">
@@ -12,6 +12,9 @@
                 </svg>
             @endif
         </button>
-        <span class="inline align-bottom text-xxs -mt-1 text-blue-800">{{$comment_likes.' likes'}}</span>
-        <button id="show_replies" class="text-xxs inline align-bottom text-blue-500 hover:text-blue-800"><span>Replies</span></button>
+        @if($comment_likes > 1)
+            <span class="inline align-bottom text-xxs -mt-1 text-blue-800">{{$comment_likes.' likes'}}</span>
+        @else
+            <span class="inline align-bottom text-xxs -mt-1 text-blue-800">{{$comment_likes.' like'}}</span>
+        @endif        
     </form>

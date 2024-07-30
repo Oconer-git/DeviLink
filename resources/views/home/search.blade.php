@@ -78,7 +78,7 @@
                         </section>
                         <section class="mb-2">
                             <!-- content -->
-                            <p class="ml-1 mt-2 mb-1 text-sm text-gray-800">{{$post->content}}</p>
+                            <p class="ml-1 mt-2 mb-1 text-sm text-gray-800 break-words">{{$post->content}}</p>
                             <!-- image -->
                             @if ($post->image != null)
                                 <img src="{{ asset($post->image) }}" class="w-full border-2 rounded-md" alt="{{$post->first_name}}'s post">

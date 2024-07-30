@@ -12,5 +12,9 @@
                 </svg>
             @endif
         </button>
-        <span class="inline align-bottom text-xxs -mt-1 text-blue-800">{{$reply_likes.' likes'}}</span>
+        @if($reply_likes > 1)
+            <span class="inline align-bottom text-xxs -mt-1 text-blue-800">{{$reply_likes.' likes'}}</span>
+        @else
+            <span class="inline align-bottom text-xxs -mt-1 text-blue-800">{{$reply_likes.' like'}}</span>
+        @endif
     </form>

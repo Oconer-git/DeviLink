@@ -95,6 +95,20 @@
             $('.message').fadeOut(); // Hide the message after 4 seconds
         }, 4000); // 4000 milliseconds = 4 seconds
         
+        //auto resize textareas
+        $('textarea').on('input', function() {
+                autoResize(this);
+        });
+        
+        // Adjust height on page load if there is already text
+        autoResize($('#comment')[0]);
+     
     });
+
+    //for autoresizing textboxes
+    function autoResize(textarea) {
+        $(textarea).height('auto');
+        $(textarea).height(textarea.scrollHeight + 'px');
+    }
 </script>
 <body class="{{$background}} p-0 m-0 box-border">

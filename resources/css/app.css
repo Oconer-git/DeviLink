@@ -23,20 +23,21 @@
 }
 
 .small-scrollbar::-webkit-scrollbar {
-    width: 5px; /* Width of the scrollbar */
+    width: 3px; /* Width of the scrollbar */
     height: 5px; /* Height of the scrollbar (for horizontal scrollbar) */
 }
 
 .small-scrollbar::-webkit-scrollbar-thumb{
-    background-color: #932ba8; /* Color of the scrollbar thumb */
+    width: 3px; /* Width of the scrollbar */
+    background-color: #84ccc5; /* Color of the scrollbar thumb */
 }
 
 .small-scrollbar::-webkit-scrollbar-thumb:hover {
-    background-color: #142880; /* Color when hovering over the scrollbar thumb */
+    background-color: #01413b; /* Color when hovering over the scrollbar thumb */
 }
 
 .small-scrollbar::-webkit-scrollbar-track {
-    background-color: #96c7c1 /* Color of the scrollbar track */
+    background-color: #ddeeec /* Color of the scrollbar track */
 }
 
 /* medium scrollback */

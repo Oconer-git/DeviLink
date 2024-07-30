@@ -16,6 +16,8 @@ use App\Models\Post;
 use App\Models\Comment;
 use App\Models\PostLike;
 use App\Models\Reply;
+use App\Models\ReplyLike;
+use App\Models\CommentLike;
 use Carbon\Carbon;
 use App\Models\Share;
 use App\SharedMethods;
@@ -388,7 +390,7 @@ class UsersController extends Controller
             }
         }
         /* END */
-
+        $viewdata['comments'] = $comments;
         $viewdata['post'] = $post;
         $viewdata['suggest_users'] = $this->suggest_users(); //suggest which users to follow to user
         // add skills, date format, number of comments and likes to the post

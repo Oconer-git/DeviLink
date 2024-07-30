@@ -25,9 +25,9 @@
             <section class="mb-6">
                 <!-- post text -->
                 @if(strlen($post->content) <= 93)
-                    <p class="ml-1 mt-2 mb-1 text-lg text-gray-900">{{$post->content}}</p>
+                    <p class="ml-1 mt-2 mb-1 text-lg text-gray-900 break-words">{{$post->content}}</p>
                 @else
-                    <p class="ml-1 mt-2 mb-1 text-sm text-gray-900">{{$post->content}}</p>
+                    <p class="ml-1 mt-2 mb-1 text-sm text-gray-900 break-words">{{$post->content}}</p>
                 @endif
                 @if($post->image != null)
                     <img src="{{ asset($post->image) }}" class="w-full md:w-7/12 border-2 rounded-md" alt="{{$user->fist_name}}'s post">

@@ -78,5 +78,5 @@
 @if($background != null)
 <body class="bg-fixed bg-cover" style="background-image: url('{{$background}}');">
 @else
-<body class="bg-gradient-to-br from-whitesmoke to-neutral-200">
+<body class="bg-gradient-to-r from-whitesmoke to-neutral-200">
 @endif
