@@ -390,7 +390,40 @@ class UsersController extends Controller
             }
         }
         /* END */
+
+        //get likers
+        /* START */
+        $likers = PostLike::where('post_id',$id)->get('user_id');
+        $likers_array = [];
+        foreach($likers as $liker) {
+            $user = User::where('id', $liker['user_id'])->firstOrFail(['first_name', 'last_name', 'profile_picture', 'username','id']);
+            
+            $ifFollowed = Follower::where('user_id', Auth::user()->id)->where('following_id', $liker['user_id'])->first(['accepted']);
+            
+            if(isset($ifFollowed)) {
+                if($ifFollowed['accepted'] == true) {
+                    //if the user already following the liker
+                    $user->ifFollowed = 'following';
+                }
+                else {
+                    //if the user already requested to follow the liker
+                    $user->ifFollowed = 'requested';
+                }
+            }
+            else {
+                $user->ifFollowed = 'not_following';
+            }
+        
+            if($user->id == Auth::user()->id) {
+                $user->ifFollowed = 'self';
+            }
+            array_push($likers_array, $user);
+        }
+        /* END */
+
+           
         $viewdata['comments'] = $comments;
+        $viewdata['likers'] = $likers_array;
         $viewdata['post'] = $post;
         $viewdata['suggest_users'] = $this->suggest_users(); //suggest which users to follow to user
         // add skills, date format, number of comments and likes to the post
