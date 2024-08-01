@@ -1,11 +1,11 @@
 <nav class="fixed z-20 flex flex-row  justify-between bg-gradient-to-l from-purple-100 to-white w-full px-2 pt-2 border-b-gray-500/25 drop-shadow-md">
         <!-- logo -->
         <section class="ml-4">
-            <img src="{{ asset('storage/images/tealbean_background.png') }}" class="w-11 inline rounded-full -mt-1 md:-mt-3 p-1" alt="tealbean logo">
+            <img src="{{ asset('storage/images/tealbean_logo_transparent.png') }}" class="w-11 inline rounded-full -mt-1 md:-mt-3 p-1" alt="tealbean logo">
             <a href="/" class="inline md:hidden align-top">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-8 fill-current text-teal-400 inline mt-[2px]" viewBox="0 -960 960 960"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg>
             </a>
-            <a href="/" class="hidden md:inline font-extrabold text-2xl -ml-1 text-teal-800 hover:text-teal-600 my-auto">
+            <a href="/" class="hidden md:inline font-extrabold text-2xl -ml-1 text-teal-500 hover:text-teal-600 my-auto">
                 Tealbean
                 <span class="text-red-600 font-semibold text-xs -ml-1">beta</span>
             </a>
@@ -13,7 +13,7 @@
         <!-- search textbox -->
         <form action="{{route('search')}}" class="bg-gray-200 rounded-full shadow-md w-4/12 md:w-80 h-8 pt-1 px-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline" viewBox="0 -960 960 960"  fill="#5f6368"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
-            <input type="text" name="search" class="inline w-2/4 md:w-3/4 outline-none text-xs text-gray-600 bg-gray-200" >
+            <input type="text" name="search" class="inline w-2/4 md:w-3/4 focus:outline-none text-xs text-gray-600 bg-gray-200" >
         </form> 
         <!-- notifs and profile -->
         <section class="mr-4">

@@ -10,7 +10,7 @@
             <!-- people section  -->
             <h1 class="mb-2 font-bold text-slate-500 text-xl">People</h1>
             @if($users != null)
-                <section class="bg-neutral-100 border-l-4 max-h-48 border-l-teal-400 shadow-md drop-shadow-sm rounded-md mx-auto mb-2 py-5 px-2 overflow-y-auto small-scrollbar">
+                <section class="bg-neutral-100 border-l-4 max-h-48 border-l-teal-400 rounded-md mx-auto mb-2 py-5 px-2 overflow-y-auto small-scrollbar">
                     @foreach ($users as $user)
                         <div class="flex justify-between items-center hover:bg-slate-200 p-2 rounded-md">
                             <section>
@@ -36,8 +36,10 @@
             <!-- devilink posts loop divs -->
             <h2 class="mb-2 font-bold text-slate-500 text-xl">Relevant Posts</h2>
             @if($posts->isEmpty())
-                <img src="{{asset('storage/images/comments/no_comment.png')}}" class="w-12 mx-auto my-auto" alt="no comment picture">
-                <p class="text-xxs text-center text-gray-500">Wow such empty</p>
+                <div class="full h-96">
+                    <img src="{{asset('storage/images/comments/no_comment.png')}}" class="w-12 mx-auto" alt="no comment picture">
+                    <p class="text-xxs text-center text-gray-500">Wow such empty</p>
+                </div>
             @else
                 @foreach ($posts as $post)
                     @if($post->id != null)
@@ -87,14 +89,14 @@
                         <div class="flex justify-between w-5/12 lg:px-2 md:w-3/12">
                             <!-- like -->
                             <div class="livewire-component text-center">
-                                @livewire('like',['post_id' => $post->id, 'likes_post' => $post->likes, 'is_profile' => true, 'is_home' => true])
+                                @livewire('like',['post_id' => $post->id, 'likes_post' => $post->likes])
                             </div>
                             <!-- show comments -->
-                            <div class="text-center pt-[4px]">
-                                <a href="/post/{{$post->id}}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 fill-current text-gray-500 hover:text-yellow-600" viewBox="0 -960 960 960"><path d="M240-400h480v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM880-80 720-240H160q-33 0-56.5-23.5T80-320v-480q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v720ZM160-320h594l46 45v-525H160v480Zm0 0v-480 480Z"/></svg>
-                                    <p class="text-gray-400 text-xs -mt-[2.5px]">{{$post->comments}}</p>
+                            <div class="text-center">
+                                <a href="/post/{{$post->id}}" class="inline-block">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-[23px] pt-[1px] fill-current text-gray-500 hover:text-yellow-600" viewBox="0 -960 960 960"><path d="M240-400h480v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM880-80 720-240H160q-33 0-56.5-23.5T80-320v-480q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v720ZM160-320h594l46 45v-525H160v480Zm0 0v-480 480Z"/></svg>
                                 </a>
+                                <p class="text-gray-400 text-xs inline align-middle">{{$post->comments}}</p>
                             </div>
                             <!-- share or save -->
                             <div class="livewire-component text-center">

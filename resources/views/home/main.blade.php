@@ -87,20 +87,20 @@
                             <img src="{{ asset($post->image) }}" class="w-full border-2 rounded-md" alt="{{$post->first_name}}'s post">
                         @endif
                     </section>    
-                    <div class="flex justify-between w-5/12 lg:px-2 md:w-3/12">
+                    <div class="flex justify-between w-6/12 md:px-2 md:w-4/12">
                         <!-- like -->
-                        <div class="livewire-component text-center">
-                            @livewire('like',['post_id' => $post->id, 'likes_post' => $post->likes, 'is_profile' => true, 'is_home' => true])
+                        <div class="livewire-component">
+                            @livewire('like',['post_id' => $post->id, 'likes_post' => $post->likes, 'is_view_post' => false]) 
                         </div>
                         <!-- show comments -->
-                        <div class="text-center pt-[4px]">
-                            <a href="/post/{{$post->id}}">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 fill-current text-gray-500 hover:text-yellow-600" viewBox="0 -960 960 960"><path d="M240-400h480v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM880-80 720-240H160q-33 0-56.5-23.5T80-320v-480q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v720ZM160-320h594l46 45v-525H160v480Zm0 0v-480 480Z"/></svg>
-                                <p class="text-gray-400 text-xs -mt-[2.5px]">{{$post->comments}}</p>
-                            </a>
+                        <div>
+                            <div class="inline-block">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-[23px] fill-current text-gray-500 hover:text-yellow-600" viewBox="0 -960 960 960"><path d="M240-400h480v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM880-80 720-240H160q-33 0-56.5-23.5T80-320v-480q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v720ZM160-320h594l46 45v-525H160v480Zm0 0v-480 480Z"/></svg>
+                            </div>
+                            <p class="text-gray-400 text-xs inline align-middle">{{$post->comments}}</p>
                         </div>
                         <!-- share or save -->
-                        <div class="livewire-component text-center">
+                        <div class="livewire-component">
                             @if(($post->is_global) == true)
                                 @livewire('share-post', ['post_id' => $post->id, 'shares' => $post->shares])
                             @else
@@ -139,8 +139,8 @@
                 @endif
             </div>
             <div class="mt-4 border-l-4 border-purple-300 pl-2 -mb-2">
-                    <h3 class="text-lg text-gray-500 font-semibold mb-2 inline align-middle">Trending Posts</h3>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-gray-400 w-6 inline align-middle"viewBox="0 -960 960 960"><path d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143ZM233-120l65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Zm247-350Z"/></svg>
+                <h3 class="text-lg text-gray-500 font-semibold mb-2 inline align-middle">Trending Posts</h3>
+                <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-gray-400 w-6 inline align-middle"viewBox="0 -960 960 960"><path d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143ZM233-120l65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Zm247-350Z"/></svg>
             </div>
             <div class="pl-2 pr-12 py-3">
                 @include('partials.trending_posts', ['trending_posts' => $trending_posts])

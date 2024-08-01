@@ -11,14 +11,15 @@
             <!-- <button class="back mb-2 inline-block align-middle rounded-full hover:bg-slate-900 p-1 hover:scale-105 duration-300"> 
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-7 text-yellow-600 hover:text-gray-80 fill-current" viewBox="0 -960 960 960"><path d="M280-200v-80h284q63 0 109.5-40T720-420q0-60-46.5-100T564-560H312l104 104-56 56-200-200 200-200 56 56-104 104h252q97 0 166.5 63T800-420q0 94-69.5 157T564-200H280Z"/></svg>
             </button> -->
-            <button id="back" class=" mb-2 text-gray-700 hover:bg-neutral-200 rounded-full relative inline-block align-middle p-1">        
+            <button id="back" class="mb-2 text-gray-700 hover:bg-neutral-200 rounded-full relative inline-block align-middle p-1">        
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-7 fill-current" viewBox="0 -960 960 960" ><path d="M280-200v-80h284q63 0 109.5-40T720-420q0-60-46.5-100T564-560H312l104 104-56 56-200-200 200-200 56 56-104 104h252q97 0 166.5 63T800-420q0 94-69.5 157T564-200H280Z"/></svg>
             </button>
             <h1 class="mb-2 inline-block align-middle font-semibold text-slate-600 text-lg">Post</h1>
             @if($post->id != null)
-                <div class="post bg-slate-100 rounded-md drop-shadow-sm mx-auto mb-2 pt-5 px-5 pb-3"
+                <!-- Post -->
+                <div class="post mx-auto pt-5 px-5 pb-7"
                     data-post-id="{{$post->id}}">
-                    <!-- profile picture -->
+                    <!-- Profile picture -->
                     <img src="{{ asset($post->profile_picture) }}" class="w-11 h-11 rounded-full border-2 shadow-md inline" alt="devilink logo">
                     <section class="inline-block align-top">
                         <p class="inline text-gray-600 font-medium">{{$post->first_name}} {{$post->last_name}}</p>
@@ -66,14 +67,14 @@
                     <div class="flex justify-between w-5/12 lg:px-2 md:w-3/12">
                         <!-- like -->
                         <div class="livewire-component text-center">
-                            @livewire('like',['post_id' => $post->id, 'likes_post' => $post->likes, 'is_profile' => true, 'is_home' => true])
+                            @livewire('like',['post_id' => $post->id, 'likes_post' => $post->likes])
                         </div>
                         <!-- show comments -->
-                        <div class="text-center pt-[4px]">
-                            <a href="/post/{{$post->id}}">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 fill-current text-gray-500 hover:text-yellow-600" viewBox="0 -960 960 960"><path d="M240-400h480v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM880-80 720-240H160q-33 0-56.5-23.5T80-320v-480q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v720ZM160-320h594l46 45v-525H160v480Zm0 0v-480 480Z"/></svg>
-                                <p class="text-gray-400 text-xs -mt-[2.5px]">{{$post->comments}}</p>
-                            </a>
+                        <div class="text-center">
+                            <div class="inline-block">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-[23px] fill-current text-gray-500 hover:text-yellow-600" viewBox="0 -960 960 960"><path d="M240-400h480v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM880-80 720-240H160q-33 0-56.5-23.5T80-320v-480q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v720ZM160-320h594l46 45v-525H160v480Zm0 0v-480 480Z"/></svg>
+                            </div>
+                            <p class="text-gray-400 text-xs inline align-middle">{{$post->comments}}</p>
                         </div>
                         <!-- share or save -->
                         <div class="livewire-component text-center">
@@ -87,12 +88,12 @@
                 </div>
                 <!-- comments -->
                 @if($comments->isEmpty())
-                <div class="px-4 py-4 text-gray-800 lg:h-[350px] lg:overflow-y-auto small-scrollbar">
+                <div class="px-4 py-4 rounded-md text-gray-800 lg:h-[350px] lg:overflow-y-auto small-scrollbar">
                 @else
-                <div class="px-4 text-gray-800 lg:h-screen lg:overflow-y-auto small-scrollbar">
+                <div class="px-4 py-4 border-t-2 text-gray-800 lg:h-screen lg:overflow-y-auto small-scrollbar">
                 @endif
                     <!-- comment form textbox input -->
-                    <form action="{{route('user.comment')}}" method="POST" class="w-full my-2 p-2 rounded-md shadow-sm text-sm border-2 text-gray-800" enctype="multipart/form-data">
+                    <form action="{{route('user.comment')}}" method="POST" class="w-full bg-white my-2 p-2 rounded-md shadow-sm text-sm border-2 border-cyan-800 text-gray-800" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="post_id" value="{{$post->id}}">
                         <img src="{{ asset($profile_picture) }}" class="w-8 rounded-full border-2 inline-block shadow-md mr-1 align-top" alt="profile">
@@ -115,7 +116,7 @@
                         </div>
                     </form>
                     <!-- picture preview -->
-                    <img src="{{asset('storage/images/no_picture.jpg')}}"  alt="picture" class="hidden -mt-4 ml-12 mb-4 w-5/12 rounded-md outline-4 picture_preview">
+                    <img src="{{asset('storage/images/no_picture.jpg')}}"  alt="picture" class="hidden mb-4 w-5/12 rounded-md outline-4 picture_preview">
                     
                     <article class="mb-2">
                         <!-- comment section -->
@@ -125,7 +126,7 @@
                             <p class="text-sm text-center mt-4 text-gray-500">No comments yet</p>
                         @else
                             @foreach($comments as $comment)
-                            <section class="bg-gray-100 p-4 rounded-md">
+                            <section class="bg-white py-4">
                                     <img src="{{ asset($comment->user->profile_picture) }}" class="w-10 h-10 rounded-full border-2 shadow-md inline align-top" alt="profile">
                                     <div class="inline-block align-midde">
                                         <p class="inline text-gray-600 text-sm md:text-md font-medium">{{$comment->user->first_name}} {{$comment->user->last_name}}</p>
@@ -146,7 +147,7 @@
                                         <img src="{{ asset($comment->image) }}" class="w-full md:w-7/12 p-3 -mt-2 -mb-4 rounded-2xl" alt="image">
                                     @endif
                                     <!-- number of likes -->
-                                    @livewire('like-comment',['comment_id' => $comment->id, 'comment_likes' => $comment->likes])
+                                    @livewire('like-comment',['comment_id' => $comment->id, 'comment_likes' => $comment->likes, 'is_profile' => true])
                                     <p class="inline-block align-middle text-sm mt-2">Reply</p>
                                 </section>
                                 <!-- replies -->
@@ -174,7 +175,7 @@
                                     <div id="replies">
                                         @if(!$comment->replies->isEmpty())
                                             @foreach ($comment->replies as $reply)
-                                                <section class= "pl-2 mb-4 border-l-2 border-l-gray-300">
+                                                <section class= "pl-2 mt-2 mb-4 border-l-2 border-l-gray-300">
                                                     <img src="{{ asset($reply->user->profile_picture) }}" class="w-9 h-9 rounded-full border-2 shadow-md inline align-top" alt="profile">
                                                     <div class="inline-block align-midde">
                                                         <p class="inline text-gray-600 text-xs md:text-md font-medium">{{$reply->user->first_name}} {{$reply->user->last_name}}</p>
