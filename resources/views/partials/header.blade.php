@@ -97,11 +97,17 @@
         
         //auto resize textareas
         $('textarea').on('input', function() {
-                autoResize(this);
+            autoResize(this);
         });
         
         // Adjust height on page load if there is already text
-        autoResize($('#comment')[0]);
+        autoResize($('textarea')[0]);
+
+        //for clicking reply
+        $('.reply_button').on('click', function() {
+            var commentId = $(this).data('comment-id');
+            $('.reply_form[data-comment-id="' + commentId + '"]').toggleClass('hidden');
+        });
      
     });
 

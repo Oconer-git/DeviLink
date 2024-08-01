@@ -96,8 +96,8 @@
                     <form action="{{route('user.comment')}}" method="POST" class="w-full bg-white my-2 p-2 rounded-md shadow-sm text-sm border-2 border-cyan-800 text-gray-800" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="post_id" value="{{$post->id}}">
-                        <img src="{{ asset($profile_picture) }}" class="w-8 rounded-full border-2 inline-block shadow-md mr-1 align-top" alt="profile">
-                        <input type="text" name="comment" id="comment" class="w-11/12 focus:outline-none inline-block bg-transparent mt-2" placeholder="Leave a comment..." oninput="autoResize(this)"></input>
+                        <img src="{{ asset($profile_picture) }}" class="w-7 inline-block rounded-full border-2 shadow-md mr-1 align-top" alt="profile">
+                        <textarea name="comment" id="comment" class="w-10/12 md:w-9/12 lg:w-11/12 focus:outline-none overflow-y-hidden bg-transparent inline-block mt-1" placeholder="Leave a comment..." oninput="autoResize(this)"></textarea>
                         <div class="flex flex-row justify-end">
                             <!-- //upload picture button -->
                             @error('comment')
@@ -111,7 +111,7 @@
                             </div>
                             <!-- submit comment button -->
                             <button type="submit" class="w-6 h-6 ">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-sky-600 hover:text-blue-900 hover:shadow-xl" viewBox="0 -960 960 960"><path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-sky-600 hover:text-blue-900 hover:shadow-xl hover:scale-105 duration-200" viewBox="0 -960 960 960"><path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z"/></svg>
                             </button>
                         </div>
                     </form>
@@ -125,7 +125,7 @@
                             <p class="text-sm text-center mt-4 text-gray-500">No comments yet</p>
                         @else
                             @foreach($comments as $comment)
-                            <section class="bg-white py-4">
+                            <section class="bg-white pt-4 pb-2">
                                     <img src="{{ asset($comment->user->profile_picture) }}" class="w-10 h-10 rounded-full border-2 shadow-md inline align-top" alt="profile">
                                     <div class="inline-block align-midde">
                                         <p class="inline text-gray-600 text-sm md:text-md font-medium">{{$comment->user->first_name}} {{$comment->user->last_name}}</p>
@@ -147,29 +147,34 @@
                                     @endif
                                     <!-- number of likes -->
                                     @livewire('like-comment',['comment_id' => $comment->id, 'comment_likes' => $comment->likes, 'is_profile' => true])
-                                    <p class="inline-block align-middle text-sm mt-2">Reply</p>
+                                    <!-- reply show button -->
+                                    <button class="reply_button inline-block align-middle text-xxs ml-2 mt-2 hover:bg-teal-400/30 p-[4px] group rounded-full" 
+                                        data-comment-id="{{$comment->id}}">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="inline group-hover:hidden w-[20px] fill-current text-teal-800" viewBox="0 -960 960 960"><path d="M80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z"/></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="hidden group-hover:inline w-[20px] fill-current text-sky-500" viewBox="0 -960 960 960"><path d="M80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Z"/></svg>
+                                        <p class="inline">Reply</p>
+                                    </button>
                                 </section>
                                 <!-- replies -->
                                 <section class="pl-6 pb-2">
                                     <!-- reply form -->
-                                    <section class="px-2 flex flex-row align-middle mb-2">
-                                        <img src="{{ asset($profile_picture) }}" class="w-9 h-9 mt-1 rounded-full border-2 shadow-md inline-block mr-1" alt="profile">
-                                        <form action="{{route('user.reply')}}" method="POST" class="flex justify-between w-10/12 md:w-full mt-2 h-7 p-1 rounded-xl shadow-sm text-sm bg-sky-100 text-gray-800">
-                                            @csrf
-                                            <input type="hidden" name="comment_id" value="{{$comment->id}}">
-                                            <input type="text" name="reply" class="inline w-9/12 align-middle text-xs text-gray-600 pl-1 focus:outline-0 bg-sky-100" placeholder="Leave a reply...">
-                                            <div class="flex flex-row justify-center">
-                                                <!-- //upload picture button -->
-                                                @error('reply')
-                                                    <p class="text-red-900 text-xs w-44 mt-1">{{$message}}</p>
-                                                @enderror
-                                                <!-- submit comment button -->
-                                                <button type="submit" class="w-6 h-6 ">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-sky-400 hover:text-blue-800 hover:shadow-xl" viewBox="0 -960 960 960"><path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z"/></svg>
+                                    <div class="reply_form hidden mb-2" data-comment-id="{{$comment->id}}">
+                                        <section class=" px-2 flex flex-row">
+                                            <img src="{{ asset($profile_picture) }}" class="w-9 h-9 mt-1 rounded-full border-2 shadow-md inline-block mr-1" alt="profile">
+                                            <form action="{{route('user.reply')}}" method="POST" class="w-full mt-2 p-3 rounded-md text-sm bg-teal-100 text-gray-800">
+                                                @csrf
+                                                <input type="hidden" name="comment_id" value="{{$comment->id}}">
+                                                <textarea name="reply" class="w-full align-middle text-gray-600 overflow-y-hidden focus:outline-0 bg-transparent" placeholder="Leave a reply..."></textarea>          
+                                                <button type="submit" class="w-6 h-6 float-end">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-sky-400 hover:text-blue-900 hover:shadow-xl hover:scale-105 duration-200" viewBox="0 -960 960 960"><path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z"/></svg>
                                                 </button>
-                                            </div>
-                                        </form>
-                                    </section>
+                                            </form>
+                                        </section>
+                                        @error('reply')
+                                            <p class="text-red-900 text-xs mt-1 float-end">{{$message}}</p>
+                                        @enderror
+                                    </div>
                                     <!-- replies -->
                                     <div id="replies">
                                         @if(!$comment->replies->isEmpty())
@@ -237,34 +242,7 @@
     </div>
     <x-colors_skills></x-colors_skills>
     <!-- likers modal -->
-    <div id="likers_modal" class="modal hidden fixed top-0 left-0 z-40 pt-24 bg-neutral-900/90 w-screen h-screen">
-        <div class="bg-white w-11/12 md:w-5/12 max-width-6/12 rounded-md shadow-md mx-auto p-4 h-96 overflow-y-auto small-scrollbar">
-            <section class="flex justify-end">
-                <button class="close_modal inline-block align-middle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current text-gray-800" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-                </button>
-            </section>
-            <x-underline></x-underline>
-            @if($likers != null)
-                @foreach ($likers as $liker)
-                    <div class="flex justify-between items-center mb-1 rounded-md hover:bg-slate-100 p-2">
-                        <section>
-                            <figure class="inline-block">
-                                <img src="{{asset($liker->profile_picture)}}" alt="{{$liker->first_name}} {{$liker->last_name}}" class="rounded-full inline w-10">
-                            </figure>
-                            <svg xmlns="http://www.w3.org/2000/svg"  class="w-6 h-6 inline relative right-5 top-4 rounded-full p-1 text-sky-700 fill-current" viewBox="0 -960 960 960"  fill="#5f6368"><path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z"/></svg>
-                            <p class="inline -ml-6 align-middle text-sm text-gray-700">{{$liker->first_name}} {{$liker->last_name}}</p>
-                            <a href="/profile/{{$liker->username}}" class=" text-xxs text-cyan-600">{{'@'.$liker->username}}</a> <!-- in progress -->
-                        </section> 
-                        @livewire('follow',['liker_id' => $liker->id, 'ifFollowed' => $liker->ifFollowed])   
-                    </div>
-                @endforeach
-            @else
-                <img src="{{asset('storage/images/comments/no_comment.png')}}" class="w-12 mx-auto my-auto" alt="no comment picture">
-                <p class="text-xxs text-center text-gray-500">Wow such empty</p>
-            @endif
-        </div>
-    </div>
+    @include('partials.likers_modal',['likers' => $likers])
 <!-- footer -->
 @include('partials.footer')
 
