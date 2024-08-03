@@ -54,7 +54,9 @@
                     </section>
                     <section class="mb-2">
                         <!-- content -->
-                        @if(strlen($post->content) <= 78)
+                        @if(strlen($post->content) < 30)
+                            <p class="ml-1 mt-2 mb-1 text-xl text-gray-800 break-words">{{$post->content}}</p>
+                        @elseif(strlen($post->content) < 78)
                             <p class="ml-1 mt-2 mb-1 text-lg text-gray-800 break-words">{{$post->content}}</p>
                         @else
                             <p class="ml-1 mt-2 mb-1 text-sm text-gray-800 break-words">{{$post->content}}</p>
@@ -97,7 +99,7 @@
                         @csrf
                         <input type="hidden" name="post_id" value="{{$post->id}}">
                         <img src="{{ asset($profile_picture) }}" class="w-7 inline-block rounded-full border-2 shadow-md mr-1 align-top" alt="profile">
-                        <textarea name="comment" id="comment" class="w-10/12 md:w-9/12 lg:w-11/12 focus:outline-none overflow-y-hidden bg-transparent inline-block mt-1" placeholder="Leave a comment..." oninput="autoResize(this)"></textarea>
+                        <textarea name="comment" id="comment" class="w-10/12 md:w-9/12 lg:w-11/12 text-lg focus:outline-none overflow-y-hidden bg-transparent inline-block mt-1" placeholder="Leave a comment..." oninput="autoResize(this)"></textarea>
                         <div class="flex flex-row justify-end">
                             <!-- //upload picture button -->
                             @error('comment')
@@ -116,7 +118,7 @@
                         </div>
                     </form>
                     <!-- picture preview -->
-                    <img src="{{asset('storage/images/no_picture.jpg')}}"  alt="picture" class="hidden mb-4 w-5/12 rounded-md outline-4 picture_preview">
+                    <img src="{{asset('storage/images/no_picture.jpg')}}"  alt="picture" class="hidden mb-4 w-1/2 rounded-md picture_preview">
                     <article class="mb-2">
                         <!-- comment section -->
                         <!-- if no comment show an image -->
@@ -137,9 +139,9 @@
                                     </div>      
                                     <!--comment-->
                                     @if(strlen($comment->comment) > 70)
-                                        <p class="mt-1 text-gray-700 text-sm px-4 break-words">{{$comment->comment}}</p> 
-                                    @else
                                         <p class="mt-1 text-gray-700 px-4 break-words">{{$comment->comment}}</p> 
+                                    @else
+                                        <p class="mt-1 text-gray-700 px-4 text-sm break-words">{{$comment->comment}}</p> 
                                     @endif
                                     <!-- image -->
                                     @if($comment->image != null)
@@ -150,7 +152,6 @@
                                     <!-- reply show button -->
                                     <button class="reply_button inline-block align-middle text-xxs ml-2 mt-2 hover:bg-teal-400/30 p-[4px] group rounded-full" 
                                         data-comment-id="{{$comment->id}}">
-
                                         <svg xmlns="http://www.w3.org/2000/svg" class="inline group-hover:hidden w-[20px] fill-current text-teal-800" viewBox="0 -960 960 960"><path d="M80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z"/></svg>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="hidden group-hover:inline w-[20px] fill-current text-sky-500" viewBox="0 -960 960 960"><path d="M80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Z"/></svg>
                                         <p class="inline">Reply</p>
@@ -158,25 +159,10 @@
                                 </section>
                                 <!-- replies -->
                                 <section class="pl-6 pb-2">
-                                    <!-- reply form -->
-                                    <div class="reply_form hidden mb-2" data-comment-id="{{$comment->id}}">
-                                        <section class=" px-2 flex flex-row">
-                                            <img src="{{ asset($profile_picture) }}" class="w-9 h-9 mt-1 rounded-full border-2 shadow-md inline-block mr-1" alt="profile">
-                                            <form action="{{route('user.reply')}}" method="POST" class="w-full mt-2 p-3 rounded-md text-sm bg-teal-100 text-gray-800">
-                                                @csrf
-                                                <input type="hidden" name="comment_id" value="{{$comment->id}}">
-                                                <textarea name="reply" class="w-full align-middle text-gray-600 overflow-y-hidden focus:outline-0 bg-transparent" placeholder="Leave a reply..."></textarea>          
-                                                <button type="submit" class="w-6 h-6 float-end">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-sky-400 hover:text-blue-900 hover:shadow-xl hover:scale-105 duration-200" viewBox="0 -960 960 960"><path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z"/></svg>
-                                                </button>
-                                            </form>
-                                        </section>
-                                        @error('reply')
-                                            <p class="text-red-900 text-xs mt-1 float-end">{{$message}}</p>
-                                        @enderror
-                                    </div>
                                     <!-- replies -->
                                     <div id="replies">
+                                        <!-- reply form -->
+                                        @livewire('reply-comment',['comment_id' => $comment->id])
                                         @if(!$comment->replies->isEmpty())
                                             @foreach ($comment->replies as $reply)
                                                 <section class= "pl-2 mt-2 mb-4 border-l-2 border-l-gray-300">
@@ -209,28 +195,7 @@
         </main>
         <!-- People you might know section section -->
         <div class="z-5 fixed top-20 right-6 hidden md:w-3/12 md:block lg:w-3/12 align-top ">
-            <div class="bg-gray-100 p-3 rounded-md">
-                <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-cyan-500 w-4 inline align-middle" viewBox="0 -960 960 960"><path d="M440-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm0-80q33 0 56.5-23.5T520-640q0-33-23.5-56.5T440-720q-33 0-56.5 23.5T360-640q0 33 23.5 56.5T440-560ZM884-20 756-148q-21 12-45 20t-51 8q-75 0-127.5-52.5T480-300q0-75 52.5-127.5T660-480q75 0 127.5 52.5T840-300q0 27-8 51t-20 45L940-76l-56 56ZM660-200q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29Zm-540 40v-111q0-34 17-63t47-44q51-26 115-44t142-18q-12 18-20.5 38.5T407-359q-60 5-107 20.5T221-306q-10 5-15.5 14.5T200-271v31h207q5 22 13.5 42t20.5 38H120Zm320-480Zm-33 400Z"/></svg>
-                <h2 class="text-sm text-gray-500 font-semibold mb-2 inline align-middle">People you might follow</h2>
-                @if($suggest_users != null)
-                    @foreach ($suggest_users as $user)
-                        <section class="pl-1 mb-1 hover:bg-slate-200 p-1 rounded-lg flex group flex-col lg:flex-row items-center justify-between transition duration-300 ease-in-out">
-                            <div class="flex items-start lg:items-center">
-                                <img src="{{ asset($user->profile_picture) }}" class="w-9 h-9 rounded-full border-2 shadow-md inline-block align-middle transition duration-300 ease-in-out" alt="profile">
-                                <div class="inline-block align-middle ml-2 transition duration-300 ease-in-out">
-                                    <p class="text-gray-500 text-sm -mb-2 transition duration-300 ease-in-out">{{$user->first_name}} {{$user->last_name}}</p>
-                                    <a href="/profile/{{$user->username}}" class="text-cyan-600 text-xs text-md font-light transition duration-300 ease-in-out">
-                                        {{'@'.$user->username}}
-                                    </a>           
-                                </div>
-                            </div>
-                            @livewire('suggested-follow',['user_id' => $user->id, 'ifRequsted' => false])
-                        </section>
-                    @endforeach
-                @else
-                    <p class="text-xs text-gray-500 ml-2">No suggestions at the moment...</p>
-                @endif
-            </div>
+            @include('partials.suggest_users',['suggest_users' => $suggest_users])
             <div class="mt-4 border-l-4 border-purple-300 pl-2 -mb-2">
                     <h3 class="text-lg text-gray-500 font-semibold mb-2 inline align-middle">Trending Posts</h3>
                     <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-gray-400 w-6 inline align-middle"viewBox="0 -960 960 960"><path d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143ZM233-120l65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Zm247-350Z"/></svg>
@@ -239,7 +204,7 @@
                 @include('partials.trending_posts', ['trending_posts' => $trending_posts])
             </div>
         </div>
-    </div>
+    </div>  
     <x-colors_skills></x-colors_skills>
     <!-- likers modal -->
     @include('partials.likers_modal',['likers' => $likers])

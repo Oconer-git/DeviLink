@@ -20,7 +20,7 @@
                 </option>
             </select>
             <x-underline></x-underline>
-            <textarea name="content" rows="3" class="w-full p-3 focus:outline-none rounded-md text-gray-900" id="about" placeholder="share something here..."></textarea>
+            <textarea name="content" class="w-full p-3 overflow-y-hidden focus:outline-none rounded-md text-gray-900" id="about" placeholder="share something here..."></textarea>
             <!-- picture post preview -->
             <img src="{{asset('storage/images/no_picture.jpg')}}"  alt="picture" class="picture_preview hidden w-full mt-2 rounded-md outline-4">
             <section>

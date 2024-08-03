@@ -2,7 +2,7 @@
     @foreach ($trending_posts as $post)
         <section class="post w-full inline-block h-28 bg-cover rounded-lg shadow-sm mb-2" style="background-image: url('{{ asset($post->image) }}');"
                     data-post-id="{{$post->id}}">
-            <article class="w-full h-full p-2 bg-black/80 text-white rounded-md">
+            <article class="w-full h-full p-2 bg-black/60 text-white rounded-md">
                 <p class="font-semibold text-sm">{{$post->content}}</p>
             </article>
         </section>

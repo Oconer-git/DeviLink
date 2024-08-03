@@ -388,6 +388,9 @@ class UsersController extends Controller
                     }
                 }         
             }
+
+            // Sort comments by number of likes in descending order
+            $comments = $comments->sortByDesc('likes');
         }
         /* END */
 

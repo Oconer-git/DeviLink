@@ -34,12 +34,12 @@
             </article> 
             <!-- post section  -->  
             <div class="group mx-auto mb-2 py-4 px-auto px-4 bg-slate-200 rounded-md md:rounded-b-none md:bg-white md:px-0 md:pr-4 border-b-2 border-b-cyan-600/80">
-                <img src="{{ asset($profile_picture) }}" class="w-12 h-12 border-2 border-white group-hover:shadow-xl group-hover:shadow-blue-400 transition duration-500 rounded-full shadow-md inline" alt="devilink logo">
+                <img src="{{ asset($profile_picture) }}" class="w-12 h-12 border-2 border-white group-hover:shadow-xl group-hover:shadow-teal-400 transition duration-500 rounded-full shadow-md inline" alt="devilink logo">
                 <!-- open modal when button is clicked -->
                 <button id="post_modal" class="bg-slate-300 w-8/12 text-xs lg:text-sm lg:w-7/12 h-10 shadow-sm text-gray-500 align-middle rounded-full text-left pl-3 group-hover:bg-slate-400 group-hover:text-whitesmoke transition duration-300">
                     <p>Hey coder, any stories for today? 💭</p>
                 </button>
-                <img src="{{ asset('storage/images/giphy.webp') }}" class="w-12 inline hover:scale-110 duration-300" alt="devilink logo">
+                <img src="{{ asset('storage/images/giphy.webp') }}" class="w-10 inline hover:scale-110 group-hover:w-16 cursor-move duration-300" alt="devilink logo">
             </div>
             <!-- devilink posts loop divs -->
             @foreach ($posts as $post)
@@ -81,7 +81,11 @@
                     </section>
                     <section class="mb-2">
                         <!-- content -->
-                        <p class="ml-1 mt-2 mb-1 text-sm break-all text-gray-800">{{$post->content}}</p>
+                        @if(strlen($post->content) < 30)
+                            <p class="ml-1 mt-2 mb-1 text-gray-800 break-words">{{$post->content}}</p>
+                        @else
+                            <p class="ml-1 mt-2 mb-1 text-sm text-gray-800 break-words">{{$post->content}}</p>
+                        @endif
                         <!-- image -->
                         @if ($post->image != null)
                             <img src="{{ asset($post->image) }}" class="w-full border-2 rounded-md" alt="{{$post->first_name}}'s post">
@@ -116,28 +120,7 @@
         </main>
         <!-- People you might know section section -->
         <div class="z-5 fixed top-20 right-6 hidden md:w-3/12 md:block lg:w-3/12 align-top ">
-            <div class="bg-gray-100 p-3 rounded-md">
-                <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-cyan-500 w-4 inline align-middle" viewBox="0 -960 960 960"><path d="M440-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm0-80q33 0 56.5-23.5T520-640q0-33-23.5-56.5T440-720q-33 0-56.5 23.5T360-640q0 33 23.5 56.5T440-560ZM884-20 756-148q-21 12-45 20t-51 8q-75 0-127.5-52.5T480-300q0-75 52.5-127.5T660-480q75 0 127.5 52.5T840-300q0 27-8 51t-20 45L940-76l-56 56ZM660-200q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29Zm-540 40v-111q0-34 17-63t47-44q51-26 115-44t142-18q-12 18-20.5 38.5T407-359q-60 5-107 20.5T221-306q-10 5-15.5 14.5T200-271v31h207q5 22 13.5 42t20.5 38H120Zm320-480Zm-33 400Z"/></svg>
-                <h2 class="text-sm text-gray-500 font-semibold mb-2 inline align-middle">People you might follow</h2>
-                @if($suggest_users != null)
-                    @foreach ($suggest_users as $user)
-                        <section class="pl-1 mb-1 hover:bg-slate-200 p-1 rounded-lg flex group flex-col lg:flex-row items-center justify-between transition duration-300 ease-in-out">
-                            <div class="flex items-start lg:items-center">
-                                <img src="{{ asset($user->profile_picture) }}" class="w-9 h-9 rounded-full border-2 shadow-md inline-block align-middle transition duration-300 ease-in-out" alt="profile">
-                                <div class="inline-block align-middle ml-2 transition duration-300 ease-in-out">
-                                    <p class="text-gray-500 text-sm -mb-2 transition duration-300 ease-in-out">{{$user->first_name}} {{$user->last_name}}</p>
-                                    <a href="/profile/{{$user->username}}" class="text-cyan-600 text-xs text-md font-light transition duration-300 ease-in-out">
-                                        {{'@'.$user->username}}
-                                    </a>           
-                                </div>
-                            </div>
-                            @livewire('suggested-follow',['user_id' => $user->id, 'ifRequsted' => false])
-                        </section>
-                    @endforeach
-                @else
-                    <p class="text-xs text-gray-500 ml-2">No suggestions at the moment...</p>
-                @endif
-            </div>
+            @include('partials.suggest_users',['suggest_users' => $suggest_users])
             <div class="mt-4 border-l-4 border-purple-300 pl-2 -mb-2">
                 <h3 class="text-lg text-gray-500 font-semibold mb-2 inline align-middle">Trending Posts</h3>
                 <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-gray-400 w-6 inline align-middle"viewBox="0 -960 960 960"><path d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143ZM233-120l65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Zm247-350Z"/></svg>

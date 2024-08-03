@@ -1,8 +1,8 @@
 @include('partials.header',['title' => 'Tealbean', 'background' => 'bg-gray-200'])
     <x-navbar></x-navbar>
-    <div class="bg-neutral-100 block w-full lg:w-5/12 lg:top-0 lg:right-0 lg:h-screen lg:fixed pt-20 pb-10 px-10 drop-shadow-md">
+    <div class="bg-neutral-100 block w-full px-8 md:px-10 lg:w-5/12 lg:top-0 lg:right-0 lg:h-screen lg:fixed pt-20 pb-10 drop-shadow-md">
         <!-- profile -->
-        <main class="inline-block w-full lg:rounded-full border-r-4 border-r-teal-400">
+        <main class="inline-block w-full border-r-0 md:border-r-4 md:border-r-teal-400 xl:rounded-full pl-2">
             <!-- profile picture -->
             <section class="mx-auto inline-block">
                 <figure class="md:p-4 bg-white rounded-full border-2 border-teal-500  p-1 ">

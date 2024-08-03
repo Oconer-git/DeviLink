@@ -1,11 +1,12 @@
 @include('partials.header',['title' => 'profile', 'background' => 'bg-gray-200'])
     <x-navbar></x-navbar>
-    <div class="bg-neutral-100 block w-full lg:w-5/12 lg:top-0 lg:right-0 lg:h-screen lg:fixed pt-20 pb-10 px-10 drop-shadow-md">
+    <div class="bg-neutral-100 block w-full px-8 md:px-10 lg:w-5/12 lg:top-0 lg:right-0 lg:h-screen lg:fixed pt-20 pb-10 drop-shadow-md">
         <!-- profile -->
         @if ($user->ifFollowed == 'following')
-        <main class="inline-block w-full border-r-4 mt-1 border-r-green-300/80">
+
+        <main class="inline-block w-full border-r-4 border-r-green-400">
         @else
-        <main class="inline-block w-full border-r-4 mt-1 border-r-purple-300/80">
+        <main class="inline-block w-full border-r-4 border-r-purple-400">
         @endif
             <!-- profile picture -->
             <section class="mx-auto inline-block">
