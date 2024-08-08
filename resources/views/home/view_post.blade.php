@@ -145,7 +145,7 @@
                                                     @endif
                                                 </div>      
                                                 <!--reply-->
-                                                <p class="mt-1 text-sm text-gray-700 px-4">
+                                                <p class="mt-1 text-sm text-gray-700 px-4 break-words">
                                                     {{$reply->reply}}
                                                 </p> 
                                                 <!-- likes number of reply -->

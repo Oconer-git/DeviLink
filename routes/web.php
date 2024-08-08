@@ -37,16 +37,19 @@ Route::post('/comment',[UserPostCommentController::class,'comment'])->name('user
 //for replying in comments
 Route::post('/reply',[UserPostCommentController::class,'reply'])->name('user.reply');
 //for viewing post
-Route::get('/post/{id}',[UserPostCommentController::class,'view_post'])->name('view.post');
+// Route::get('/post/{id}',[UserPostCommentController::class,'view_post'])->name('view.post');
 
 //for searching
 Route::get('/search/{thing}',[NavigateController::class, 'search']);
 //searching form 
 Route::get('/input_search',[NavigateController::class, 'input_search'])->name('search');
+//for viewing saved posts
+Route::get('/saves',[NavigateController::class, 'saved_posts'])->name('view.saves');
+//for viewing post
+Route::get('/post/{id}',[NavigateController::class,'post']);
 
 //for testing
-Route::get('/testing/{id}',[UsersController::class,'testing']);
-Route::get('/testing1',[UserSettingsContoller::class,'testing']);
+Route::get('/testing',[UsersController::class,'testing']);
 
 //Google authentication
 Route::get('/google/redirect', [GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');

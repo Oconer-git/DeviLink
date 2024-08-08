@@ -27,52 +27,8 @@
         <img src="{{ $image->temporaryUrl() }}" alt="picture preview" class="mb-4 w-1/2 rounded-md">
     @endif
     
-    @foreach ($comments as $key => $comment)
-        <section class="bg-white pt-1">
-            <img src="{{ asset($profile_picture) }}" class="w-10 h-10 rounded-full border-2 shadow-md inline align-top" alt="profile">
-            <div class="inline-block align-midde">
-                <p class="inline text-gray-600 text-sm md:text-md font-medium">{{$first_name}} {{$last_name}}</p>
-                <a href="/profile/{{$username}}"class="inline text-cyan-600 text-xs md:text-md font-light">{{'@'.$username}}</a>
-                <p class="inline text-gray-500 text-xxs ml-1">Just now</p>
-                @if(isset($skills))
-                    @include('partials.comments_skills_load', ['skills' => $skills])
-                @endif
-            </div>      
-            <!--comment-->
-            @if(strlen($comment->comment) > 70)
-                <p class="mt-1 text-gray-700 px-4 break-words">{{$comment->comment}}</p> 
-            @else
-                <p class="mt-1 text-gray-700 px-4 text-sm break-words">{{$comment->comment}}</p> 
-            @endif
-            <!-- image -->
-            @if($comment->image != null)
-                <img src="{{ asset($comment->image) }}" class="w-8/12 p-3 -mt-2 -mb-4 rounded-2xl" alt="image">
-            @endif
-            <!-- number of likes -->
-            <livewire:like-comment 
-                :comment_id="$comment->id" 
-                :is_profilee="true" 
-                :comment_likes="0" 
-                :wire:key="'like-comment-'.$comment->id" 
-            />
-
-            <!-- reply show button -->
-            <button wire:click="show_reply({{$key}})" class="inline-block align-middle text-xxs ml-2 mt-2 hover:bg-teal-400/30 p-[4px] group rounded-full">
-                <svg xmlns="http://www.w3.org/2000/svg" class="inline group-hover:hidden w-[20px] fill-current text-teal-800" viewBox="0 -960 960 960"><path d="M80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z"/></svg>
-                <svg xmlns="http://www.w3.org/2000/svg" class="hidden group-hover:inline w-[20px] fill-current text-sky-500" viewBox="0 -960 960 960"><path d="M80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Z"/></svg>
-                <p class="inline">Reply</p>
-            </button>
-        </section>
-        <section class="pl-6 mb-2">
-            <!-- reply form -->
-            <!-- show livewire when true -->
-             
-            <livewire:reply-comment-live 
-                :comment_id="$comment->id"                 
-                :show="$comment->show_reply_form"
-                :wire:key="'reply-comment-live-'.$comment->id"
-            />
-        </section>
+    @foreach ($comments as $comment)
+        @livewire('reply-comment-live', ['comment' => $comment, 'comment_id' => $comment->id], key($comment->id))
         <x-underline></x-underline>
 
     @endforeach

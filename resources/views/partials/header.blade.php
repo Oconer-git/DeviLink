@@ -63,7 +63,7 @@
             if ($(event.target).closest('.livewire-component').length === 0) {
                 var post_id = $(this).data('post-id');
                 if (post_id) {
-                    window.location.href = "/testing/" + post_id;
+                    window.location.href = "/post/" + post_id;
                 }
             } 
             else {
@@ -104,7 +104,6 @@
         $('.reply_button').on('click', function() {
             var commentId = $(this).data('comment-id');
             $('.reply_form[data-comment-id="' + commentId + '"]').toggleClass('hidden');
-            console.log('clicked')
         });
 
         //for going to profile when click 

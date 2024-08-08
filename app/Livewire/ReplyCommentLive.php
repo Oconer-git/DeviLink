@@ -14,8 +14,17 @@ class ReplyCommentLive extends Component
     public $reply_ids = [];
     public $reply_content;
     public $latest_reply;
-    public $show;
+    public $show = false;
+    public $comment;
 
+    public function show_reply() {
+        if(!$this->show) {
+            $this->show = true;
+        }
+        else {
+            $this->show = false;
+        }
+    }
     public function submit_reply(){
         if($this->reply_content) {
             $validated = $this->validate([
@@ -33,6 +42,7 @@ class ReplyCommentLive extends Component
 
             $this->replies[] = $latest_reply;
             $this->reply_content = '';
+            $this->show_reply();
         }
     }
 
