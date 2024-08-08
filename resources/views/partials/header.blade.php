@@ -74,7 +74,7 @@
         $('.show_posts').click(function(){
             $('.user_shared').hide();
             $('#post_label').removeClass('text-slate-500');
-            $('#post_label').addClass('text-purple-600');
+            $('#post_label').addClass('text-teal-500');
             $('#shared_label').removeClass('text-orange-600');
             $('#shared_label').addClass('text-slate-500');
             $('.user_posts').show();
@@ -82,7 +82,7 @@
         
         $('.show_shared').click(function(){
             $('.user_posts').hide();
-            $('#post_label').removeClass('text-purple-600');
+            $('#post_label').removeClass('text-teal-500');
             $('#post_label').addClass('text-slate-500');
             $('#shared_label').removeClass('text-slate-500');
             $('#shared_label').addClass('text-orange-600');
@@ -104,6 +104,7 @@
         $('.reply_button').on('click', function() {
             var commentId = $(this).data('comment-id');
             $('.reply_form[data-comment-id="' + commentId + '"]').toggleClass('hidden');
+            console.log('clicked')
         });
 
         //for going to profile when click 

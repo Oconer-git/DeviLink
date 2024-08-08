@@ -2,17 +2,19 @@
 
 namespace App\Livewire;
 
+use Livewire\Component; 
 use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
 use App\Models\Reply;
 
-class ReplyComment extends Component
-{   
+class ReplyCommentLive extends Component
+{
+    //this is for replying comment without jquery
     public $comment_id;
     public $replies = [];
     public $reply_ids = [];
     public $reply_content;
     public $latest_reply;
+    public $show;
 
     public function submit_reply(){
         if($this->reply_content) {
@@ -36,6 +38,6 @@ class ReplyComment extends Component
 
     public function render()
     {
-        return view('livewire.reply-comment');
+        return view('livewire.reply-comment-live');
     }
 }

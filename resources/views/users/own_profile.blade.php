@@ -63,7 +63,7 @@
         </section>
     </div>
     <div class="-mb-2">
-        <button class="show_posts font-semibold mb-1 mt-20 ml-16 inline text-purple-500 hover:scale-110 duration-500">
+        <button class="show_posts font-semibold mb-1 mt-20 ml-16 inline text-teal-500 hover:scale-110 duration-500">
             <p id="post_label" class=" inline">Posts</p>
             <span class="text-sm text-slate-400">{{'('.$posts->count().')'}}</span> 
         </button>

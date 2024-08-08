@@ -8,9 +8,6 @@
         <!-- main contents scroll -->
         <main class="w-full sm:w-8/12 md:w-5/12 lg:w-7/12 lg:ml-56 mx-auto pr-0 lg:pl-4 lg:pr-20 lg:border-l-2 border-l-gray-400/20">
             <!-- people section  -->
-            <!-- <button class="back mb-2 inline-block align-middle rounded-full hover:bg-slate-900 p-1 hover:scale-105 duration-300"> 
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 text-yellow-600 hover:text-gray-80 fill-current" viewBox="0 -960 960 960"><path d="M280-200v-80h284q63 0 109.5-40T720-420q0-60-46.5-100T564-560H312l104 104-56 56-200-200 200-200 56 56-104 104h252q97 0 166.5 63T800-420q0 94-69.5 157T564-200H280Z"/></svg>
-            </button> -->
             <button id="back" class="mb-2 text-gray-700 hover:bg-neutral-200 rounded-full relative inline-block align-middle p-1">        
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-7 fill-current" viewBox="0 -960 960 960" ><path d="M280-200v-80h284q63 0 109.5-40T720-420q0-60-46.5-100T564-560H312l104 104-56 56-200-200 200-200 56 56-104 104h252q97 0 166.5 63T800-420q0 94-69.5 157T564-200H280Z"/></svg>
             </button>
@@ -89,45 +86,18 @@
                     </div>
                 </div>
                 <!-- comments -->
-                @if($comments->isEmpty())
-                <div class="px-4 py-4 rounded-md text-gray-800 lg:h-[350px] lg:overflow-y-auto small-scrollbar">
-                @else
-                <div class="px-4 py-4 border-t-2 text-gray-800 lg:h-screen lg:overflow-y-auto small-scrollbar">
-                @endif
+                <div class="p-4 text-gray-800 max-h-screen border-t-2 small-scrollbar">
                     <!-- comment form textbox input -->
-                    <form action="{{route('user.comment')}}" method="POST" class="w-full bg-white my-2 p-2 rounded-md shadow-sm text-sm border-2 border-cyan-800 text-gray-800" enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" name="post_id" value="{{$post->id}}">
-                        <img src="{{ asset($profile_picture) }}" class="w-7 inline-block rounded-full border-2 shadow-md mr-1 align-top" alt="profile">
-                        <textarea name="comment" id="comment" class="w-10/12 md:w-9/12 lg:w-11/12 text-lg focus:outline-none overflow-y-hidden bg-transparent inline-block mt-1" placeholder="Leave a comment..." oninput="autoResize(this)"></textarea>
-                        <div class="flex flex-row justify-end">
-                            <!-- //upload picture button -->
-                            @error('comment')
-                                <p class="text-red-900 text-xs w-44 mt-1 break-all">{{$message}}</p>
-                            @enderror
-                            <div class="flex items-center">
-                                <input type="file" id="image" name="image" class="picture hidden" accept="image/*">
-                                <label for="image">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-gray-500 w-4 h-4 mr-1 hover:text-orange-800" viewBox="0 -960 960 960"><path d="M440-440ZM120-120q-33 0-56.5-23.5T40-200v-480q0-33 23.5-56.5T120-760h126l74-80h240v80H355l-73 80H120v480h640v-360h80v360q0 33-23.5 56.5T760-120H120Zm640-560v-80h-80v-80h80v-80h80v80h80v80h-80v80h-80ZM440-260q75 0 127.5-52.5T620-440q0-75-52.5-127.5T440-620q-75 0-127.5 52.5T260-440q0 75 52.5 127.5T440-260Zm0-80q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29Z"/></svg>
-                                </label>
-                            </div>
-                            <!-- submit comment button -->
-                            <button type="submit" class="w-6 h-6 ">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-sky-600 hover:text-blue-900 hover:shadow-xl hover:scale-105 duration-200" viewBox="0 -960 960 960"><path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z"/></svg>
-                            </button>
-                        </div>
-                    </form>
-                    <!-- picture preview -->
-                    <img src="{{asset('storage/images/no_picture.jpg')}}"  alt="picture" class="hidden mb-4 w-1/2 rounded-md picture_preview">
-                    <article class="mb-2">
+                    @livewire('comment-post', ['post_id' => $post->id])
+                    <article>
                         <!-- comment section -->
                         <!-- if no comment show an image -->
                         @if($comments->isEmpty())
                             <img src="{{asset('storage/images/comments/no_comment.png')}}" class="w-24 mx-auto my-auto" alt="no comment picture">
-                            <p class="text-sm text-center mt-4 text-gray-500">No comments yet</p>
+                            <p class="text-sm text-center mt-4 text-gray-500">Where are the rest of the comments?</p>
                         @else
                             @foreach($comments as $comment)
-                            <section class="bg-white pt-4 pb-2">
+                                <section class="bg-white pt-1">
                                     <img src="{{ asset($comment->user->profile_picture) }}" class="w-10 h-10 rounded-full border-2 shadow-md inline align-top" alt="profile">
                                     <div class="inline-block align-midde">
                                         <p class="inline text-gray-600 text-sm md:text-md font-medium">{{$comment->user->first_name}} {{$comment->user->last_name}}</p>
@@ -145,7 +115,7 @@
                                     @endif
                                     <!-- image -->
                                     @if($comment->image != null)
-                                        <img src="{{ asset($comment->image) }}" class="w-full md:w-7/12 p-3 -mt-2 -mb-4 rounded-2xl" alt="image">
+                                        <img src="{{ asset($comment->image) }}" class="w-8/12 p-3 -mt-2 -mb-4 rounded-2xl" alt="image">
                                     @endif
                                     <!-- number of likes -->
                                     @livewire('like-comment',['comment_id' => $comment->id, 'comment_likes' => $comment->likes, 'is_profile' => true])
@@ -158,33 +128,31 @@
                                     </button>
                                 </section>
                                 <!-- replies -->
-                                <section class="pl-6 pb-2">
+                                <section class="pl-6">
+                                    <!-- reply form -->
+                                    @livewire('reply-comment',['comment_id' => $comment->id])
                                     <!-- replies -->
-                                    <div id="replies">
-                                        <!-- reply form -->
-                                        @livewire('reply-comment',['comment_id' => $comment->id])
-                                        @if(!$comment->replies->isEmpty())
-                                            @foreach ($comment->replies as $reply)
-                                                <section class= "pl-2 mt-2 mb-4 border-l-2 border-l-gray-300">
-                                                    <img src="{{ asset($reply->user->profile_picture) }}" class="w-9 h-9 rounded-full border-2 shadow-md inline align-top" alt="profile">
-                                                    <div class="inline-block align-midde">
-                                                        <p class="inline text-gray-600 text-xs md:text-md font-medium">{{$reply->user->first_name}} {{$reply->user->last_name}}</p>
-                                                        <a href="/profile/{{$reply->user->username}}"class="inline text-cyan-600 text-xs md:text-md font-light">{{'@'.$reply->user->username}}</a>
-                                                        <p class="inline text-gray-500 text-xxs ml-1">{{$reply->date_time}}</p>
-                                                        @if(isset($reply->user->skills))
-                                                            @include('partials.comments_skills_load', ['skills' => $reply->user->skills])
-                                                        @endif
-                                                    </div>      
-                                                    <!--reply-->
-                                                    <p class="mt-1 text-sm text-gray-700 px-4">
-                                                        {{$reply->reply}}
-                                                    </p> 
-                                                    <!-- likes number of reply -->
-                                                    @livewire('like-reply',['reply_id' => $reply->id, 'reply_likes' => $reply->likes])
-                                                </section>
-                                            @endforeach
-                                        @endif
-                                    </div>
+                                    @if(!$comment->replies->isEmpty())
+                                        @foreach ($comment->replies as $reply)
+                                            <section class= "pl-2 mt-2 mb-4 border-l-2 border-l-gray-300">
+                                                <img src="{{ asset($reply->user->profile_picture) }}" class="w-9 h-9 rounded-full border-2 shadow-md inline align-top" alt="profile">
+                                                <div class="inline-block align-midde">
+                                                    <p class="inline text-gray-600 text-xs md:text-md font-medium">{{$reply->user->first_name}} {{$reply->user->last_name}}</p>
+                                                    <a href="/profile/{{$reply->user->username}}"class="inline text-cyan-600 text-xs md:text-md font-light">{{'@'.$reply->user->username}}</a>
+                                                    <p class="inline text-gray-500 text-xxs ml-1">{{$reply->date_time}}</p>
+                                                    @if(isset($reply->user->skills))
+                                                        @include('partials.comments_skills_load', ['skills' => $reply->user->skills])
+                                                    @endif
+                                                </div>      
+                                                <!--reply-->
+                                                <p class="mt-1 text-sm text-gray-700 px-4">
+                                                    {{$reply->reply}}
+                                                </p> 
+                                                <!-- likes number of reply -->
+                                                @livewire('like-reply',['reply_id' => $reply->id, 'reply_likes' => $reply->likes])
+                                            </section>
+                                        @endforeach
+                                    @endif
                                 </section>
                                 <x-underline></x-underline>
                             @endforeach
