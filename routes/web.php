@@ -26,10 +26,11 @@ Route::post('/logout',[UsersController::class,'logout'])->name('logout');
 Route::put('/update_pfp',[UserSettingsContoller::class,'update_pfp'])->name('update_pfp.user');
 Route::put('/update_about',[UserSettingsContoller::class,'update_about'])->name('update_about.user');
 Route::post('/update_skills',[UserSettingsContoller::class,'update_skills'])->name('update_skills.user');
-//updating username
+
+// update settings section
 Route::put('/update_username',[UserSettingsContoller::class,'update_username'])->name('update_username.user');
-//updating name
 Route::put('/update_name',[UserSettingsContoller::class,'update_name'])->name('update_name.user');
+Route::put('/update_dob',[UserSettingsContoller::class,'update_dob'])->name('update_dob.user');
 
 //for posting
 Route::post('/user_post',[UserPostCommentController::class,'post'])->name('user.post');
@@ -40,8 +41,7 @@ Route::post('/like_post',[UserPostCommentController::class,'like_post'])->name('
 Route::post('/comment',[UserPostCommentController::class,'comment'])->name('user.comment');
 //for replying in comments
 Route::post('/reply',[UserPostCommentController::class,'reply'])->name('user.reply');
-//for viewing post
-// Route::get('/post/{id}',[UserPostCommentController::class,'view_post'])->name('view.post');
+
 
 //for searching
 Route::get('/search/{thing}',[NavigateController::class, 'search']);

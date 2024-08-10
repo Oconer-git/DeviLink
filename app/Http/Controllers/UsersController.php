@@ -260,15 +260,17 @@ class UsersController extends Controller
 
     // for registering user account
     public function register(Request $request): RedirectResponse {
-        $validated = $request->validate([
-            'first_name' => 'required|string|alpha:ascii|max:20|min:2',
-            'last_name' => 'required|string|alpha:ascii|max:20|min:2',
-            'email' => 'required|email|unique:users,email',
-            'username' => 'required|string|min:3|max:20|unique:users,username|alpha_num:ascii|alpha_dash:ascii',
-            'password' => 'required|string|min:7|confirmed',
-            'dob' => 'required|date|before:'. now()->subYears(12)->format('Y-m-d'),
-            'gender' => 'required|in:Male,Female'
-        ]);
+        $validated = $request->validate(
+            [
+                'first_name' => 'required|string|alpha:ascii|max:20|min:2',
+                'last_name' => 'required|string|alpha:ascii|max:20|min:2',
+                'email' => 'required|email|unique:users,email',
+                'username' => 'required|string|min:3|max:20|unique:users,username|alpha_num:ascii|alpha_dash:ascii',
+                'password' => 'required|string|min:7|confirmed',
+                'dob' => 'required|date|before:'. now()->subYears(12)->format('Y-m-d'),
+                'gender' => 'required|in:Male,Female'
+            ], ['dob.before' => 'You must be at least 12 years old']
+        );
 
         $validated['profile_picture'] = 'storage/images/profiles/default_profile.jpg';
         $validated['password'] = bcrypt($validated['password']);

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Mockery\Generator\Parameter;
 use App\Models\User;
+use Carbon\Carbon;
 class UserSettingsContoller extends Controller
 {
     public function update_pfp(Request $request){
@@ -82,5 +83,24 @@ class UserSettingsContoller extends Controller
         $user->last_name = $request->last_name;
         $user->save();
         return redirect()->back()->with('message','Your name has been changed');
+    }
+
+    public function update_dob(Request $request) {
+        $request->validate(
+            [
+                'dob' => ['required', 'date', 'before:' . now()->subYears(12)->format('Y-m-d')],
+            ], 
+            [
+                'dob.required' => 'Date of birth is required',
+                'dob.date' => 'Please provide a valid date',
+                'dob.before' => 'You must be at least 12 years old'
+            ]
+        );
+    
+
+        $user = Auth::user();   
+        $user->dob = Carbon::createFromFormat('m/d/Y', $request->dob)->format('Y-m-d');
+        $user->save();
+        return redirect()->back()->with('message','Your date of birth has been changed');
     }
 }

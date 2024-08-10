@@ -44,7 +44,6 @@
                     <fieldset class="inline-block w-half">
                         <label for="dob" class="text-sm text-gray-500 font-semibold block">Date of birth</label>
                         <input type="text" id="datepicker" name="dob" class="rounded-md text-xs w-full text-gray-600 bg-slate-200 focus:outline-teal-700 p-1 shadow-sm">
-                        
                     </fieldset>
                     <fieldset class="inline-block w-half">
                         <label for="gender" class="text-sm text-gray-500 font-semibold">Gender</label>

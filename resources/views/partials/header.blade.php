@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- icon -->
+    <link rel="icon" href="{{asset('storage/images/tealbean_logo_transparent.png')}}" type="image/x-icon">
     <!-- jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="icon" href="{{asset('storage/images/tealbean_logo_transparent.png')}}" type="image/x-icon">
+    <!-- jquery date plugin -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
     <!-- tailwind -->
     @vite('resources/css/app.css')
     <!--profile modals -->
@@ -20,6 +25,9 @@
 </head>
 <script>
     $(function(){
+        //date picker
+        $( "#datepicker" ).datepicker();
+
         //for closing modals
         $('.close_modal').click(function(){
             $('.modal').hide();
@@ -93,7 +101,7 @@
         $('.message').show(); 
         setTimeout(function() {
             $('.message').remove(); // Hide the message after 4 seconds
-        }, 4000); // 4000 milliseconds = 4 seconds
+        }, 6000); // 6000 milliseconds = 6 seconds
         
         //auto resize textareas
         $('textarea').on('input', function() {
@@ -140,6 +148,13 @@
             //show this form
             $('#name_settings').remove();
             $('#name_form').show();
+        })
+
+        //for showing dob settings
+          $('#show_dob_settings').click(function(){
+            //show this form
+            $('#dob_settings').remove();
+            $('#dob_form').show();
         })
     });
 

@@ -1,6 +1,6 @@
 @include('partials.header',['background' => 'bg-white'])
     <!-- navbar section -->
-    <x-navbar></x-navbar>   
+    <x-navbar></x-navbar>
     <!-- main content -->
     <div class="bg-white w-full mx-auto pt-[70px] px-4 pb-24"> 
         <!-- profile options and settings  -->

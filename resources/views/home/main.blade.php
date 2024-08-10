@@ -1,29 +1,6 @@
 @include('partials.header',['background' => 'bg-white'])
     <!-- navbar section -->
     <x-navbar></x-navbar>
-    <!-- errors -->
-    @if ($errors->any())
-        <div class="message hidden w-1/2 md:w-3/12 bg-red-100 border border-red-400/20 shadow-lg shadow-red-500 text-red-700 px-4 py-3 rounded fixed z-20 right-10 top-16" role="alert">
-            <strong class="font-bold">Whoops!</strong>
-            @error('content')
-                <p class="text-red-900 text-sm">{{$message}}</p>
-            @enderror
-            @error('is_global')
-                <p class="text-red-900 text-sm">{{$message}}</p>
-            @enderror
-            @error('picture')
-                <p class="text-red-900 text-sm">{{$message}}</p>
-            @enderror
-            @error('username')
-                <p class="text-red-900 text-sm">{{$message}}</p>
-            @enderror
-        </div>
-    @endif
-    @if(session('message'))
-        <div class="message hidden w-1/2 md:w-3/12 bg-green-100 border border-red-400/20 shadow-lg shadow-green-500 text-green-700 px-4 py-3 rounded-md fixed z-20 right-10 top-16" role="alert">
-            <span class="block sm:inline">{{session('message')}}</span>
-        </div>
-    @endif
     <!-- main content -->
     <div class="bg-white w-full mx-auto pt-[70px] px-4 pb-24"> 
         <!-- profile options and settings  -->

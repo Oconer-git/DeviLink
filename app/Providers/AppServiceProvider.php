@@ -44,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('first_name', Auth::user()->first_name);
                 $view->with('last_name', Auth::user()->last_name);
                 $view->with('profile_picture', Auth::user()->profile_picture);
+                $view->with('dob', Auth::user()->dob);
                 //check if user already changed his username
                 $view->with('username_changed', Auth::user()->username_change);
                 $view->with('skills', $skills);
