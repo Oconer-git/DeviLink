@@ -290,7 +290,6 @@ class UsersController extends Controller
     public function login_user(Request $request): RedirectResponse {
         //set zero for updating foreign key checks
         $check = 0;
-        DB::statement('SET GLOBAL FOREIGN_KEY_CHECKS = ?;',[$check]);
 
         $validated = $request->validate([
             'email' => ['required', 'email'],
@@ -299,7 +298,7 @@ class UsersController extends Controller
 
         if(auth()->attempt($validated)) {
             $request->session()->regenerate();
-            DB::statement('SET GLOBAL FOREIGN_KEY_CHECKS=0;');
+            DB::statement('SET GLOBAL FOREIGN_KEY_CHECKS = ?;',[$check]);
             return redirect('/')->with('welcome_message','Welcome back!');
         }
         else{

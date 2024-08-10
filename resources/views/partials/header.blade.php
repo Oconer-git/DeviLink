@@ -156,6 +156,13 @@
             $('#dob_settings').remove();
             $('#dob_form').show();
         })
+
+          //for showing dob settings
+          $('#show_password_settings').click(function(){
+            //show this form
+            $('#password_settings').remove();
+            $('#password_form').show();
+        })
     });
 
     //for autoresizing textboxes

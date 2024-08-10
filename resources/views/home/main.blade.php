@@ -7,7 +7,7 @@
         <x-sidebar></x-sidebar>
         <!-- main contents scroll -->
         <main class="w-full sm:w-8/12 md:w-5/12 lg:w-7/12 lg:ml-56 mx-auto pr-0 lg:pl-4 lg:pr-20 lg:border-l-2 border-l-gray-400/20">
-            <article class="px-2 md:px-0">
+            <article class="px-2 md:px-0 py-2">
                 <h1 class="font-bold text-teal-600 text-xl inline">Posts today</h1>
                 <p class="font-light text-cyan-600 text-sm inline">See what is happening</p>
             </article> 
@@ -18,7 +18,7 @@
                 <button id="post_modal" class="bg-slate-300 w-8/12 text-xs lg:text-sm lg:w-7/12 h-10 shadow-sm text-gray-500 align-middle rounded-full text-left pl-3 group-hover:bg-slate-400 group-hover:text-whitesmoke transition duration-300">
                     <p>Hey coder, any stories for today? 💭</p>
                 </button>
-                <img src="{{ asset('storage/images/giphy.webp') }}" class="w-10 inline hover:scale-110 group-hover:w-16 cursor-move duration-300" alt="devilink logo">
+                <img src="{{ asset('storage/images/giphy.webp') }}" class="w-8 inline group-hover:scale-110 cursor-move duration-300" alt="devilink logo">
             </div>
             <!-- devilink posts loop divs -->
             @foreach ($posts as $post)

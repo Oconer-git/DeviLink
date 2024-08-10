@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 use Mockery\Generator\Parameter;
 use App\Models\User;
 use Carbon\Carbon;
@@ -97,10 +98,33 @@ class UserSettingsContoller extends Controller
             ]
         );
     
-
         $user = Auth::user();   
         $user->dob = Carbon::createFromFormat('m/d/Y', $request->dob)->format('Y-m-d');
         $user->save();
         return redirect()->back()->with('message','Your date of birth has been changed');
+    }
+
+    public function update_password(Request $request)
+    {
+        // Validate the input
+        $request->validate([
+            'old_password' => 'required',
+            'password' => 'required|confirmed|min:8', // Ensure new password is confirmed and has a minimum length
+        ]);
+
+        // Get the currently authenticated user
+        $user = Auth::user();
+
+        // Check if the old password is correct
+        if (!Hash::check($request->input('old_password'), $user->password)) {
+            return redirect()->back()->withErrors(['old_password' => 'The provided password does not match our records.']);
+        }
+
+        // Update the user's password using bcrypt
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+
+        // Redirect with a success message
+        return redirect('/')->with('message', 'Password updated successfully.');
     }
 }

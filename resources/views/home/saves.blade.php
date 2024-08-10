@@ -6,7 +6,7 @@
         <!-- profile options and settings  -->
         <x-sidebar></x-sidebar>
         <!-- main contents scroll -->
-        <main class="w-full sm:w-8/12 md:w-5/12 lg:w-7/12 lg:ml-56 mx-auto pr-0 lg:pl-4 lg:pr-20 lg:border-l-2 border-l-gray-400/20">
+        <main class="w-full py-2 sm:w-8/12 md:w-5/12 lg:w-7/12 lg:ml-56 mx-auto pr-0 lg:pl-4 lg:pr-20 lg:border-l-2 border-l-gray-400/20">
             <!-- devilink posts loop divs -->
             <section class="mb-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-teal-700 w-8 inline -mr-1" viewBox="0 -960 960 960"><path d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Z"/></svg>

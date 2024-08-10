@@ -1,4 +1,4 @@
-<div class="fixed hidden px-4 py-3 top-18 left-8 md:w-3/12 md:block lg:left-2 align-top">
+<div class="fixed hidden px-4 py-3 top-16 left-8 md:w-3/12 md:block lg:left-2 align-top">
     <!-- home -->
     <section class="home w-full flex justify-start border-purple-300 pl-2 mb-3 group">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-8 fill-current  text-cyan-700/70 group-hover:scale-110 duration-200" viewBox="0 -960 960 960"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg>

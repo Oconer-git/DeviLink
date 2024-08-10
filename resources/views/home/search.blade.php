@@ -6,7 +6,7 @@
         <!-- profile options and settings  -->
         <x-sidebar></x-sidebar>
         <!-- main contents scroll -->
-        <main class="w-full sm:w-8/12 md:w-5/12 lg:w-7/12 lg:ml-56 mx-auto pr-0 lg:pl-4 lg:pr-20 lg:border-l-2 border-l-gray-400/20">
+        <main class="w-full py-2 sm:w-8/12 md:w-5/12 lg:w-7/12 lg:ml-56 mx-auto pr-0 lg:pl-4 lg:pr-20 lg:border-l-2 border-l-gray-400/20">
             <!-- people section  -->
             <h1 class="mb-2 font-bold text-slate-500 text-xl">People</h1>
             @if($users != null)

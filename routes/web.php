@@ -9,10 +9,11 @@ use App\Http\Controllers\GoogleLoginController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
-
+// main (view)
 Route::get('/',[UsersController::class,'main'])->name('main')->middleware('auth', 'verified');
 Route::get('/login',[UsersController::class,'login'])->name('login');
 Route::get('/comments',[UsersController::class,'comments']);
+// profile (view)
 Route::get('/profile/{username}',[UsersController::class,'profile'])->middleware('auth');;
 
 //for going to register page
@@ -31,6 +32,7 @@ Route::post('/update_skills',[UserSettingsContoller::class,'update_skills'])->na
 Route::put('/update_username',[UserSettingsContoller::class,'update_username'])->name('update_username.user');
 Route::put('/update_name',[UserSettingsContoller::class,'update_name'])->name('update_name.user');
 Route::put('/update_dob',[UserSettingsContoller::class,'update_dob'])->name('update_dob.user');
+Route::put('/update_password',[UserSettingsContoller::class,'update_password'])->name('update_password.user');
 
 //for posting
 Route::post('/user_post',[UserPostCommentController::class,'post'])->name('user.post');
@@ -43,13 +45,13 @@ Route::post('/comment',[UserPostCommentController::class,'comment'])->name('user
 Route::post('/reply',[UserPostCommentController::class,'reply'])->name('user.reply');
 
 
-//for searching
+//for searching (view)
 Route::get('/search/{thing}',[NavigateController::class, 'search']);
 //searching form 
 Route::get('/input_search',[NavigateController::class, 'input_search'])->name('search');
-//for viewing saved posts
+//for viewing saved posts (view)
 Route::get('/saves',[NavigateController::class, 'saved_posts'])->name('view.saves');
-//for viewing post
+//for viewing post (view)
 Route::get('/post/{id}',[NavigateController::class,'post']);
 
 //for testing
