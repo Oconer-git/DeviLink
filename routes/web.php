@@ -26,6 +26,8 @@ Route::post('/logout',[UsersController::class,'logout'])->name('logout');
 Route::put('/update_pfp',[UserSettingsContoller::class,'update_pfp'])->name('update_pfp.user');
 Route::put('/update_about',[UserSettingsContoller::class,'update_about'])->name('update_about.user');
 Route::post('/update_skills',[UserSettingsContoller::class,'update_skills'])->name('update_skills.user');
+//updating username
+Route::put('/update_username',[UserSettingsContoller::class,'update_username'])->name('update_username.user');
 
 //for posting
 Route::post('/user_post',[UserPostCommentController::class,'post'])->name('user.post');

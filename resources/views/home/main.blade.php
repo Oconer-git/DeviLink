@@ -5,7 +5,6 @@
     @if ($errors->any())
         <div class="message hidden w-1/2 md:w-3/12 bg-red-100 border border-red-400/20 shadow-lg shadow-red-500 text-red-700 px-4 py-3 rounded fixed z-20 right-10 top-16" role="alert">
             <strong class="font-bold">Whoops!</strong>
-            <span class="block sm:inline">There were some problems. Try again</span>
             @error('content')
                 <p class="text-red-900 text-sm">{{$message}}</p>
             @enderror
@@ -13,6 +12,9 @@
                 <p class="text-red-900 text-sm">{{$message}}</p>
             @enderror
             @error('picture')
+                <p class="text-red-900 text-sm">{{$message}}</p>
+            @enderror
+            @error('username')
                 <p class="text-red-900 text-sm">{{$message}}</p>
             @enderror
         </div>

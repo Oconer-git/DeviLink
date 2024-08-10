@@ -320,7 +320,7 @@ class UsersController extends Controller
         return view('users.register');
     }
     public function testing() {
-      
+        
     }
     
 }

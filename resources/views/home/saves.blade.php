@@ -8,7 +8,10 @@
         <!-- main contents scroll -->
         <main class="w-full sm:w-8/12 md:w-5/12 lg:w-7/12 lg:ml-56 mx-auto pr-0 lg:pl-4 lg:pr-20 lg:border-l-2 border-l-gray-400/20">
             <!-- devilink posts loop divs -->
-            <h1 class="mb-2 font-bold text-green-500 text-xl">Saves</h1>
+            <section class="mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-teal-700 w-8 inline -mr-1" viewBox="0 -960 960 960"><path d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Z"/></svg>
+                <h1 class="font-bold text-slate-500 text-xl inline align-middle">Saves</h1>
+            </section>
             @if($posts->isEmpty())
                 <div class="full h-96">
                     <img src="{{asset('storage/images/comments/no_comment.png')}}" class="w-12 mx-auto" alt="no comment picture">
@@ -17,7 +20,7 @@
             @else
                 @foreach ($posts as $post)
                     @if($post->id != null)
-                    <div class="post border-2 hover:bg-slate-100 hover:shadow-md rounded-md mx-auto mb-2 pt-5 px-5 pb-3"
+                    <div class="post bg-slate-100 hover:shadow-md rounded-md mx-auto mb-2 pt-5 px-5 pb-3"
                         data-post-id="{{$post->id}}">
                         <!-- profile picture -->
                         <img src="{{ asset($post->profile_picture) }}" class="w-11 h-11 rounded-full border-2 shadow-md inline" alt="devilink logo">

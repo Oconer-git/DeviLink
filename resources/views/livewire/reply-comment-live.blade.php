@@ -25,7 +25,6 @@
         :comment_likes="0" 
         :wire:key="'like-comment-'.$comment->id" 
     />
-
     <!-- reply show button -->
     <button wire:click="show_reply" class="inline-block align-middle text-xxs ml-2 mt-2 hover:bg-teal-400/30 p-[4px] group rounded-full">
         <svg xmlns="http://www.w3.org/2000/svg" class="inline group-hover:hidden w-[20px] fill-current text-teal-800" viewBox="0 -960 960 960"><path d="M80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z"/></svg>

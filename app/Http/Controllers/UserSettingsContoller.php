@@ -58,4 +58,16 @@ class UserSettingsContoller extends Controller
         $user = User::find(14);
         dd($user);
     }
+
+    public function update_username(Request $request) {
+        $request->validate([
+            'username' => 'required|string|min:3|max:20|unique:users,username|alpha_num:ascii|alpha_dash:ascii'
+        ]);
+
+        $user = Auth::user();   
+        $user->username = $request->username;
+        $user->username_change = true;
+        $user->save();
+        return redirect()->back()->with('message','Way to go! Successfully changed username');
+    }
 }

@@ -92,14 +92,14 @@
         //for showing message on home
         $('.message').show(); 
         setTimeout(function() {
-            $('.message').fadeOut(); // Hide the message after 4 seconds
+            $('.message').remove(); // Hide the message after 4 seconds
         }, 4000); // 4000 milliseconds = 4 seconds
         
         //auto resize textareas
         $('textarea').on('input', function() {
             autoResize(this);
         });
-
+        
         //for clicking reply
         $('.reply_button').on('click', function() {
             var commentId = $(this).data('comment-id');
@@ -112,11 +112,29 @@
             window.location.href = "/profile/" + username;
         })
 
+        //for going to save posts
+        $('#saves').click(function(){
+            window.location.href = "/saves";
+        })
+
         //for going to home
         $('.home').click(function(){
             window.location.href = "/";
         })
-     
+    
+        //show settings modal when settings is clicked in the sidebar
+        $('.settings').click(function() {
+            $('#settings_modal').show();
+            $('#profile_dropdown').hide();
+        })
+
+        //for showing username settings
+        $('#show_username_settings').click(function(){
+            //show this form
+            $('#username_settings').remove();
+            $('#username_form').show();
+        })
+        
     });
 
     //for autoresizing textboxes
