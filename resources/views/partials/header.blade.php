@@ -135,6 +135,12 @@
             $('#username_form').show();
         })
         
+        //for showing name settings
+         $('#show_name_settings').click(function(){
+            //show this form
+            $('#name_settings').remove();
+            $('#name_form').show();
+        })
     });
 
     //for autoresizing textboxes

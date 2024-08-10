@@ -28,7 +28,7 @@
 </div>
 
 <!-- settings modal -->
-<div id="settings_modal" class="modal fixed hidden top-0 left-0 z-40 pt-20 bg-neutral-900/90 w-screen h-screen">
+<div id="settings_modal" class="modal fixed top-0 left-0 z-40 pt-20 bg-neutral-900/90 w-screen h-screen">
     <div class="bg-white max-h-[500px] h-96 w-10/12 md:w-5/12 rounded-md shadow-md mx-auto my-auto p-4 overflow-y-auto scrollbar-small">
         <section class="flex justify-between border-b pb-2 mb-2">
             <figure class="font-bold text-sm text-neutral-600 inline align-bottom   ">
@@ -78,6 +78,30 @@
             <button id="show_name_settings" class="bg-slate-400 px-2 h-6 text-xs text-white rounded-md shadow-sm">
                 edit
             </button>         
+        </section>
+        @error('first_name')
+            <p class="text-xxs text-orange-800 inline">{{$message}}</p>
+        @enderror
+        @error('last_name')
+            <p class="text-xxs text-orange-800 inline">{{$message}}</p>
+        @enderror
+        <section id="name_form" class="hidden">
+            <form action="{{route('update_name.user')}}" method="POST" class="p-4  rounded-md bg-slate-200 mb-2">
+                @method('PUT')
+                @csrf
+                <label class="mr-2 font-semibold text-gray-600 w-full inline-block">Change name</label>
+                <fieldset class="inline-block w-half">
+                    <label for="first_name" class="mr-2 text-sm text-gray-600 inline-block">First name:</label>
+                    <input type="text" name="first_name" class="bg-slate-300 rounded-md h-6 w-full focus:outline-teal-800 text-sm p-1" placeholder="{{$username}}">
+                </fieldset>
+                <fieldset class="inline-block w-half">
+                    <label for="last_name" class="mr-2 text-sm text-gray-600 inline-block">Last name:</label>
+                    <input type="text" name="last_name" class="bg-slate-300 rounded-md h-6 w-full focus:outline-teal-800 text-sm p-1" placeholder="{{$username}}">
+                </fieldset>
+                <fieldset class="flex justify-end mt-2">
+                    <input type="submit" class="bg-teal-600 shadow-sm text-white text-xs p-1 h-6 rounded-md hover:bg-green-600" value="save">
+                </fieldset>
+            </form>        
         </section>
     </div>
 </div>

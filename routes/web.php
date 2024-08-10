@@ -28,6 +28,8 @@ Route::put('/update_about',[UserSettingsContoller::class,'update_about'])->name(
 Route::post('/update_skills',[UserSettingsContoller::class,'update_skills'])->name('update_skills.user');
 //updating username
 Route::put('/update_username',[UserSettingsContoller::class,'update_username'])->name('update_username.user');
+//updating name
+Route::put('/update_name',[UserSettingsContoller::class,'update_name'])->name('update_name.user');
 
 //for posting
 Route::post('/user_post',[UserPostCommentController::class,'post'])->name('user.post');

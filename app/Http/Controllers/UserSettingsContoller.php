@@ -70,4 +70,17 @@ class UserSettingsContoller extends Controller
         $user->save();
         return redirect()->back()->with('message','Way to go! Successfully changed username');
     }
+
+    public function update_name(Request $request) {
+        $request->validate([
+            'first_name' => 'required|string|alpha:ascii|max:20|min:2',
+            'last_name' => 'required|string|alpha:ascii|max:20|min:2',        
+        ]);
+
+        $user = Auth::user();   
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->save();
+        return redirect()->back()->with('message','Your name has been changed');
+    }
 }
