@@ -104,7 +104,7 @@
                                         <a href="/profile/{{$comment->user->username}}"class="inline text-cyan-600 text-xs md:text-md font-light">{{'@'.$comment->user->username}}</a>
                                         <p class="inline text-gray-500 text-xxs ml-1">{{$comment->date_time}}</p>
                                         @if(isset($comment->user->skills))
-                                            @include('partials.comments_skills_load', ['skills' => $comment->user->skills])
+                                            @include('partials.comments_skills_load', ['commenter_skills' => $comment->user->skills])
                                         @endif
                                     </div>      
                                     <!--comment-->

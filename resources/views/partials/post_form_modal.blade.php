@@ -1,5 +1,5 @@
-<div id="post_form" class="modal fixed top-0 left-0 z-40 pt-20 bg-neutral-900/90 w-screen h-screen">
-    <div class="bg-white shadow-md w-10/12 md:w-5/12 mx-auto my-auto rounded-md p-[3px]">
+<div id="post_form" class="modal hidden fixed top-0 left-0 z-40 pt-20 bg-neutral-900/90 w-screen h-screen">
+    <div class="bg-white shadow-md w-10/12 md:w-5/12 mx-auto my-auto rounded-md py-[3px]">
         <div class="bg-transparent max-h-[500px] p-4 overflow-y-auto small-scrollbar">
             <section class="flex justify-between -mb-3">
                 <figure class="font-bold text-sm text-neutral-400 inline align-">

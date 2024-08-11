@@ -134,9 +134,7 @@
                 @method('PUT')
                 @csrf
                 <section>
-                    <textarea name="about" id="about" rows="8" class="textarea p-2 w-full outline outline-2 outline-gray-300 p-3rounded-md rounded-md text-sm text-gray-700">
-                        {{$user->about}}
-                    </textarea>
+                    <textarea name="about" id="about" rows="8" class="textarea p-2 w-full outline outline-2 outline-gray-300 p-3rounded-md rounded-md text-sm text-gray-700">{{$user->about}}</textarea>
                 </section>
                 <div class="flex justify-end border-t-4 border-yellow-400 mt-6 pt-4">
                     <button type="submit" class="bg-yellow-500 p-2 shadow-md drop-shadow-sm text-white font-semibold text-sm rounded-sm mr-2 hover:bg-yellow-600">

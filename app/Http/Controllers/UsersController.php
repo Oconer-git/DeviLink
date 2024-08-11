@@ -262,8 +262,8 @@ class UsersController extends Controller
     public function register(Request $request): RedirectResponse {
         $validated = $request->validate(
             [
-                'first_name' => 'required|string|alpha:ascii|max:20|min:2',
-                'last_name' => 'required|string|alpha:ascii|max:20|min:2',
+                'first_name' => 'required|max:20|min:2|regex:/^[\pL\s]+$/u', // Allows letters and spaces
+                'last_name' => 'nullable|max:20|min:2|regex:/^[\pL\s\-]+$/u',
                 'email' => 'required|email|unique:users,email',
                 'username' => 'required|string|min:3|max:20|unique:users,username|alpha_num:ascii|alpha_dash:ascii',
                 'password' => 'required|string|min:7|confirmed',

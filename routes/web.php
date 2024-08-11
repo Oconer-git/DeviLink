@@ -69,7 +69,7 @@ Route::get('/email/verify', function () {
 //email verification handler
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-    return redirect('/')->with('message', 'Congratulation! Your account is verified');
+    return redirect('/')->with('message', 'Welcome to Tealbean! Your account is now verified');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 //resending the verification email
