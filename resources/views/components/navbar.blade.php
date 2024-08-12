@@ -46,10 +46,10 @@
                     <p class="inline align-middle text-sm py-1">Settings</p>
                 </section>
                 <!-- log out -->
-                <form action="{{route('logout')}}" method="POST" class="text-xs px-[12px] py-[2px] rounded-sm hover:bg-slate-200 group">
+                <form action="{{route('logout')}}" method="POST">
                     @csrf
-                    <button type="submit">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="inline fill-current w-4 group-hover:text-red-800 group-hover:scale-110 duration-300" viewBox="0 -960 960 960"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
+                    <button type="submit" class="text-xs px-[12px] py-[2px] w-full flex justify-start rounded-sm hover:bg-slate-200 group">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mt-[7px] fill-current w-4 group-hover:text-red-800 group-hover:scale-110 duration-300" viewBox="0 -960 960 960"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
                         <p class="text-sm inline align-middle py-1">Log Out</p>
                     </button>
                 </form>
