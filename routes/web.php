@@ -11,8 +11,12 @@ use Illuminate\Http\Request;
 
 Route::get('/login',[UsersController::class,'login'])->name('login');
 
-// main (view)
+// main, for viewing the global posts(view)
 Route::get('/',[UsersController::class,'main'])->name('main')->middleware('auth', 'verified');
+//for viewing followings posts(view)
+Route::get('/followings',[UsersController::class,'followings_post'])->name('followings_post')->middleware('auth', 'verified');
+
+//comments
 Route::get('/comments',[UsersController::class,'comments']);
 // profile (view)
 Route::get('/profile/{username}',[UsersController::class,'profile'])->middleware('auth', 'verified');

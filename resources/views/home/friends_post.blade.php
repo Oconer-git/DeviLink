@@ -21,9 +21,7 @@
                 <img src="{{ asset('storage/images/giphy.webp') }}" class="w-8 inline group-hover:scale-110 cursor-move duration-300" alt="devilink logo">
             </div>
             <!-- posts loop divs livewire infinite scrolling-->
-            @livewire('user-posts')
-            <!-- posts divs livewire infinite scrolling end-->
-
+            @livewire('friends-post')
             <img src="{{asset('storage/images/comments/no_comment.png')}}" class="w-24 mx-auto my-auto" alt="no comment picture">
             <p class="text-xs text-center text-gray-500 mt-1">
                 Wow that's all for today. You've been scrolling too far.<br>

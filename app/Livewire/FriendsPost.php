@@ -6,8 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
-class UserPosts extends Component
+class FriendsPost extends Component
 {
     use WithPagination;
 
@@ -23,26 +22,29 @@ class UserPosts extends Component
 
     public function load_more()
     {
-        $global_posts = DB::table('posts')
-            ->where('is_global', true)
-            ->leftJoin('users', 'posts.user_id', '=', 'users.id')
-            ->leftJoin('comments', 'posts.id', '=', 'comments.post_id')
-            ->leftJoin('postlikes', 'posts.id', '=', 'postlikes.post_id')
-            ->leftJoin('shares', 'posts.id', '=', 'shares.post_id')
-            ->select('posts.*', 
-                     'users.first_name', 
-                     'users.last_name', 
-                     'users.username', 
-                     'users.profile_picture',
-                     DB::raw('COUNT(distinct comments.id) as comments'),
-                     DB::raw('COUNT(distinct postlikes.id) as likes'),
-                     DB::raw('COUNT(distinct shares.id) as shares'),
-                     DB::raw('2 as priority'))
-            ->groupBy('posts.id', 'users.id')
-            ->orderBy('created_at', 'desc')
-            ->paginate(5, ['*'], 'page', $this->page);
+        
+        $friends_posts = DB::table('followers')
+                        ->where('followers.user_id', $this->user_id) // Specify the table for user_id
+                        ->where('followers.accepted', true) // Specify the table for accepted
+                        ->leftJoin('posts', 'followers.following_id', '=', 'posts.user_id')
+                        ->leftJoin('users', 'posts.user_id', '=', 'users.id')
+                        ->leftJoin('comments', 'posts.id', '=', 'comments.post_id')
+                        ->leftJoin('postlikes', 'posts.id', '=', 'postlikes.post_id')
+                        ->leftJoin('shares', 'posts.id', '=', 'shares.post_id')
+                        ->select('posts.*', 
+                                 'users.first_name', 
+                                 'users.last_name', 
+                                 'users.username', 
+                                 'users.profile_picture',
+                                 DB::raw('COUNT(distinct comments.id) as comments'),
+                                 DB::raw('COUNT(distinct postlikes.id) as likes'),
+                                 DB::raw('COUNT(distinct shares.id) as shares'),
+                                 DB::raw('2 as priority'))
+                        ->groupBy('posts.id', 'users.id')
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(5, ['*'], 'page', $this->page);
 
-        foreach($global_posts as $post) {
+        foreach($friends_posts as $post) {
             $post->created_at = $this->date_format($post->created_at);
             $post->skills = DB::table('skill_user')
                                 ->where('user_id', $post->user_id)
@@ -51,13 +53,13 @@ class UserPosts extends Component
                                 ->get();
         }
         // Accumulate posts
-        $this->posts = array_merge($this->posts, $global_posts->items());
+        $this->posts = array_merge($this->posts, $friends_posts->items());
         $this->page++;
     }
 
     public function render()
     {
-        return view('livewire.user-posts', [
+        return view('livewire.friends-post', [
             'posts' => $this->posts
         ]);
     }
