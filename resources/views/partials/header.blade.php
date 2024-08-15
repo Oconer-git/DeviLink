@@ -158,11 +158,12 @@
         })
 
           //for showing dob settings
-          $('#show_password_settings').click(function(){
+        $('#show_password_settings').click(function(){
             //show this form
             $('#password_settings').remove();
             $('#password_form').show();
         })
+
     });
 
     //for autoresizing textboxes
@@ -170,5 +171,24 @@
         $(textarea).height('auto');
         $(textarea).height(textarea.scrollHeight + 'px');
     }
+
+    //for scrolling
+    // $(window).scroll(function() {
+    //     if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+    //         $('#load_more').click();
+    //     }
+    // });
+
+    //Infinite Scroll
+    $(window).on("scroll", function() {
+    //page height
+    var scrollHeight = $(document).height();
+    //scroll position
+    var scrollPos = $(window).height() + $(window).scrollTop();
+    // fire if the scroll position is 300 pixels above the bottom of the page
+    if(((scrollHeight - 300) >= scrollPos) / scrollHeight == 0){
+    $('#load_more').click();
+    }
+    });
 </script>
 <body class="{{$background}} p-0 m-0 box-border">

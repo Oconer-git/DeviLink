@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Follower;
 use App\Models\Comment;
 use App\Models\PostLike;
 use App\Models\Reply;

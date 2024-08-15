@@ -21,7 +21,7 @@
     <!-- number of likes -->
     <livewire:like-comment 
         :comment_id="$comment->id" 
-        :is_profilee="true" 
+        :is_profile="true" 
         :comment_likes="0" 
         :wire:key="'like-comment-'.$comment->id" 
     />

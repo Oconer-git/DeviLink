@@ -52,37 +52,6 @@ class UsersController extends Controller
                             ->orderBy('created_at','desc')
                             ->get();
         
-
-        $global_posts = DB::table('posts')
-                        ->where('is_global', true)
-                        ->leftJoin('users', 'posts.user_id', '=', 'users.id')
-                        ->leftJoin('followers', function($join) use ($user_id) {
-                            $join->on('users.id', '=', 'followers.following_id')
-                                ->where('followers.user_id', '=', $user_id);
-                        })
-                        ->whereNull('followers.accepted') 
-                        // Ensure the followers.id is null, meaning the authenticated user is not following the post's user
-                        ->select('posts.*', 
-                                'users.first_name', 
-                                'users.last_name', 
-                                'users.username', 
-                                'users.profile_picture',
-                                DB::raw('2 as priority')
-                        )
-                        ->limit(30)
-                        ->orderBy('created_at','desc')
-                        ->get(); // Retrieve the results
-
-        // Combine both queries using union and order by priority and created_at
-        $all_posts = $friends_posts->merge($global_posts)
-                                    ->sortBy([
-                                        ['priority', 'asc'],
-                                        ['created_at', 'desc']
-                                        ])
-                                    ->values()
-                                    ->all();
-        
-        $viewdata['posts'] = $this->populate_post($all_posts);
         $viewdata['suggest_users'] = $this->suggest_users(); //suggest which users to follow to user
         // add skills, date format, number of comments and likes to the post
         $viewdata['trending_posts'] = $this->get_trending(2);
@@ -324,59 +293,59 @@ class UsersController extends Controller
         $user_id = Auth::id();
 
         //get posts from followings
-        $friends_posts = DB::table('followers')
-                            ->where('followers.user_id', $user_id) // Specify the table for user_id
-                            ->where('followers.accepted', true) // Specify the table for accepted
-                            ->leftJoin('posts', 'followers.following_id', '=', 'posts.user_id')
-                            ->leftJoin('users', 'posts.user_id', '=','users.id')
-                            ->select('posts.*', 
-                                    'users.first_name', 
-                                    'users.last_name', 
-                                    'users.username', 
-                                    'users.profile_picture',
-                                    DB::raw('1 as priority'),
-                                    DB::raw('true as friends'),
-                                    ) // Select only the columns from posts table
-                            ->limit(30)
-                            ->orderBy('created_at','desc')
-                            ->get();
+        // $friends_posts = DB::table('followers')
+        //                     ->where('followers.user_id', $user_id) // Specify the table for user_id
+        //                     ->where('followers.accepted', true) // Specify the table for accepted
+        //                     ->leftJoin('posts', 'followers.following_id', '=', 'posts.user_id')
+        //                     ->leftJoin('users', 'posts.user_id', '=','users.id')
+        //                     ->select('posts.*', 
+        //                             'users.first_name', 
+        //                             'users.last_name', 
+        //                             'users.username', 
+        //                             'users.profile_picture',
+        //                             DB::raw('1 as priority'),
+        //                             DB::raw('true as friends'),
+        //                             ) // Select only the columns from posts table
+        //                     ->limit(30)
+        //                     ->orderBy('created_at','desc')
+        //                     ->get();
         
 
-        $global_posts = DB::table('posts')
-                        ->where('is_global', true)
-                        ->leftJoin('users', 'posts.user_id', '=', 'users.id')
-                        ->leftJoin('followers', function($join) use ($user_id) {
-                            $join->on('users.id', '=', 'followers.following_id')
-                                ->where('followers.user_id', '=', $user_id);
-                        })
-                        ->whereNull('followers.accepted') 
-                        // Ensure the followers.id is null, meaning the authenticated user is not following the post's user
-                        ->select('posts.*', 
-                                'users.first_name', 
-                                'users.last_name', 
-                                'users.username', 
-                                'users.profile_picture',
-                                DB::raw('2 as priority')
-                        )
-                        ->limit(30)
-                        ->orderBy('created_at','desc')
-                        ->get(); // Retrieve the results
+        // $global_posts = DB::table('posts')
+        //                 ->where('is_global', true)
+        //                 ->leftJoin('users', 'posts.user_id', '=', 'users.id')
+        //                 ->leftJoin('followers', function($join) use ($user_id) {
+        //                     $join->on('users.id', '=', 'followers.following_id')
+        //                         ->where('followers.user_id', '=', $user_id);
+        //                 })
+        //                 ->whereNull('followers.accepted') 
+        //                 // Ensure the followers.id is null, meaning the authenticated user is not following the post's user
+        //                 ->select('posts.*', 
+        //                         'users.first_name', 
+        //                         'users.last_name', 
+        //                         'users.username', 
+        //                         'users.profile_picture',
+        //                         DB::raw('2 as priority')
+        //                 )
+        //                 ->limit(30)
+        //                 ->orderBy('created_at','desc')
+        //                 ->get(); // Retrieve the results
 
-        // Combine both queries using union and order by priority and created_at
-        $all_posts = $friends_posts->merge($global_posts)
-                                    ->sortBy([
-                                        ['priority', 'asc'],
-                                        ['created_at', 'desc']
-                                        ])
-                                    ->values()
-                                    ->all();
+        // // Combine both queries using union and order by priority and created_at
+        // $all_posts = $friends_posts->merge($global_posts)
+        //                             ->sortBy([
+        //                                 ['priority', 'asc'],
+        //                                 ['created_at', 'desc']
+        //                                 ])
+        //                             ->values()
+        //                             ->all();
         
-        $viewdata['posts'] = $this->populate_post($all_posts);
+        // $viewdata['posts'] = $this->populate_post($all_posts);
         $viewdata['suggest_users'] = $this->suggest_users(); //suggest which users to follow to user
         // add skills, date format, number of comments and likes to the post
         $viewdata['trending_posts'] = $this->get_trending(2);
 
-        return view('home.main')->with($viewdata);    
+        return view('home.testing_main')->with($viewdata);    
     }
     
 }
