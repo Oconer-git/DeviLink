@@ -5,7 +5,7 @@
         <a href="/profile/{{$username}}"class="inline text-cyan-600 text-xs md:text-md font-light">{{'@'.$username}}</a>
         <p class="inline text-gray-500 text-xxs ml-1">Just now</p>
         @if(isset($skills))
-            @include('partials.comments_skills_load', ['skills' => $skills])
+            @include('partials.comments_skills_load', ['user_skills' => $skills])
         @endif
     </div>      
     <!--comment-->
@@ -67,7 +67,7 @@
                             <a href="/profile/{{$username}}"class="inline text-cyan-600 text-xs md:text-md font-light">{{'@'.$username}}</a>
                             <p class="inline text-gray-500 text-xxs ml-1">Just now</p>
                             @if(isset($skills))
-                                @include('partials.comments_skills_load', ['skills' => $skills])
+                                @include('partials.comments_skills_load', ['user_skills' => $skills])
                             @endif
                         </div>      
                         <!--reply-->

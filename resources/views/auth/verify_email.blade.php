@@ -1,4 +1,4 @@
-@include('partials.landing_page_header', ['title' => 'Register User- Tealbean', 'background' => asset('storage/images/landing_cover.jpg')])    
+@include('partials.landing_page_header', ['title' => 'Register User- Fellowdevs', 'background' => asset('storage/images/landing_cover.jpg')])    
 @if(session('message'))
     <div class="message hidden w-1/2 md:w-3/12 bg-green-100 border border-red-400/20 shadow-lg shadow-green-500 text-green-700 px-4 py-3 rounded-md fixed z-20 right-10 top-8" role="alert">
         <span class="block sm:inline">{{session('message')}}</span>

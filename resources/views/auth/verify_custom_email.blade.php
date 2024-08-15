@@ -104,12 +104,12 @@
 <body>
     <div class="container">
         <section class="header">
-            <h1>Tealbean's the scene for coders keen!</h1>
+            <h1>Fellowdevs.io is the scene for coders keen!</h1>
         </section>
 
         <section class="main-content">
             <img src="https://static.vecteezy.com/system/resources/previews/022/996/345/non_2x/3d-space-rocket-render-with-transparent-background-free-png.png" alt="tealbean community">
-            <p class="highlight-text">Awesome to have you on board with Tealbean!</p>
+            <p class="highlight-text">Awesome to have you on board with Fellowdevs.io!</p>
             <p>You're in <strong> {{$user->first_name}},</strong> and we're super   pumped to have you with us. Before we dive into the fun stuff, we just need to confirm your email. It’s quick and easy, and then you'll be good to go!</p>
             <a href="{{$url}}">Verify Email Address</a>
         </section>

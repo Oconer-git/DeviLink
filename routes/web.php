@@ -9,12 +9,13 @@ use App\Http\Controllers\GoogleLoginController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
+Route::get('/login',[UsersController::class,'login'])->name('login');
+
 // main (view)
 Route::get('/',[UsersController::class,'main'])->name('main')->middleware('auth', 'verified');
-Route::get('/login',[UsersController::class,'login'])->name('login');
 Route::get('/comments',[UsersController::class,'comments']);
 // profile (view)
-Route::get('/profile/{username}',[UsersController::class,'profile'])->middleware('auth');;
+Route::get('/profile/{username}',[UsersController::class,'profile'])->middleware('auth', 'verified');
 
 //for going to register page
 Route::get('/register_user',[UsersController::class,'register_user']);
@@ -44,15 +45,14 @@ Route::post('/comment',[UserPostCommentController::class,'comment'])->name('user
 //for replying in comments
 Route::post('/reply',[UserPostCommentController::class,'reply'])->name('user.reply');
 
-
 //for searching (view)
-Route::get('/search/{thing}',[NavigateController::class, 'search']);
+Route::get('/search/{thing}',[NavigateController::class, 'search'])->middleware('auth', 'verified');;
 //searching form 
 Route::get('/input_search',[NavigateController::class, 'input_search'])->name('search');
 //for viewing saved posts (view)
-Route::get('/saves',[NavigateController::class, 'saved_posts'])->name('view.saves');
+Route::get('/saves',[NavigateController::class, 'saved_posts'])->middleware('auth', 'verified');
 //for viewing post (view)
-Route::get('/post/{id}',[NavigateController::class,'post']);
+Route::get('/post/{id}',[NavigateController::class,'post'])->middleware('auth', 'verified');;
 
 //for testing
 Route::get('/testing',[UsersController::class,'testing']);
@@ -69,7 +69,7 @@ Route::get('/email/verify', function () {
 //email verification handler
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-    return redirect('/')->with('message', 'Welcome to Tealbean! Your account is now verified');
+    return redirect('/')->with('message', 'Welcome to FellowDevs.io! Your account is now verified');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 //resending the verification email

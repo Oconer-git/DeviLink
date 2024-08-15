@@ -35,7 +35,7 @@ class UserSettingsContoller extends Controller
 
     public function update_about(Request $request) {
         $request->validate([
-            'about' => ['nullable', 'string', 'max:1200', 'regex:/^[\p{L}\p{N}\p{P}\p{Zs}]+$/u'],
+            'about' => ['nullable', 'max:1200', 'regex:/^[\p{L}\p{N}\p{P}\p{Zs}]+$/u'],
         ]);
         $user = Auth::user();   
         $user->about = $request->about;
@@ -70,7 +70,7 @@ class UserSettingsContoller extends Controller
         $user->username = $request->username;
         $user->username_change = true;
         $user->save();
-        return redirect()->back()->with('message','Way to go! Successfully changed username');
+        return redirect('/')->with('message','Way to go! Successfully changed username');
     }
 
     public function update_name(Request $request) {

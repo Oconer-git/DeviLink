@@ -95,7 +95,11 @@
                 <x-underline></x-underline>
                 @endif
             @endforeach
-            
+            <img src="{{asset('storage/images/comments/no_comment.png')}}" class="w-24 mx-auto my-auto" alt="no comment picture">
+            <p class="text-xs text-center text-gray-500 mt-1">
+                Wow that's all for today. You've been scrolling too far.<br>
+                Click refresh to reload contents
+            </p>
         </main>
         <!-- People you might know section section -->
         <div class="z-5 fixed top-20 right-6 hidden md:w-3/12 md:block lg:w-3/12 align-top ">

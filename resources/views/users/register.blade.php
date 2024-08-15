@@ -1,5 +1,5 @@
 @include('partials.landing_page_header', ['title' => 'Register User- Tealbean', 'background' => asset('storage/images/landing_cover.jpg')])    
-    <div class="p-4">
+    <div class="p-12">
         <div class="bg-whitesmoke w-full lg:w-7/12 mx-auto my-auto shadow-md outline-2 rounded-md drop-shadow-sm box-border">
             <img src="{{asset('storage/images/registration_tealbean.gif')}}" alt="tealbean gif" class="hidden md:w-half md:inline-block md:rounded-r-none md:rounded-l-md">
             <form action="{{route('register.user')}}" method="POST" class="inline-block align-top px-4 py-6 w-full md:w-half">

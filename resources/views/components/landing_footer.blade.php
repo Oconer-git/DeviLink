@@ -3,10 +3,10 @@
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 md:gap-8 gap-4">
     <div class="flex flex-col flex-shrink-0">
       <div class="dark:text-white">
-        <p class="inline text-4xl font-bold">Tealbean</p>
+        <p class="inline text-3xl font-bold">Fellowdevs.io</p>
         <img src="{{asset('storage/images/tealbean_logo.png')}}" class="w-8 -ml-2 mb-2 inline"alt="tealbean logo">
       </div>
-      <p class="text-sm leading-none text-gray-800 mt-4 dark:text-white">Copyright © 2024 Tealbean</p>
+      <p class="text-sm leading-none text-gray-800 mt-4 dark:text-white">Copyright © 2024 Fellowdevs</p>
       <p class="text-sm leading-none text-gray-800 mt-4 dark:text-white">All rights reserved</p>
       <div class="flex items-center gap-x-4 mt-12">
         <button aria-label="instagram" class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 opacity-50 w-8 h-8 flex-shrink-0 bg-gray-800 cursor-pointer hover:bg-gray-700 rounded-full flex items-center justify-center">

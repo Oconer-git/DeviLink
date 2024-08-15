@@ -2,9 +2,8 @@
     <!-- logo -->
     <section class="ml-4">
         <img src="{{ asset('storage/images/tealbean_logo_transparent.png') }}" class="home w-11 inline -mt-1 md:-mt-2" alt="tealbean logo">
-        <a href="/" class="hidden md:inline font-extrabold text-2xl -ml-1 text-teal-400 hover:text-teal-600 my-auto">
-            Tealbean
-            <span class="text-red-600 font-semibold text-xs -ml-1">beta</span>
+        <a href="/" class="hidden md:inline font-extrabold text-2xl -ml-1 text-teal-500 hover:text-teal-600 my-auto">
+            Fellowdevs
         </a>
     </section>
     <!-- search textbox -->
@@ -68,7 +67,7 @@
                         </figure>
                         <figure class="inline-block">
                             <p class="md:inline text-sm ml-1 align-middle text-gray-700">{{$request->user->first_name}} {{$request->user->last_name}}</p>
-                            <a href="/profile/{{$username}}" class="text-xxs hidden md:inline text-cyan-600">{{'@'.$request->user->username}}</a> <!-- in progress -->
+                            <a href="/profile/{{$request->user->username}}" class="text-xxs hidden md:inline text-cyan-600">{{'@'.$request->user->username}}</a> <!-- in progress -->
                         </figure>
                     </section> 
                     @livewire('accept-follower',['follower_id' => $request->user->id, 'accepted' => $request->accepted])

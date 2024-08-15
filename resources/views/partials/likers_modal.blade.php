@@ -1,11 +1,12 @@
 <div id="likers_modal" class="modal hidden fixed top-0 left-0 z-40 pt-24 bg-neutral-900/90 w-screen h-screen">
-        <div class="bg-white w-11/12 md:w-5/12 max-width-6/12 rounded-md shadow-md mx-auto p-4 h-96 overflow-y-auto small-scrollbar">
-            <section class="flex justify-end">
-                <button class="close_modal inline-block align-middle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current text-gray-800" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-                </button>
-            </section>
-            <x-underline></x-underline>
+    <div class="bg-white w-11/12 md:w-5/12 max-width-6/12 rounded-md shadow-md mx-auto p-3">
+        <section class="flex justify-end">
+            <button class="close_modal inline-block align-middle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current text-gray-800" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+            </button>
+        </section>
+        <x-underline></x-underline>
+        <div class="h-96 overflow-y-auto small-scrollbar p-2">
             @if($likers != null)
                 @foreach ($likers as $liker)
                     <div class="flex justify-between items-center mb-1 rounded-md hover:bg-slate-100 p-2">
@@ -25,4 +26,6 @@
                 <p class="text-xxs text-center text-gray-500">Wow such empty</p>
             @endif
         </div>
+        
     </div>
+</div>
