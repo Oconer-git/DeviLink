@@ -40,7 +40,7 @@ class UserPosts extends Component
                      DB::raw('2 as priority'))
             ->groupBy('posts.id', 'users.id')
             ->orderBy('created_at', 'desc')
-            ->paginate(5, ['*'], 'page', $this->page);
+            ->paginate(3, ['*'], 'page', $this->page);
 
         foreach($global_posts as $post) {
             $post->created_at = $this->date_format($post->created_at);

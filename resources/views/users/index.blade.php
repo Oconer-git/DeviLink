@@ -2,11 +2,10 @@
     <div class="w-full h-[800px] bg-gradient-to-r from-teal-300 to-blue-900 pt-12 px-10">
         <div class="flex flex-row">
             <section class="hidden -ml-12 mt-8 lg:block lg:w-8/12 text-center">
-                <fieldset id="devilink_label" class="hidden -mb-12">
-                    <h1 class="font-extrabold text-4xl text-orange-300 drop-shadow-lg inline">
-                        #fellowdevs.io
+                <fieldset id="devilink_label" class="hidden -mb-8">
+                    <h1 class="font-extrabold text-4xl text-orange-300/80 drop-shadow-lg inline">
+                        #Socialize
                     </h1>
-                    <img src="{{asset('storage/images/tealbean_logo.png')}}" class="w-8 -ml-2 mb-2 inline"alt="">
                 </fieldset>
                 <fieldset id="main_field" class="hidden ml-3">
                     <h2 class="inline font-extrabold text-5xl text-white drop-shadow-lg -mr-12">Meet</h2>
@@ -17,7 +16,7 @@
             </section>
             <form action="{{route('login.user')}}" method="POST" id="sign_in" class="sign_in bg-gray-100 mt-5 mb-6 py-6 px-8 w-full sm:mx-auto md:mx-auto md:w-1/2 lg:w-4/12 rounded-lg shadow-xl">
                 @csrf
-                <div class="w-full h-32 bg-cover rounded-lg shadow-sm mb-2" style="background-image: url('{{  asset('storage/images/cover.png') }}');"></div>
+                <div class="w-full h-32 bg-cover rounded-lg shadow-sm mb-2" style="background-image: url('{{  asset('storage/images/cover.png') }}')"></div>
                 <div class="mb-2">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
                         Email

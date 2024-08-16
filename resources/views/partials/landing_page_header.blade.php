@@ -24,35 +24,9 @@
         $(function() {
             $( "#datepicker" ).datepicker();
 
-            $('#devilink_label').jrumble({
-                speed: 200,
-                rotate: 10,
-                opactity: false,
-                opacity: .5
-            });
-
-            var demoStart = function(){
-                $('#devilink_label').trigger('startRumble');
-                setTimeout(demoStop, 300);
-            };
-
-            var demoStop = function(){
-                $('#devilink_label').trigger('stopRumble');
-                setTimeout(demoStart, 300);
-            };
-
-
             $("#main_field").fadeIn(4000);
             $("#devilink_label").fadeIn(4000);
             $("#online_label").fadeIn(4000);
-
-            demoStart();
-            
-
-             //stop propagation on google sign in 
-            // $('.sign_in').click(function(){
-            //     event.stopPropagation();
-            // })
 
             $('.google_sign_in').click(function(){
                 event.preventDefault();
