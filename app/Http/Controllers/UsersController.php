@@ -296,7 +296,7 @@ class UsersController extends Controller
         // add skills, date format, number of comments and likes to the post
         $viewdata['trending_posts'] = $this->get_trending(2);
 
-        return view('home.friends_post')->with($viewdata);    
+        return view('home.followings_posts')->with($viewdata);    
     }
     public function testing() {
         $viewdata['suggest_users'] = $this->suggest_users(); //suggest which users to follow to user

@@ -24,8 +24,7 @@
             @livewire('friends-post')
             <img src="{{asset('storage/images/comments/no_comment.png')}}" class="w-24 mx-auto my-auto" alt="no comment picture">
             <p class="text-xs text-center text-gray-500 mt-1">
-                Wow that's all for today. You've been scrolling too far.<br>
-                Click refresh to reload contents
+                I think you need to send more requests. If you want more contents
             </p>
         </main>
         <!-- People you might know section section -->

@@ -120,6 +120,11 @@
             window.location.href = "/profile/" + username;
         })
 
+        //for going to followings' posts when click 
+          $('#followings_posts').click(function(){
+            window.location.href = "/followings";
+        })
+
         //for going to save posts
         $('#saves').click(function(){
             window.location.href = "/saves";
@@ -171,13 +176,6 @@
         $(textarea).height('auto');
         $(textarea).height(textarea.scrollHeight + 'px');
     }
-
-    //for scrolling
-    // $(window).scroll(function() {
-    //     if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-    //         $('#load_more').click();
-    //     }
-    // });
 
     //Infinite Scroll
     $(window).on("scroll", function() {
